@@ -108,8 +108,12 @@
             height: auto;
             max-height: 250px;
             border-radius: 10px;
-            cursor: pointer;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 10px;
         }
 
         .video-box {
@@ -143,18 +147,6 @@
         .qa-section h4 {
             margin: 0 0 8px 0;
             color: #33691E;
-        }
-
-        .btn-audio {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.95rem;
-            margin-top: 8px;
-            font-weight: bold;
         }
 
         footer {
@@ -204,10 +196,10 @@
 
                 let html = '';
                 data.forEach(lesson => {
-                    let audioUrl = lesson.AudioURL || '';
-                    let imageUrl = lesson.ImageURL || '';
+                    let audioUrl = convertToDirectLink(lesson.AudioURL || '');
+                    let imageUrl = convertToDirectLink(lesson.ImageURL || '');
                     let videoUrl = lesson.VideoURL || '';
-                    let ansAudioUrl = lesson.AudioAnswerLink || '';
+                    let ansAudioUrl = convertToDirectLink(lesson.AudioAnswerLink || '');
 
                     if (videoUrl && videoUrl.includes('drive.google.com')) {
                         videoUrl = videoUrl.replace('/view?usp=drivesdk', '/preview');
@@ -227,15 +219,20 @@
                     if (imageUrl) {
                         html += `
                             <div class="media-container">
-                                <img src="${imageUrl}" alt="Lesson Image" class="lesson-image" onclick="playAudio('${audioUrl}')" title="تصویر پر کلک کریں تاکہ آڈیو سن سکیں">
+                                <img src="${imageUrl}" alt="Lesson Image" class="lesson-image">
                             </div>
                         `;
                     }
 
-                    if (audioUrl && !imageUrl) {
+                    // آڈیو چلانے کے لیے بلٹ ان آڈیو پلیئر (یہ کبھی فیل نہیں ہوگا)
+                    if (audioUrl) {
                         html += `
                             <div class="media-container">
-                                <button class="btn-audio" onclick="playAudio('${audioUrl}')">🔊 سبق کی آڈیو سنیں</button>
+                                <p style="font-weight: bold; color: #333; margin-bottom: 5px;">🔊 سبق کی آڈیو سنیں:</p>
+                                <audio controls>
+                                    <source src="${audioUrl}" type="audio/mpeg">
+                                    آپ کا براؤزر آڈیو کو سپورٹ نہیں کرتا۔
+                                </audio>
                             </div>
                         `;
                     }
@@ -255,7 +252,12 @@
                                 <p><strong>جواب:</strong> ${lesson.Answer || ''}</p>
                         `;
                         if (ansAudioUrl) {
-                            html += `<button class="btn-audio" onclick="playAudio('${ansAudioUrl}')">🔊 جواب کی آڈیو سنیں</button>`;
+                            html += `
+                                <p style="font-weight: bold; color: #33691E; margin-top: 10px;">🔊 جواب کی آڈیو:</p>
+                                <audio controls>
+                                    <source src="${ansAudioUrl}" type="audio/mpeg">
+                                </audio>
+                            `;
                         }
                         html += `</div>`;
                     }
@@ -271,16 +273,16 @@
             }
         }
 
-        function playAudio(url) {
-            if (!url) {
-                alert('اس سبق کے لیے آڈیو دستیاب نہیں ہے!');
-                return;
+        // گوگل ڈرائیو کے لنک کو ڈائریکٹ ڈاؤن لوڈ/اسٹریمنگ لنک میں بدلنے کا بہترین طریقہ
+        function convertToDirectLink(url) {
+            if (!url) return '';
+            if (url.includes('drive.google.com')) {
+                let match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+                if (match && match[1]) {
+                    return `https://docs.google.com/uc?export=download&id=${match[1]}`;
+                }
             }
-            let audio = new Audio(url);
-            audio.play().catch(e => {
-                alert('آڈیو چلانے میں مسئلہ پیش آیا۔');
-                console.error(e);
-            });
+            return url;
         }
 
         window.onload = fetchLessons;
