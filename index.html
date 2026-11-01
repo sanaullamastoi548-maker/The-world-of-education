@@ -1,291 +1,758 @@
 <!DOCTYPE html>
 <html lang="ur" dir="rtl">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تعلیم کی دنیا - Taaleem Ki Dunya</title>
-    <style>
-        :root {
-            --primary-yellow: #FFD700;
-            --accent-yellow: #FFC107;
-            --dark-text: #333333;
-            --light-bg: #FFFDF0;
-            --white: #FFFFFF;
-            --shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--light-bg);
-            color: var(--dark-text);
-            margin: 0;
-            padding: 0;
-            direction: rtl;
-        }
+<title>تعلیم کی دنیا - Taaleem Ki Dunya</title>
 
-        header {
-            background: linear-gradient(135deg, var(--primary-yellow), var(--accent-yellow));
-            color: var(--dark-text);
-            text-align: center;
-            padding: 25px 15px;
-            box-shadow: var(--shadow);
-            border-bottom: 5px solid #FFA000;
-        }
+<style>
 
-        header h1 {
-            margin: 0;
-            font-size: 2.2rem;
-            font-weight: bold;
-        }
+:root {
+    --primary-yellow: #FFD700;
+    --accent-yellow: #FFC107;
+    --dark-text: #333333;
+    --light-bg: #FFFDF0;
+    --white: #FFFFFF;
+    --shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
 
-        header p {
-            margin: 8px 0 0 0;
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
+* {
+    box-sizing: border-box;
+}
 
-        .container {
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 15px;
-        }
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: var(--light-bg);
+    color: var(--dark-text);
+    margin: 0;
+    padding: 0;
+    direction: rtl;
+}
 
-        .loading {
-            text-align: center;
-            font-size: 1.3rem;
-            color: #666;
-            margin-top: 40px;
-        }
+header {
+    background: linear-gradient(
+        135deg,
+        var(--primary-yellow),
+        var(--accent-yellow)
+    );
 
-        .lesson-card {
-            background: var(--white);
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-            padding: 20px;
-            margin-bottom: 25px;
-            border: 2px solid #FFE082;
-        }
+    text-align: center;
+    padding: 28px 15px;
+    box-shadow: var(--shadow);
+    border-bottom: 5px solid #FFA000;
+}
 
-        .badge-container {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 12px;
-            flex-wrap: wrap;
-        }
+header h1 {
+    margin: 0;
+    font-size: 2.2rem;
+    font-weight: bold;
+}
 
-        .badge {
-            background-color: var(--primary-yellow);
-            color: #5d4037;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: bold;
-        }
+header p {
+    margin: 8px 0 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
 
-        h2.lesson-title {
-            color: #D84315;
-            margin-top: 0;
-            font-size: 1.5rem;
-        }
+.container {
+    max-width: 950px;
+    margin: 20px auto;
+    padding: 15px;
+}
 
-        .lesson-text {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 15px;
-            background: #FFFDE7;
-            padding: 12px;
-            border-radius: 8px;
-            border-right: 5px solid var(--accent-yellow);
-        }
+.loading {
+    text-align: center;
+    font-size: 1.3rem;
+    color: #666;
+    margin: 40px 0;
+}
 
-        .media-container {
-            text-align: center;
-            margin: 15px 0;
-        }
+.lesson-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    padding: 22px;
+    margin-bottom: 25px;
+    border: 2px solid #FFE082;
+    overflow: hidden;
+}
 
-        .lesson-image {
-            max-width: 100%;
-            height: auto;
-            max-height: 250px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
+.badge-container {
+    display: flex;
+    gap: 9px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
 
-        audio {
-            width: 100%;
-            margin-top: 10px;
-        }
+.badge {
+    background: var(--primary-yellow);
+    color: #5d4037;
+    padding: 6px 13px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
 
-        .video-box {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%;
-            height: 0;
-            margin-top: 10px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
+.lesson-title {
+    color: #D84315;
+    margin: 0 0 15px;
+    font-size: 1.6rem;
+}
 
-        .video-box iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 10px;
-        }
+.lesson-text {
+    font-size: 1.25rem;
+    line-height: 1.9;
+    margin-bottom: 18px;
+    background: #FFFDE7;
+    padding: 15px;
+    border-radius: 9px;
+    border-right: 5px solid var(--accent-yellow);
+    white-space: pre-wrap;
+}
 
-        .qa-section {
-            background: #F1F8E9;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
-            border: 1px dashed #AED581;
-        }
+.media-container {
+    text-align: center;
+    margin: 20px 0;
+}
 
-        .qa-section h4 {
-            margin: 0 0 8px 0;
-            color: #33691E;
-        }
+.media-heading {
+    font-weight: bold;
+    font-size: 1.05rem;
+    margin-bottom: 10px;
+}
 
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #333;
-            color: white;
-            margin-top: 40px;
-            font-size: 0.9rem;
-        }
+.lesson-image {
+    max-width: 100%;
+    height: auto;
+    max-height: 350px;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
 
-        @media (max-width: 600px) {
-            header h1 { font-size: 1.8rem; }
-            .container { padding: 10px; }
-            .lesson-card { padding: 15px; }
-        }
-    </style>
+audio {
+    width: 100%;
+    max-width: 550px;
+    margin-top: 8px;
+}
+
+.video-box {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+    margin-top: 12px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #111;
+}
+
+.video-box iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.qa-section {
+    background: #F1F8E9;
+    padding: 18px;
+    border-radius: 12px;
+    margin-top: 20px;
+    border: 1px dashed #AED581;
+}
+
+.qa-section h4 {
+    color: #33691E;
+    margin: 0 0 12px;
+    font-size: 1.15rem;
+}
+
+.answer-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.error-message {
+    background: #ffebee;
+    color: #b71c1c;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.retry-button {
+    background: #FFC107;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.empty-message {
+    text-align: center;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+}
+
+footer {
+    text-align: center;
+    padding: 22px;
+    background: #333;
+    color: white;
+    margin-top: 40px;
+}
+
+.media-error {
+    color: #b71c1c;
+    font-size: 0.9rem;
+    margin-top: 8px;
+}
+
+@media(max-width:600px) {
+
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    .lesson-card {
+        padding: 15px;
+    }
+
+    .lesson-title {
+        font-size: 1.35rem;
+    }
+
+    .lesson-text {
+        font-size: 1.1rem;
+    }
+
+}
+
+</style>
 </head>
+
 <body>
 
-    <header>
-        <h1>📚 تعلیم کی دنیا</h1>
-        <p>بچوں کے لیے منفرد اور آسان تعلیمی پلیٹ فارم</p>
-    </header>
+<header>
 
-    <div class="container" id="content-area">
-        <div class="loading">سبق لوڈ ہو رہے ہیں، براہ کرم انتظار کریں...</div>
+    <h1>📚 تعلیم کی دنیا</h1>
+
+    <p>بچوں کے لیے منفرد اور آسان تعلیمی پلیٹ فارم</p>
+
+</header>
+
+
+<div class="container" id="content-area">
+
+    <div class="loading">
+        📚 اسباق لوڈ ہو رہے ہیں، براہ کرم انتظار کریں...
     </div>
 
-    <footer>
-        <p>&copy; 2026 تعلیم کی دنیا - تمام حقوق محفوظ ہیں</p>
-    </footer>
+</div>
 
-    <script>
-        const API_URL = "https://script.google.com/macros/s/AKfycbxlZvxOh2o8FbYcOXUfGp5uOzk7J0x0iVwfZoHhcQO4b0_YIXVQ_MTqE19znV3y1K0yTw/exec";
 
-        async function fetchLessons() {
-            const container = document.getElementById('content-area');
-            try {
-                const response = await fetch(API_URL);
-                const data = await response.json();
+<footer>
 
-                if (!data || data.length === 0) {
-                    container.innerHTML = '<p style="text-align:center;">کوئی سبق دستیاب نہیں ہے۔</p>';
-                    return;
-                }
+    <p>© 2026 تعلیم کی دنیا - تمام حقوق محفوظ ہیں</p>
 
-                let html = '';
-                data.forEach(lesson => {
-                    let audioUrl = convertToDirectLink(lesson.AudioURL || '');
-                    let imageUrl = convertToDirectLink(lesson.ImageURL || '');
-                    let videoUrl = lesson.VideoURL || '';
-                    let ansAudioUrl = convertToDirectLink(lesson.AudioAnswerLink || '');
+</footer>
 
-                    if (videoUrl && videoUrl.includes('drive.google.com')) {
-                        videoUrl = videoUrl.replace('/view?usp=drivesdk', '/preview');
-                    }
 
-                    html += `
-                        <div class="lesson-card">
-                            <div class="badge-container">
-                                <span class="badge">زبان: ${lesson.Language || ''}</span>
-                                <span class="badge">مضمون: ${lesson.Subject || ''}</span>
-                                <span class="badge">دن: ${lesson.DayNumber || ''}</span>
-                            </div>
-                            <h2 class="lesson-title">${lesson.LessonTitle || ''}</h2>
-                            <div class="lesson-text">${lesson.LessonText || ''}</div>
-                    `;
+<script>
 
-                    if (imageUrl) {
-                        html += `
-                            <div class="media-container">
-                                <img src="${imageUrl}" alt="Lesson Image" class="lesson-image">
-                            </div>
-                        `;
-                    }
+// ========================================
+// GOOGLE APPS SCRIPT API
+// ========================================
 
-                    // آڈیو چلانے کے لیے بلٹ ان آڈیو پلیئر (یہ کبھی فیل نہیں ہوگا)
-                    if (audioUrl) {
-                        html += `
-                            <div class="media-container">
-                                <p style="font-weight: bold; color: #333; margin-bottom: 5px;">🔊 سبق کی آڈیو سنیں:</p>
-                                <audio controls>
-                                    <source src="${audioUrl}" type="audio/mpeg">
-                                    آپ کا براؤزر آڈیو کو سپورٹ نہیں کرتا۔
-                                </audio>
-                            </div>
-                        `;
-                    }
+const API_URL =
+"https://script.google.com/macros/s/AKfycbxlZvxOh2o8FbYcOXUfGp5uOzk7J0x0iVwfZoHhcQO4b0_YIXVQ_MTqE19znV3y1K0yTw/exec";
 
-                    if (videoUrl) {
-                        html += `
-                            <div class="video-box">
-                                <iframe src="${videoUrl}" allowfullscreen></iframe>
-                            </div>
-                        `;
-                    }
 
-                    if (lesson.Question) {
-                        html += `
-                            <div class="qa-section">
-                                <h4>سوال: ${lesson.Question}</h4>
-                                <p><strong>جواب:</strong> ${lesson.Answer || ''}</p>
-                        `;
-                        if (ansAudioUrl) {
-                            html += `
-                                <p style="font-weight: bold; color: #33691E; margin-top: 10px;">🔊 جواب کی آڈیو:</p>
-                                <audio controls>
-                                    <source src="${ansAudioUrl}" type="audio/mpeg">
-                                </audio>
-                            `;
-                        }
-                        html += `</div>`;
-                    }
+// ========================================
+// HTML SECURITY
+// ========================================
 
-                    html += `</div>`;
-                });
+function escapeHTML(value) {
 
-                container.innerHTML = html;
+    return String(value ?? "").replace(
+        /[&<>"']/g,
+        function(char) {
+            return {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            }[char];
+        }
+    );
 
-            } catch (error) {
-                container.innerHTML = '<p style="text-align:center; color:red;">ڈیٹا لوڈ کرنے میں خرابی پیش آئی ہے۔</p>';
-                console.error(error);
-            }
+}
+
+
+// ========================================
+// GOOGLE DRIVE FILE ID
+// ========================================
+
+function getDriveId(url) {
+
+    if (!url) return "";
+
+    const match = String(url).match(
+        /\/d\/([a-zA-Z0-9_-]+)|[?&]id=([a-zA-Z0-9_-]+)/
+    );
+
+    return match ? (match[1] || match[2]) : "";
+
+}
+
+
+// ========================================
+// IMAGE LINK
+// ========================================
+
+function getImageURL(url) {
+
+    if (!url) return "";
+
+    const id = getDriveId(url);
+
+    if (id && url.includes("drive.google.com")) {
+
+        return "https://drive.google.com/thumbnail?id="
+            + encodeURIComponent(id)
+            + "&sz=w1600";
+
+    }
+
+    return url;
+
+}
+
+
+// ========================================
+// AUDIO LINK
+// ========================================
+
+function getAudioURL(url) {
+
+    if (!url) return "";
+
+    const id = getDriveId(url);
+
+    if (id && url.includes("drive.google.com")) {
+
+        return "https://drive.google.com/uc?export=download&id="
+            + encodeURIComponent(id);
+
+    }
+
+    return url;
+
+}
+
+
+// ========================================
+// VIDEO LINK
+// ========================================
+
+function getVideoURL(url) {
+
+    if (!url) return "";
+
+    const id = getDriveId(url);
+
+    if (id && url.includes("drive.google.com")) {
+
+        return "https://drive.google.com/file/d/"
+            + encodeURIComponent(id)
+            + "/preview";
+
+    }
+
+    return url;
+
+}
+
+
+// ========================================
+// MEDIA URL VALIDATION
+// ========================================
+
+function isSafeURL(url) {
+
+    try {
+
+        const parsed = new URL(url, window.location.href);
+
+        return ["https:", "http:"].includes(parsed.protocol);
+
+    } catch(error) {
+
+        return false;
+
+    }
+
+}
+
+
+// ========================================
+// IMAGE DISPLAY
+// ========================================
+
+function createImage(url) {
+
+    if (!url) return "";
+
+    const imageURL = getImageURL(url);
+
+    if (!isSafeURL(imageURL)) return "";
+
+    return `
+
+        <div class="media-container">
+
+            <p class="media-heading">
+                🖼️ سبق کی تصویر
+            </p>
+
+            <img
+                src="${escapeHTML(imageURL)}"
+                alt="Lesson Image"
+                class="lesson-image"
+                loading="lazy"
+                onerror="this.parentElement.innerHTML='<p class=media-error>تصویر لوڈ نہیں ہو سکی۔ Drive کی اجازت چیک کریں۔</p>'"
+            >
+
+        </div>
+
+    `;
+
+}
+
+
+// ========================================
+// AUDIO DISPLAY
+// ========================================
+
+function createAudio(url, title) {
+
+    if (!url) return "";
+
+    const audioURL = getAudioURL(url);
+
+    if (!isSafeURL(audioURL)) return "";
+
+    return `
+
+        <div class="media-container">
+
+            <p class="media-heading">
+                ${title}
+            </p>
+
+            <audio controls preload="none">
+
+                <source src="${escapeHTML(audioURL)}">
+
+                آپ کا براؤزر آڈیو سپورٹ نہیں کرتا۔
+
+            </audio>
+
+        </div>
+
+    `;
+
+}
+
+
+// ========================================
+// VIDEO DISPLAY
+// ========================================
+
+function createVideo(url) {
+
+    if (!url) return "";
+
+    const videoURL = getVideoURL(url);
+
+    if (!isSafeURL(videoURL)) return "";
+
+    return `
+
+        <div class="media-container">
+
+            <p class="media-heading">
+                🎬 سبق کی ویڈیو دیکھیں
+            </p>
+
+            <div class="video-box">
+
+                <iframe
+                    src="${escapeHTML(videoURL)}"
+                    title="Lesson Video"
+                    loading="lazy"
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+// ========================================
+// LESSON CARD
+// ========================================
+
+function createLesson(lesson) {
+
+    const language = escapeHTML(lesson.Language);
+    const subject = escapeHTML(lesson.Subject);
+    const course = escapeHTML(lesson.CourseName);
+    const day = escapeHTML(lesson.DayNumber);
+
+    const title = escapeHTML(lesson.LessonTitle);
+    const text = escapeHTML(lesson.LessonText);
+
+    const question = escapeHTML(lesson.Question);
+    const answer = escapeHTML(lesson.Answer);
+
+    let html = `
+
+        <div class="lesson-card">
+
+            <div class="badge-container">
+
+                <span class="badge">
+                    زبان: ${language}
+                </span>
+
+                <span class="badge">
+                    مضمون: ${subject}
+                </span>
+
+                <span class="badge">
+                    کورس: ${course}
+                </span>
+
+                <span class="badge">
+                    دن: ${day}
+                </span>
+
+            </div>
+
+            <h2 class="lesson-title">
+                ${title}
+            </h2>
+
+            <div class="lesson-text">
+                ${text}
+            </div>
+
+    `;
+
+
+    // IMAGE
+
+    html += createImage(lesson.ImageURL);
+
+
+    // AUDIO
+
+    html += createAudio(
+        lesson.AudioURL,
+        "🔊 سبق کی آڈیو سنیں"
+    );
+
+
+    // VIDEO
+
+    html += createVideo(lesson.VideoURL);
+
+
+    // QUESTION AND ANSWER
+
+    if (lesson.Question || lesson.Answer) {
+
+        html += `
+
+            <div class="qa-section">
+
+                <h4>
+                    ❓ سوال:
+                </h4>
+
+                <p>
+                    ${question}
+                </p>
+
+                <h4>
+                    ✅ جواب:
+                </h4>
+
+                <div class="answer-text">
+                    ${answer}
+                </div>
+
+                ${createAudio(
+                    lesson.AudioAnswerLink,
+                    "🔊 جواب کی آڈیو سنیں"
+                )}
+
+            </div>
+
+        `;
+
+    }
+
+
+    html += `</div>`;
+
+    return html;
+
+}
+
+
+// ========================================
+// LOAD LESSONS
+// ========================================
+
+async function fetchLessons() {
+
+    const container = document.getElementById(
+        "content-area"
+    );
+
+    container.innerHTML = `
+
+        <div class="loading">
+            📚 اسباق لوڈ ہو رہے ہیں...
+        </div>
+
+    `;
+
+    try {
+
+        const response = await fetch(API_URL, {
+            method: "GET",
+            cache: "no-store"
+        });
+
+        if (!response.ok) {
+
+            throw new Error(
+                "سرور سے رابطہ نہیں ہو سکا۔ HTTP "
+                + response.status
+            );
+
         }
 
-        // گوگل ڈرائیو کے لنک کو ڈائریکٹ ڈاؤن لوڈ/اسٹریمنگ لنک میں بدلنے کا بہترین طریقہ
-        function convertToDirectLink(url) {
-            if (!url) return '';
-            if (url.includes('drive.google.com')) {
-                let match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-                if (match && match[1]) {
-                    return `https://docs.google.com/uc?export=download&id=${match[1]}`;
-                }
-            }
-            return url;
+        const data = await response.json();
+
+
+        if (!Array.isArray(data)) {
+
+            throw new Error(
+                data.message || "ڈیٹا درست فارمیٹ میں نہیں ہے۔"
+            );
+
         }
 
-        window.onload = fetchLessons;
-    </script>
+
+        if (data.length === 0) {
+
+            container.innerHTML = `
+
+                <div class="empty-message">
+
+                    <h2>📚</h2>
+
+                    <p>
+                        ابھی کوئی سبق دستیاب نہیں ہے۔
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        let html = "";
+
+        data.forEach(function(lesson) {
+
+            html += createLesson(lesson);
+
+        });
+
+
+        container.innerHTML = html;
+
+
+    } catch(error) {
+
+        console.error(
+            "Lesson Loading Error:",
+            error
+        );
+
+        container.innerHTML = `
+
+            <div class="error-message">
+
+                <h3>⚠️ ڈیٹا لوڈ کرنے میں خرابی</h3>
+
+                <p>
+                    ${escapeHTML(error.message)}
+                </p>
+
+                <button
+                    class="retry-button"
+                    onclick="fetchLessons()">
+
+                    دوبارہ کوشش کریں
+
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+// ========================================
+// START WEBSITE
+// ========================================
+
+window.addEventListener(
+    "DOMContentLoaded",
+    fetchLessons
+);
+
+</script>
+
 </body>
 </html>
