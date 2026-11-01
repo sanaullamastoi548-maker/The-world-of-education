@@ -36,7 +36,6 @@
             margin: 0;
             font-size: 2.2rem;
             font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.6);
         }
 
         header p {
@@ -65,11 +64,6 @@
             padding: 20px;
             margin-bottom: 25px;
             border: 2px solid #FFE082;
-            transition: transform 0.2s ease;
-        }
-
-        .lesson-card:hover {
-            transform: translateY(-3px);
         }
 
         .badge-container {
@@ -116,11 +110,6 @@
             border-radius: 10px;
             cursor: pointer;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            transition: transform 0.2s;
-        }
-
-        .lesson-image:active {
-            transform: scale(0.98);
         }
 
         .video-box {
@@ -168,10 +157,6 @@
             font-weight: bold;
         }
 
-        .btn-audio:hover {
-            background-color: #388E3C;
-        }
-
         footer {
             text-align: center;
             padding: 20px;
@@ -204,7 +189,6 @@
     </footer>
 
     <script>
-        // آپ کا نیا گوگل ایپ اسکرپٹ ویب ایپ یو آر ایل
         const API_URL = "https://script.google.com/macros/s/AKfycbxlZvxOh2o8FbYcOXUfGp5uOzk7J0x0iVwfZoHhcQO4b0_YIXVQ_MTqE19znV3y1K0yTw/exec";
 
         async function fetchLessons() {
@@ -213,22 +197,21 @@
                 const response = await fetch(API_URL);
                 const data = await response.json();
 
-                if (data.length === 0) {
+                if (!data || data.length === 0) {
                     container.innerHTML = '<p style="text-align:center;">کوئی سبق دستیاب نہیں ہے۔</p>';
                     return;
                 }
 
                 let html = '';
                 data.forEach(lesson => {
-                    let audioUrl = convertDriveLink(lesson.AudioURL);
-                    let imageUrl = convertDriveLink(lesson.ImageURL);
-                    let videoUrl = lesson.VideoURL;
-                    
+                    let audioUrl = lesson.AudioURL || '';
+                    let imageUrl = lesson.ImageURL || '';
+                    let videoUrl = lesson.VideoURL || '';
+                    let ansAudioUrl = lesson.AudioAnswerLink || '';
+
                     if (videoUrl && videoUrl.includes('drive.google.com')) {
-                        videoUrl = videoUrl.replace('/view?usp=drivesdk', '/preview').replace('/edit?usp=drivesdk', '/preview');
+                        videoUrl = videoUrl.replace('/view?usp=drivesdk', '/preview');
                     }
-                    
-                    let ansAudioUrl = convertDriveLink(lesson.AudioAnswerLink);
 
                     html += `
                         <div class="lesson-card">
@@ -288,18 +271,6 @@
             }
         }
 
-        // گوگل ڈرائیو کے لنکس کو براہ راست پلے ہونے کے قابل بنانا
-        function convertDriveLink(url) {
-            if (!url) return '';
-            if (url.includes('drive.google.com')) {
-                let match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-                if (match && match[1]) {
-                    return `https://docs.google.com/uc?export=download&id=${match[1]}`;
-                }
-            }
-            return url;
-        }
-
         function playAudio(url) {
             if (!url) {
                 alert('اس سبق کے لیے آڈیو دستیاب نہیں ہے!');
@@ -307,7 +278,7 @@
             }
             let audio = new Audio(url);
             audio.play().catch(e => {
-                alert('آڈیو چلانے میں مسئلہ پیش آیا۔ براہ کرم لنک چیک کریں۔');
+                alert('آڈیو چلانے میں مسئلہ پیش آیا۔');
                 console.error(e);
             });
         }
