@@ -181,7 +181,6 @@
             font-size: 0.9rem;
         }
 
-        /* Responsive adjustments */
         @media (max-width: 600px) {
             header h1 { font-size: 1.8rem; }
             .container { padding: 10px; }
@@ -205,7 +204,6 @@
     </footer>
 
     <script>
-        // آپ کا گوگل ایپ اسکرپٹ ویب ایپ یو آر ایل
         const API_URL = "https://script.google.com/macros/s/AKfycbxlZvxOh2o8FbYcOXUfGp5uOzk7J0x0iVwfZoHhcQO4b0_YIXVQ_MTqE19znV3y1K0yTw/exec";
 
         async function fetchLessons() {
@@ -221,6 +219,16 @@
 
                 let html = '';
                 data.forEach(lesson => {
+                    let audioUrl = convertDriveLink(lesson.AudioURL);
+                    let imageUrl = convertDriveLink(lesson.ImageURL);
+                    let videoUrl = lesson.VideoURL;
+                    
+                    if (videoUrl && videoUrl.includes('drive.google.com')) {
+                        videoUrl = videoUrl.replace('/view?usp=drivesdk', '/preview').replace('/edit?usp=drivesdk', '/preview');
+                    }
+                    
+                    let ansAudioUrl = convertDriveLink(lesson.AudioAnswerLink);
+
                     html += `
                         <div class="lesson-card">
                             <div class="badge-container">
@@ -232,47 +240,38 @@
                             <div class="lesson-text">${lesson.LessonText || ''}</div>
                     `;
 
-                    // تصویر اگر موجود ہو
-                    if (lesson.ImageURL) {
+                    if (imageUrl) {
                         html += `
                             <div class="media-container">
-                                <img src="${lesson.ImageURL}" alt="Lesson Image" class="lesson-image" onclick="playAudio('${lesson.AudioURL}')" title="تصویر پر کلک کریں تاکہ آڈیو سن سکیں">
+                                <img src="${imageUrl}" alt="Lesson Image" class="lesson-image" onclick="playAudio('${audioUrl}')" title="تصویر پر کلک کریں تاکہ آڈیو سن سکیں">
                             </div>
                         `;
                     }
 
-                    // اگر آڈیو لنک موجود ہو اور امیج نہ ہو تو ڈائریکٹ بٹن دکھائیں
-                    if (lesson.AudioURL && !lesson.ImageURL) {
+                    if (audioUrl && !imageUrl) {
                         html += `
                             <div class="media-container">
-                                <button class="btn-audio" onclick="playAudio('${lesson.AudioURL}')">🔊 سبق کی آڈیو سنیں</button>
+                                <button class="btn-audio" onclick="playAudio('${audioUrl}')">🔊 سبق کی آڈیو سنیں</button>
                             </div>
                         `;
                     }
 
-                    // ویڈیو اگر موجود ہو
-                    if (lesson.VideoURL) {
-                        let embedUrl = lesson.VideoURL;
-                        if(embedUrl.includes('drive.google.com')) {
-                            // گوگل ڈرائیو ویڈیو ایمبیڈ سپورٹ
-                            embedUrl = embedUrl.replace('/view?usp=drivesdk', '/preview');
-                        }
+                    if (videoUrl) {
                         html += `
                             <div class="video-box">
-                                <iframe src="${embedUrl}" allowfullscreen></iframe>
+                                <iframe src="${videoUrl}" allowfullscreen></iframe>
                             </div>
                         `;
                     }
 
-                    // سوال و جواب کا حصہ
                     if (lesson.Question) {
                         html += `
                             <div class="qa-section">
                                 <h4>سوال: ${lesson.Question}</h4>
                                 <p><strong>جواب:</strong> ${lesson.Answer || ''}</p>
                         `;
-                        if (lesson.AudioAnswerLink) {
-                            html += `<button class="btn-audio" onclick="playAudio('${lesson.AudioAnswerLink}')">🔊 جواب کی آڈیو سنیں</button>`;
+                        if (ansAudioUrl) {
+                            html += `<button class="btn-audio" onclick="playAudio('${ansAudioUrl}')">🔊 جواب کی آڈیو سنیں</button>`;
                         }
                         html += `</div>`;
                     }
@@ -283,12 +282,23 @@
                 container.innerHTML = html;
 
             } catch (error) {
-                container.innerHTML = '<p style="text-align:center; color:red;">ڈیٹا لوڈ کرنے میں خرابی پیش آئی ہے۔ براہ کرم انٹرنیٹ یا یو آر ایل چیک کریں۔</p>';
+                container.innerHTML = '<p style="text-align:center; color:red;">ڈیٹا لوڈ کرنے میں خرابی پیش آئی ہے۔</p>';
                 console.error(error);
             }
         }
 
-        // آڈیو پلے کرنے کا فنکشن
+        // گوگل ڈرائیو کے لنکس کو براہ راست پلے ہونے کے قابل بنانا
+        function convertDriveLink(url) {
+            if (!url) return '';
+            if (url.includes('drive.google.com')) {
+                let match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+                if (match && match[1]) {
+                    return `https://docs.google.com/uc?export=download&id=${match[1]}`;
+                }
+            }
+            return url;
+        }
+
         function playAudio(url) {
             if (!url) {
                 alert('اس سبق کے لیے آڈیو دستیاب نہیں ہے!');
@@ -301,7 +311,6 @@
             });
         }
 
-        // صفحہ کھلتے ہی ڈیٹا فیچ کریں
         window.onload = fetchLessons;
     </script>
 </body>
