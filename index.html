@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعلیم کی دنیا - Taaleem Ki Dunya</title>
+    <style>
+        :root {
+            --primary-yellow: #FFD700;
+            --accent-yellow: #FFC107;
+            --dark-text: #333333;
+            --light-bg: #FFFDF0;
+            --white: #FFFFFF;
+            --shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-yellow), var(--accent-yellow));
+            color: var(--dark-text);
+            text-align: center;
+            padding: 25px 15px;
+            box-shadow: var(--shadow);
+            border-bottom: 5px solid #FFA000;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.6);
+        }
+
+        header p {
+            margin: 8px 0 0 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 15px;
+        }
+
+        .loading {
+            text-align: center;
+            font-size: 1.3rem;
+            color: #666;
+            margin-top: 40px;
+        }
+
+        .lesson-card {
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 2px solid #FFE082;
+            transition: transform 0.2s ease;
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .badge-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background-color: var(--primary-yellow);
+            color: #5d4037;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        h2.lesson-title {
+            color: #D84315;
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+
+        .lesson-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            background: #FFFDE7;
+            padding: 12px;
+            border-radius: 8px;
+            border-right: 5px solid var(--accent-yellow);
+        }
+
+        .media-container {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .lesson-image {
+            max-width: 100%;
+            height: auto;
+            max-height: 250px;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: transform 0.2s;
+        }
+
+        .lesson-image:active {
+            transform: scale(0.98);
+        }
+
+        .video-box {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            margin-top: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .video-box iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .qa-section {
+            background: #F1F8E9;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border: 1px dashed #AED581;
+        }
+
+        .qa-section h4 {
+            margin: 0 0 8px 0;
+            color: #33691E;
+        }
+
+        .btn-audio {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            margin-top: 8px;
+            font-weight: bold;
+        }
+
+        .btn-audio:hover {
+            background-color: #388E3C;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            margin-top: 40px;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { padding: 10px; }
+            .lesson-card { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>📚 تعلیم کی دنیا</h1>
+        <p>بچوں کے لیے منفرد اور آسان تعلیمی پلیٹ فارم</p>
+    </header>
+
+    <div class="container" id="content-area">
+        <div class="loading">سبق لوڈ ہو رہے ہیں، براہ کرم انتظار کریں...</div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 تعلیم کی دنیا - تمام حقوق محفوظ ہیں</p>
+    </footer>
+
+    <script>
+        // آپ کا گوگل ایپ اسکرپٹ ویب ایپ یو آر ایل
+        const API_URL = "https://script.google.com/macros/s/AKfycbxlZvxOh2o8FbYcOXUfGp5uOzk7J0x0iVwfZoHhcQO4b0_YIXVQ_MTqE19znV3y1K0yTw/exec";
+
+        async function fetchLessons() {
+            const container = document.getElementById('content-area');
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+
+                if (data.length === 0) {
+                    container.innerHTML = '<p style="text-align:center;">کوئی سبق دستیاب نہیں ہے۔</p>';
+                    return;
+                }
+
+                let html = '';
+                data.forEach(lesson => {
+                    html += `
+                        <div class="lesson-card">
+                            <div class="badge-container">
+                                <span class="badge">زبان: ${lesson.Language || ''}</span>
+                                <span class="badge">مضمون: ${lesson.Subject || ''}</span>
+                                <span class="badge">دن: ${lesson.DayNumber || ''}</span>
+                            </div>
+                            <h2 class="lesson-title">${lesson.LessonTitle || ''}</h2>
+                            <div class="lesson-text">${lesson.LessonText || ''}</div>
+                    `;
+
+                    // تصویر اگر موجود ہو
+                    if (lesson.ImageURL) {
+                        html += `
+                            <div class="media-container">
+                                <img src="${lesson.ImageURL}" alt="Lesson Image" class="lesson-image" onclick="playAudio('${lesson.AudioURL}')" title="تصویر پر کلک کریں تاکہ آڈیو سن سکیں">
+                            </div>
+                        `;
+                    }
+
+                    // اگر آڈیو لنک موجود ہو اور امیج نہ ہو تو ڈائریکٹ بٹن دکھائیں
+                    if (lesson.AudioURL && !lesson.ImageURL) {
+                        html += `
+                            <div class="media-container">
+                                <button class="btn-audio" onclick="playAudio('${lesson.AudioURL}')">🔊 سبق کی آڈیو سنیں</button>
+                            </div>
+                        `;
+                    }
+
+                    // ویڈیو اگر موجود ہو
+                    if (lesson.VideoURL) {
+                        let embedUrl = lesson.VideoURL;
+                        if(embedUrl.includes('drive.google.com')) {
+                            // گوگل ڈرائیو ویڈیو ایمبیڈ سپورٹ
+                            embedUrl = embedUrl.replace('/view?usp=drivesdk', '/preview');
+                        }
+                        html += `
+                            <div class="video-box">
+                                <iframe src="${embedUrl}" allowfullscreen></iframe>
+                            </div>
+                        `;
+                    }
+
+                    // سوال و جواب کا حصہ
+                    if (lesson.Question) {
+                        html += `
+                            <div class="qa-section">
+                                <h4>سوال: ${lesson.Question}</h4>
+                                <p><strong>جواب:</strong> ${lesson.Answer || ''}</p>
+                        `;
+                        if (lesson.AudioAnswerLink) {
+                            html += `<button class="btn-audio" onclick="playAudio('${lesson.AudioAnswerLink}')">🔊 جواب کی آڈیو سنیں</button>`;
+                        }
+                        html += `</div>`;
+                    }
+
+                    html += `</div>`;
+                });
+
+                container.innerHTML = html;
+
+            } catch (error) {
+                container.innerHTML = '<p style="text-align:center; color:red;">ڈیٹا لوڈ کرنے میں خرابی پیش آئی ہے۔ براہ کرم انٹرنیٹ یا یو آر ایل چیک کریں۔</p>';
+                console.error(error);
+            }
+        }
+
+        // آڈیو پلے کرنے کا فنکشن
+        function playAudio(url) {
+            if (!url) {
+                alert('اس سبق کے لیے آڈیو دستیاب نہیں ہے!');
+                return;
+            }
+            let audio = new Audio(url);
+            audio.play().catch(e => {
+                alert('آڈیو چلانے میں مسئلہ پیش آیا۔');
+                console.error(e);
+            });
+        }
+
+        // صفحہ کھلتے ہی ڈیٹا فیچ کریں
+        window.onload = fetchLessons;
+    </script>
+</body>
+</html>
