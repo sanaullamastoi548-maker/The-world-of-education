@@ -334,7 +334,7 @@ function driveId(url) {
 
 
 /* ==================================
-   DIRECT AUDIO PLAYER (FAST & SILENT)
+   AUDIO PLAYER (Advanced Fallback)
 ================================== */
 
 function playAudio(url) {
@@ -343,26 +343,23 @@ function playAudio(url) {
     return;
   }
 
-  // اگر پہلے سے کوئی آڈیو چل رہی ہے تو اسے روک دیں
-  if (currentAudio) {
-    currentAudio.pause();
-    currentAudio = null;
-  }
-
   let finalUrl = url.trim();
   const id = driveId(finalUrl);
 
-  // اگر گوگل ڈرائیو کا لنک ہے تو اسے ڈائریکٹ ڈاؤن لوڈ/اسٹریمنگ لنک میں تبدیل کریں
+  // اگر گوگل ڈرائیو کا لنک ہے تو اسے صحیح ڈاؤن لوڈ لنک بنائیں
   if (id) {
     finalUrl = "https://drive.google.com/uc?export=download&id=" + id;
   }
 
-  currentAudio = new Audio(finalUrl);
+  const audio = new Audio(finalUrl);
 
-  currentAudio.play().catch(error => {
-    console.error("Audio playback error:", error);
-    // اگر ڈرائیو لنک ڈائریکٹ نہ چلے تو متبادل سورس یا گিট ہب کا raw لنک استعمال کریں
-    alert("آڈیو هلائڻ ۾ مسئلو ٿيو. مھربانی ڪري آڈیو لنڪ (GitHub Raw یا Direct MP3) چيڪ ڪريو.");
+  audio.play().then(() => {
+    console.log("آڈیو کامیابی سے چل رہی ہے");
+  }).catch((error) => {
+    console.error("Play error:", error);
+    
+    // اگر براؤزر بلاک کر دے تو براہ راست نئے ٹیب یا ونڈو میں آڈیو پلے کر دیں
+    window.open(finalUrl, "_blank");
   });
 }
 
