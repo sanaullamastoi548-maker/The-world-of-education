@@ -1,756 +1,580 @@
 <!DOCTYPE html>
 <html lang="ur" dir="rtl">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>تعلیم کی دنیا - Taaleem Ki Dunya</title>
+<title>تعلیم کی دنیا</title>
 
 <style>
-
-:root {
-    --primary-yellow: #FFD700;
-    --accent-yellow: #FFC107;
-    --dark-text: #333333;
-    --light-bg: #FFFDF0;
-    --white: #FFFFFF;
-    --shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    background: var(--light-bg);
-    color: var(--dark-text);
-    margin: 0;
-    padding: 0;
-    direction: rtl;
+  margin: 0;
+  font-family: Tahoma, Arial, sans-serif;
+  background: #f3f8f5;
+  color: #17312d;
 }
 
 header {
-    background: linear-gradient(
-        135deg,
-        var(--primary-yellow),
-        var(--accent-yellow)
-    );
-
-    text-align: center;
-    padding: 28px 15px;
-    box-shadow: var(--shadow);
-    border-bottom: 5px solid #FFA000;
+  background: linear-gradient(135deg, #064b45, #0b806f);
+  color: white;
+  text-align: center;
+  padding: 30px 15px 38px;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 2.2rem;
-    font-weight: bold;
+.brand {
+  display: inline-block;
+  padding: 8px 18px;
+  border: 1px solid #ffffff55;
+  border-radius: 25px;
+  background: #ffffff18;
+}
+
+h1 {
+  font-size: 42px;
+  margin: 14px 0 5px;
 }
 
 header p {
-    margin: 8px 0 0;
-    font-size: 1.1rem;
-    font-weight: 600;
+  margin: 0;
+  font-size: 17px;
 }
 
-.container {
-    max-width: 950px;
-    margin: 20px auto;
-    padding: 15px;
+main {
+  max-width: 1100px;
+  margin: -20px auto 0;
+  padding: 0 15px 40px;
 }
 
-.loading {
-    text-align: center;
-    font-size: 1.3rem;
-    color: #666;
-    margin: 40px 0;
+.search-box {
+  background: white;
+  padding: 13px;
+  border-radius: 16px;
+  box-shadow: 0 10px 28px #00000010;
 }
 
-.lesson-card {
-    background: white;
-    border-radius: 15px;
-    box-shadow: var(--shadow);
-    padding: 22px;
-    margin-bottom: 25px;
-    border: 2px solid #FFE082;
-    overflow: hidden;
+input {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #e1ece7;
+  border-radius: 11px;
+  font-size: 17px;
+  font-family: inherit;
 }
 
-.badge-container {
-    display: flex;
-    gap: 9px;
-    margin-bottom: 15px;
-    flex-wrap: wrap;
+#status {
+  text-align: center;
+  padding: 18px;
+  color: #647873;
 }
 
-.badge {
-    background: var(--primary-yellow);
-    color: #5d4037;
-    padding: 6px 13px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: bold;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 17px;
 }
 
-.lesson-title {
-    color: #D84315;
-    margin: 0 0 15px;
-    font-size: 1.6rem;
+.card {
+  background: white;
+  border: 1px solid #e1ece7;
+  border-radius: 19px;
+  overflow: hidden;
+  box-shadow: 0 10px 28px #00000010;
 }
 
-.lesson-text {
-    font-size: 1.25rem;
-    line-height: 1.9;
-    margin-bottom: 18px;
-    background: #FFFDE7;
-    padding: 15px;
-    border-radius: 9px;
-    border-right: 5px solid var(--accent-yellow);
-    white-space: pre-wrap;
+.card-header {
+  background: #e9f5f0;
+  padding: 17px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.media-container {
-    text-align: center;
-    margin: 20px 0;
+.letter {
+  font-size: 55px;
+  color: #075e54;
+  font-weight: bold;
 }
 
-.media-heading {
-    font-weight: bold;
-    font-size: 1.05rem;
-    margin-bottom: 10px;
+.letter-name {
+  font-size: 19px;
+  color: #647873;
 }
 
-.lesson-image {
-    max-width: 100%;
-    height: auto;
-    max-height: 350px;
-    object-fit: contain;
-    border-radius: 12px;
-    box-shadow: var(--shadow);
+.play-letter {
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  background: #075e54;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
 }
 
-audio {
-    width: 100%;
-    max-width: 550px;
-    margin-top: 8px;
+.card-body {
+  padding: 16px;
 }
 
-.video-box {
-    position: relative;
-    width: 100%;
-    padding-bottom: 56.25%;
-    height: 0;
-    margin-top: 12px;
-    border-radius: 12px;
-    overflow: hidden;
-    background: #111;
+.words {
+  display: grid;
+  gap: 9px;
 }
 
-.video-box iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
+.word-btn {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e1ece7;
+  border-radius: 11px;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: inherit;
+  font-size: 19px;
+  cursor: pointer;
+  text-align: right;
 }
 
-.qa-section {
-    background: #F1F8E9;
-    padding: 18px;
-    border-radius: 12px;
-    margin-top: 20px;
-    border: 1px dashed #AED581;
+.word-btn:hover {
+  background: #f2faf6;
+  border-color: #9bcfc2;
 }
 
-.qa-section h4 {
-    color: #33691E;
-    margin: 0 0 12px;
-    font-size: 1.15rem;
+.sound {
+  color: #0b806f;
 }
 
-.answer-text {
-    font-size: 1.1rem;
-    line-height: 1.8;
+.media {
+  margin-top: 15px;
+  display: grid;
+  gap: 12px;
 }
 
-.error-message {
-    background: #ffebee;
-    color: #b71c1c;
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
+.media img {
+  width: 100%;
+  max-height: 230px;
+  object-fit: contain;
+  border-radius: 12px;
 }
 
-.retry-button {
-    background: #FFC107;
-    border: none;
-    padding: 10px 22px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 10px;
+.media video,
+.media iframe {
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
 }
 
-.empty-message {
-    text-align: center;
-    padding: 30px;
-    background: white;
-    border-radius: 12px;
+.media iframe {
+  height: 220px;
+}
+
+.empty {
+  grid-column: 1/-1;
+  text-align: center;
+  padding: 30px;
+  background: white;
+  border-radius: 15px;
 }
 
 footer {
-    text-align: center;
-    padding: 22px;
-    background: #333;
-    color: white;
-    margin-top: 40px;
+  text-align: center;
+  color: #647873;
+  padding: 20px;
 }
 
-.media-error {
-    color: #b71c1c;
-    font-size: 0.9rem;
-    margin-top: 8px;
+@media(max-width:480px) {
+  h1 {
+    font-size: 34px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }
-
-@media(max-width:600px) {
-
-    header h1 {
-        font-size: 1.8rem;
-    }
-
-    .container {
-        padding: 10px;
-    }
-
-    .lesson-card {
-        padding: 15px;
-    }
-
-    .lesson-title {
-        font-size: 1.35rem;
-    }
-
-    .lesson-text {
-        font-size: 1.1rem;
-    }
-
-}
-
 </style>
 </head>
 
 <body>
 
 <header>
-
-    <h1>📚 تعلیم کی دنیا</h1>
-
-    <p>بچوں کے لیے منفرد اور آسان تعلیمی پلیٹ فارم</p>
-
+  <div class="brand">📚 تعلیم جو آسان سفر</div>
+  <h1>تعلیم کی دنیا</h1>
+  <p>اچو ته سنڌي اکر ۽ لفظ سکون</p>
 </header>
 
+<main>
 
-<div class="container" id="content-area">
+  <div class="search-box">
+    <input
+      type="search"
+      id="searchInput"
+      placeholder="اکر يا لفظ ڳوليو..."
+    >
+  </div>
 
-    <div class="loading">
-        📚 اسباق لوڈ ہو رہے ہیں، براہ کرم انتظار کریں...
-    </div>
+  <div id="status">ڊيٽا لوڊ ٿي رهي آهي...</div>
 
-</div>
+  <section id="cards" class="grid"></section>
 
+</main>
 
 <footer>
-
-    <p>© 2026 تعلیم کی دنیا - تمام حقوق محفوظ ہیں</p>
-
+  تعلیم کی دنیا — سنڌي سکيا
 </footer>
-
 
 <script>
 
-// ========================================
-// GOOGLE APPS SCRIPT API
-// ========================================
-
+// GOOGLE APPS SCRIPT LINK
 const API_URL =
-"https://script.google.com/macros/s/AKfycbxlZvxOh2o8FbYcOXUfGp5uOzk7J0x0iVwfZoHhcQO4b0_YIXVQ_MTqE19znV3y1K0yTw/exec";
+"https://script.google.com/macros/s/AKfycbz2FM1hUkibcvAhnZIkfN5HPOhsYXgyHovWreWFZVGrx1yKk_32WS-qjyFUi8FDgyUf/exec";
+
+const cards = document.getElementById("cards");
+const statusBox = document.getElementById("status");
+const searchInput = document.getElementById("searchInput");
+
+let allRows = [];
+let activeAudio = null;
 
 
-// ========================================
-// HTML SECURITY
-// ========================================
-
-function escapeHTML(value) {
-
-    return String(value ?? "").replace(
-        /[&<>"']/g,
-        function(char) {
-            return {
-                "&": "&amp;",
-                "<": "&lt;",
-                ">": "&gt;",
-                '"': "&quot;",
-                "'": "&#39;"
-            }[char];
-        }
-    );
-
-}
-
-
-// ========================================
 // GOOGLE DRIVE FILE ID
-// ========================================
+function driveId(url) {
 
-function getDriveId(url) {
+  if (!url) return "";
 
-    if (!url) return "";
+  const s = String(url).trim();
 
-    const match = String(url).match(
-        /\/d\/([a-zA-Z0-9_-]+)|[?&]id=([a-zA-Z0-9_-]+)/
+  let m =
+    s.match(/\/file\/d\/([\w-]+)/) ||
+    s.match(/[?&]id=([\w-]+)/) ||
+    s.match(/\/d\/([\w-]+)/);
+
+  return m ? m[1] : "";
+}
+
+
+// DRIVE LINKS
+function mediaUrl(url, type) {
+
+  if (!url) return "";
+
+  const id = driveId(url);
+
+  if (!id) return String(url).trim();
+
+  if (type === "image") {
+    return "https://drive.google.com/uc?export=view&id=" + id;
+  }
+
+  return "https://drive.google.com/uc?export=download&id=" + id;
+}
+
+
+// PLAY AUDIO
+function playAudio(url) {
+
+  if (!url) {
+    alert("هن آواز جو لنڪ موجود ناهي.");
+    return;
+  }
+
+  if (activeAudio) {
+    activeAudio.pause();
+    activeAudio = null;
+  }
+
+  const audio = new Audio(mediaUrl(url, "audio"));
+
+  activeAudio = audio;
+
+  audio.play().catch(() => {
+    alert("آواز نه هليو. Google Drive جي فائل جي اجازت Anyone with the link ڪريو.");
+  });
+
+  audio.onended = () => {
+    if (activeAudio === audio) activeAudio = null;
+  };
+}
+
+
+// CREATE HTML ELEMENT
+function createElement(tag, className, text) {
+
+  const el = document.createElement(tag);
+
+  if (className) el.className = className;
+
+  if (text !== undefined) el.textContent = text;
+
+  return el;
+}
+
+
+// SHOW DATA
+function renderData(rows) {
+
+  cards.replaceChildren();
+
+  if (!rows.length) {
+    cards.append(
+      createElement("div", "empty", "ڪوبه اکر يا لفظ نه مليو.")
+    );
+    return;
+  }
+
+  rows.forEach(row => {
+
+    const card = createElement("article", "card");
+
+    const header = createElement("div", "card-header");
+
+    const heading = document.createElement("div");
+
+    heading.append(
+      createElement("div", "letter", row.Letter || "؟"),
+      createElement("div", "letter-name", row.LetterName || "")
     );
 
-    return match ? (match[1] || match[2]) : "";
+    const letterButton =
+      createElement("button", "play-letter", "▶");
 
-}
+    letterButton.type = "button";
 
+    letterButton.onclick = () => {
+      playAudio(row.LetterAudio);
+    };
 
-// ========================================
-// IMAGE LINK
-// ========================================
+    header.append(heading, letterButton);
 
-function getImageURL(url) {
+    card.append(header);
 
-    if (!url) return "";
+    const body = createElement("div", "card-body");
 
-    const id = getDriveId(url);
+    body.append(
+      createElement("p", "", "لفظن تي ڪلڪ ڪري آواز ٻڌو")
+    );
 
-    if (id && url.includes("drive.google.com")) {
+    const words = createElement("div", "words");
 
-        return "https://drive.google.com/thumbnail?id="
-            + encodeURIComponent(id)
-            + "&sz=w1600";
+    for (let i = 1; i <= 3; i++) {
 
+      const word = row["Word" + i];
+
+      const audio = row["Word" + i + "Audio"];
+
+      if (!word) continue;
+
+      const button = createElement("button", "word-btn");
+
+      button.type = "button";
+
+      button.append(
+        createElement("span", "", word),
+        createElement("span", "sound", "🔊")
+      );
+
+      button.onclick = () => playAudio(audio);
+
+      words.append(button);
     }
 
-    return url;
-
-}
-
-
-// ========================================
-// AUDIO LINK
-// ========================================
-
-function getAudioURL(url) {
-
-    if (!url) return "";
-
-    const id = getDriveId(url);
-
-    if (id && url.includes("drive.google.com")) {
-
-        return "https://drive.google.com/uc?export=download&id="
-            + encodeURIComponent(id);
-
-    }
-
-    return url;
-
-}
-
-
-// ========================================
-// VIDEO LINK
-// ========================================
-
-function getVideoURL(url) {
-
-    if (!url) return "";
-
-    const id = getDriveId(url);
-
-    if (id && url.includes("drive.google.com")) {
-
-        return "https://drive.google.com/file/d/"
-            + encodeURIComponent(id)
-            + "/preview";
-
-    }
-
-    return url;
-
-}
-
-
-// ========================================
-// MEDIA URL VALIDATION
-// ========================================
-
-function isSafeURL(url) {
-
-    try {
-
-        const parsed = new URL(url, window.location.href);
-
-        return ["https:", "http:"].includes(parsed.protocol);
-
-    } catch(error) {
-
-        return false;
-
-    }
-
-}
-
-
-// ========================================
-// IMAGE DISPLAY
-// ========================================
-
-function createImage(url) {
-
-    if (!url) return "";
-
-    const imageURL = getImageURL(url);
-
-    if (!isSafeURL(imageURL)) return "";
-
-    return `
-
-        <div class="media-container">
-
-            <p class="media-heading">
-                🖼️ سبق کی تصویر
-            </p>
-
-            <img
-                src="${escapeHTML(imageURL)}"
-                alt="Lesson Image"
-                class="lesson-image"
-                loading="lazy"
-                onerror="this.parentElement.innerHTML='<p class=media-error>تصویر لوڈ نہیں ہو سکی۔ Drive کی اجازت چیک کریں۔</p>'"
-            >
-
-        </div>
-
-    `;
-
-}
-
-
-// ========================================
-// AUDIO DISPLAY
-// ========================================
-
-function createAudio(url, title) {
-
-    if (!url) return "";
-
-    const audioURL = getAudioURL(url);
-
-    if (!isSafeURL(audioURL)) return "";
-
-    return `
-
-        <div class="media-container">
-
-            <p class="media-heading">
-                ${title}
-            </p>
-
-            <audio controls preload="none">
-
-                <source src="${escapeHTML(audioURL)}">
-
-                آپ کا براؤزر آڈیو سپورٹ نہیں کرتا۔
-
-            </audio>
-
-        </div>
-
-    `;
-
-}
-
-
-// ========================================
-// VIDEO DISPLAY
-// ========================================
-
-function createVideo(url) {
-
-    if (!url) return "";
-
-    const videoURL = getVideoURL(url);
-
-    if (!isSafeURL(videoURL)) return "";
-
-    return `
-
-        <div class="media-container">
-
-            <p class="media-heading">
-                🎬 سبق کی ویڈیو دیکھیں
-            </p>
-
-            <div class="video-box">
-
-                <iframe
-                    src="${escapeHTML(videoURL)}"
-                    title="Lesson Video"
-                    loading="lazy"
-                    allow="autoplay; fullscreen; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
-
-            </div>
-
-        </div>
-
-    `;
-
-}
-
-
-// ========================================
-// LESSON CARD
-// ========================================
-
-function createLesson(lesson) {
-
-    const language = escapeHTML(lesson.Language);
-    const subject = escapeHTML(lesson.Subject);
-    const course = escapeHTML(lesson.CourseName);
-    const day = escapeHTML(lesson.DayNumber);
-
-    const title = escapeHTML(lesson.LessonTitle);
-    const text = escapeHTML(lesson.LessonText);
-
-    const question = escapeHTML(lesson.Question);
-    const answer = escapeHTML(lesson.Answer);
-
-    let html = `
-
-        <div class="lesson-card">
-
-            <div class="badge-container">
-
-                <span class="badge">
-                    زبان: ${language}
-                </span>
-
-                <span class="badge">
-                    مضمون: ${subject}
-                </span>
-
-                <span class="badge">
-                    کورس: ${course}
-                </span>
-
-                <span class="badge">
-                    دن: ${day}
-                </span>
-
-            </div>
-
-            <h2 class="lesson-title">
-                ${title}
-            </h2>
-
-            <div class="lesson-text">
-                ${text}
-            </div>
-
-    `;
-
+    body.append(words);
 
     // IMAGE
+    const media = createElement("div", "media");
 
-    html += createImage(lesson.ImageURL);
+    if (row.Image) {
 
+      const img = document.createElement("img");
 
-    // AUDIO
+      img.src = mediaUrl(row.Image, "image");
 
-    html += createAudio(
-        lesson.AudioURL,
-        "🔊 سبق کی آڈیو سنیں"
-    );
+      img.alt = row.Letter || "تصوير";
 
+      img.loading = "lazy";
+
+      img.onerror = () => {
+        img.replaceWith(
+          createElement("span", "", "تصوير نه کلي.")
+        );
+      };
+
+      media.append(img);
+    }
 
     // VIDEO
+    if (row.Video) {
 
-    html += createVideo(lesson.VideoURL);
+      const id = driveId(row.Video);
 
+      if (id) {
 
-    // QUESTION AND ANSWER
+        const iframe = document.createElement("iframe");
 
-    if (lesson.Question || lesson.Answer) {
+        iframe.src =
+          "https://drive.google.com/file/d/" +
+          id +
+          "/preview";
 
-        html += `
+        iframe.title = "تعليمي وڊيو";
 
-            <div class="qa-section">
+        iframe.allow =
+          "autoplay; encrypted-media; picture-in-picture";
 
-                <h4>
-                    ❓ سوال:
-                </h4>
+        iframe.allowFullscreen = true;
 
-                <p>
-                    ${question}
-                </p>
+        media.append(iframe);
 
-                <h4>
-                    ✅ جواب:
-                </h4>
+      } else {
 
-                <div class="answer-text">
-                    ${answer}
-                </div>
+        const video = document.createElement("video");
 
-                ${createAudio(
-                    lesson.AudioAnswerLink,
-                    "🔊 جواب کی آڈیو سنیں"
-                )}
+        video.src = row.Video;
 
-            </div>
+        video.controls = true;
 
-        `;
+        video.playsInline = true;
 
+        media.append(video);
+      }
     }
 
+    if (media.childNodes.length) {
+      body.append(media);
+    }
 
-    html += `</div>`;
+    card.append(body);
 
-    return html;
+    cards.append(card);
+
+  });
+}
+
+
+// LOAD GOOGLE SHEET DATA
+function loadData() {
+
+  const callbackName =
+    "educationWorldCallback_" + Date.now();
+
+  const script = document.createElement("script");
+
+  let finished = false;
+
+  const timer = setTimeout(() => {
+
+    if (finished) return;
+
+    finished = true;
+
+    delete window[callbackName];
+
+    script.remove();
+
+    statusBox.textContent =
+      "ڊيٽا حاصل نه ٿي. Apps Script ۾ Anyone access چيڪ ڪريو.";
+
+  }, 20000);
+
+
+  window[callbackName] = function(result) {
+
+    if (finished) return;
+
+    finished = true;
+
+    clearTimeout(timer);
+
+    delete window[callbackName];
+
+    script.remove();
+
+    if (
+      !result ||
+      result.success !== true ||
+      !Array.isArray(result.data)
+    ) {
+
+      statusBox.textContent =
+        "Apps Script کان صحيح ڊيٽا نه ملي.";
+
+      return;
+    }
+
+    allRows = result.data;
+
+    statusBox.textContent =
+      allRows.length +
+      " اکر لوڊ ٿي ويا.";
+
+    renderData(allRows);
+
+  };
+
+
+  script.onerror = function() {
+
+    if (finished) return;
+
+    finished = true;
+
+    clearTimeout(timer);
+
+    delete window[callbackName];
+
+    statusBox.textContent =
+      "Apps Script لنڪ کلي نه سگهيو. لنڪ ۽ deployment چيڪ ڪريو.";
+
+  };
+
+
+  script.src =
+    API_URL +
+    "?callback=" +
+    encodeURIComponent(callbackName) +
+    "&t=" +
+    Date.now();
+
+  document.head.appendChild(script);
 
 }
 
 
-// ========================================
-// LOAD LESSONS
-// ========================================
+// SEARCH
+searchInput.addEventListener("input", function() {
 
-async function fetchLessons() {
+  const query = this.value.trim().toLowerCase();
 
-    const container = document.getElementById(
-        "content-area"
+  if (!query) {
+    renderData(allRows);
+    return;
+  }
+
+  const filtered = allRows.filter(row => {
+
+    const values = [
+      row.Letter,
+      row.LetterName,
+      row.Word1,
+      row.Word2,
+      row.Word3
+    ];
+
+    return values.some(value =>
+      String(value || "").toLowerCase().includes(query)
     );
 
-    container.innerHTML = `
+  });
 
-        <div class="loading">
-            📚 اسباق لوڈ ہو رہے ہیں...
-        </div>
+  renderData(filtered);
 
-    `;
-
-    try {
-
-        const response = await fetch(API_URL, {
-            method: "GET",
-            cache: "no-store"
-        });
-
-        if (!response.ok) {
-
-            throw new Error(
-                "سرور سے رابطہ نہیں ہو سکا۔ HTTP "
-                + response.status
-            );
-
-        }
-
-        const data = await response.json();
+});
 
 
-        if (!Array.isArray(data)) {
-
-            throw new Error(
-                data.message || "ڈیٹا درست فارمیٹ میں نہیں ہے۔"
-            );
-
-        }
-
-
-        if (data.length === 0) {
-
-            container.innerHTML = `
-
-                <div class="empty-message">
-
-                    <h2>📚</h2>
-
-                    <p>
-                        ابھی کوئی سبق دستیاب نہیں ہے۔
-                    </p>
-
-                </div>
-
-            `;
-
-            return;
-
-        }
-
-
-        let html = "";
-
-        data.forEach(function(lesson) {
-
-            html += createLesson(lesson);
-
-        });
-
-
-        container.innerHTML = html;
-
-
-    } catch(error) {
-
-        console.error(
-            "Lesson Loading Error:",
-            error
-        );
-
-        container.innerHTML = `
-
-            <div class="error-message">
-
-                <h3>⚠️ ڈیٹا لوڈ کرنے میں خرابی</h3>
-
-                <p>
-                    ${escapeHTML(error.message)}
-                </p>
-
-                <button
-                    class="retry-button"
-                    onclick="fetchLessons()">
-
-                    دوبارہ کوشش کریں
-
-                </button>
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-
-// ========================================
 // START WEBSITE
-// ========================================
-
-window.addEventListener(
-    "DOMContentLoaded",
-    fetchLessons
-);
+loadData();
 
 </script>
 
