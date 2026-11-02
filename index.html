@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>تعلیم کی دنیا</title>
 
 <style>
+
 * {
   box-sizing: border-box;
 }
@@ -17,8 +19,10 @@ body {
   color: #17312d;
 }
 
+/* HEADER */
+
 header {
-  background: linear-gradient(135deg, #064b45, #0b806f);
+  background: linear-gradient(135deg,#064b45,#0b806f);
   color: white;
   text-align: center;
   padding: 30px 15px 38px;
@@ -42,11 +46,15 @@ header p {
   font-size: 17px;
 }
 
+/* MAIN */
+
 main {
   max-width: 1100px;
   margin: -20px auto 0;
   padding: 0 15px 40px;
 }
+
+/* SEARCH */
 
 .search-box {
   background: white;
@@ -64,17 +72,23 @@ input {
   font-family: inherit;
 }
 
+/* STATUS */
+
 #status {
   text-align: center;
   padding: 18px;
   color: #647873;
 }
 
+/* GRID */
+
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  grid-template-columns: repeat(auto-fit,minmax(270px,1fr));
   gap: 17px;
 }
+
+/* CARD */
 
 .card {
   background: white;
@@ -103,6 +117,13 @@ input {
   color: #647873;
 }
 
+/* BUTTONS */
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
 .play-letter {
   width: 48px;
   height: 48px;
@@ -111,8 +132,9 @@ input {
   background: #075e54;
   color: white;
   font-size: 22px;
-  cursor: pointer;
 }
+
+/* WORDS */
 
 .card-body {
   padding: 16px;
@@ -145,7 +167,10 @@ input {
 
 .sound {
   color: #0b806f;
+  font-size: 20px;
 }
+
+/* IMAGE AND VIDEO */
 
 .media {
   margin-top: 15px;
@@ -160,16 +185,63 @@ input {
   border-radius: 12px;
 }
 
-.media video,
 .media iframe {
   width: 100%;
-  border: 0;
+  height: 220px;
+  border: none;
   border-radius: 12px;
 }
 
-.media iframe {
-  height: 220px;
+/* AUDIO POPUP */
+
+.audio-popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.78);
+  z-index: 99999;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
+
+.audio-box {
+  background: white;
+  padding: 22px;
+  border-radius: 18px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.audio-box h3 {
+  color: #075e54;
+  margin-top: 0;
+}
+
+.audio-box iframe {
+  width: 100%;
+  height: 110px;
+  border: none;
+}
+
+.audio-close {
+  background: #075e54;
+  color: white;
+  border: none;
+  padding: 11px 28px;
+  border-radius: 9px;
+  margin-top: 12px;
+}
+
+.audio-open {
+  display: inline-block;
+  margin-top: 12px;
+  color: #075e54;
+  font-size: 14px;
+}
+
+/* FOOTER */
 
 .empty {
   grid-column: 1/-1;
@@ -185,7 +257,10 @@ footer {
   padding: 20px;
 }
 
+/* MOBILE */
+
 @media(max-width:480px) {
+
   h1 {
     font-size: 34px;
   }
@@ -193,53 +268,114 @@ footer {
   .grid {
     grid-template-columns: 1fr;
   }
+
 }
+
 </style>
 </head>
 
 <body>
 
 <header>
-  <div class="brand">📚 تعلیم جو آسان سفر</div>
+
+  <div class="brand">
+    📚 تعلیم جو آسان سفر
+  </div>
+
   <h1>تعلیم کی دنیا</h1>
+
   <p>اچو ته سنڌي اکر ۽ لفظ سکون</p>
+
 </header>
+
 
 <main>
 
   <div class="search-box">
+
     <input
       type="search"
       id="searchInput"
       placeholder="اکر يا لفظ ڳوليو..."
     >
+
   </div>
 
-  <div id="status">ڊيٽا لوڊ ٿي رهي آهي...</div>
+  <div id="status">
+    ڊيٽا لوڊ ٿي رهي آهي...
+  </div>
 
   <section id="cards" class="grid"></section>
 
 </main>
 
+
 <footer>
   تعلیم کی دنیا — سنڌي سکيا
 </footer>
 
+
+<!-- AUDIO PLAYER POPUP -->
+
+<div id="audioPopup" class="audio-popup">
+
+  <div class="audio-box">
+
+    <h3>🔊 آڊيو ٻڌو</h3>
+
+    <iframe
+      id="audioFrame"
+      allow="autoplay"
+    ></iframe>
+
+    <br>
+
+    <a
+      id="audioOpen"
+      class="audio-open"
+      target="_blank"
+      rel="noopener"
+    >
+      آڈیو نئين ٽيب ۾ کوليو
+    </a>
+
+    <br>
+
+    <button
+      class="audio-close"
+      onclick="closeAudio()"
+    >
+      بند ڪريو
+    </button>
+
+  </div>
+
+</div>
+
+
 <script>
 
-// GOOGLE APPS SCRIPT LINK
+/* ==================================
+   GOOGLE APPS SCRIPT CONNECTION
+================================== */
+
 const API_URL =
 "https://script.google.com/macros/s/AKfycbz2FM1hUkibcvAhnZIkfN5HPOhsYXgyHovWreWFZVGrx1yKk_32WS-qjyFUi8FDgyUf/exec";
 
+
 const cards = document.getElementById("cards");
+
 const statusBox = document.getElementById("status");
+
 const searchInput = document.getElementById("searchInput");
 
 let allRows = [];
-let activeAudio = null;
 
 
-// GOOGLE DRIVE FILE ID
+/* ==================================
+   GOOGLE DRIVE FILE ID
+================================== */
+
 function driveId(url) {
 
   if (!url) return "";
@@ -252,111 +388,184 @@ function driveId(url) {
     s.match(/\/d\/([\w-]+)/);
 
   return m ? m[1] : "";
+
 }
 
 
-// DRIVE LINKS
-function mediaUrl(url, type) {
+/* ==================================
+   PLAY AUDIO USING GOOGLE DRIVE
+================================== */
 
-  if (!url) return "";
-
-  const id = driveId(url);
-
-  if (!id) return String(url).trim();
-
-  if (type === "image") {
-    return "https://drive.google.com/uc?export=view&id=" + id;
-  }
-
-  return "https://drive.google.com/uc?export=download&id=" + id;
-}
-
-
-// PLAY AUDIO
 function playAudio(url) {
 
   if (!url) {
+
     alert("هن آواز جو لنڪ موجود ناهي.");
+
     return;
+
   }
 
-  if (activeAudio) {
-    activeAudio.pause();
-    activeAudio = null;
+  const id = driveId(url);
+
+  if (!id) {
+
+    window.open(url, "_blank");
+
+    return;
+
   }
 
-  const audio = new Audio(mediaUrl(url, "audio"));
+  const previewURL =
+    "https://drive.google.com/file/d/" +
+    id +
+    "/preview";
 
-  activeAudio = audio;
+  document.getElementById("audioFrame").src =
+    previewURL;
 
-  audio.play().catch(() => {
-    alert("آواز نه هليو. Google Drive جي فائل جي اجازت Anyone with the link ڪريو.");
-  });
+  document.getElementById("audioOpen").href =
+    url;
 
-  audio.onended = () => {
-    if (activeAudio === audio) activeAudio = null;
-  };
+  document.getElementById("audioPopup").style.display =
+    "flex";
+
 }
 
 
-// CREATE HTML ELEMENT
-function createElement(tag, className, text) {
+/* ==================================
+   CLOSE AUDIO
+================================== */
+
+function closeAudio() {
+
+  document.getElementById("audioPopup").style.display =
+    "none";
+
+  document.getElementById("audioFrame").src = "";
+
+}
+
+
+/* ==================================
+   CREATE ELEMENT
+================================== */
+
+function createElement(tag, cls, text) {
 
   const el = document.createElement(tag);
 
-  if (className) el.className = className;
+  if (cls) el.className = cls;
 
-  if (text !== undefined) el.textContent = text;
+  if (text !== undefined) {
+    el.textContent = text;
+  }
 
   return el;
+
 }
 
 
-// SHOW DATA
+/* ==================================
+   IMAGE URL
+================================== */
+
+function imageURL(url) {
+
+  const id = driveId(url);
+
+  if (!id) return url;
+
+  return "https://drive.google.com/uc?export=view&id=" + id;
+
+}
+
+
+/* ==================================
+   SHOW WEBSITE DATA
+================================== */
+
 function renderData(rows) {
 
   cards.replaceChildren();
 
   if (!rows.length) {
+
     cards.append(
-      createElement("div", "empty", "ڪوبه اکر يا لفظ نه مليو.")
+      createElement(
+        "div",
+        "empty",
+        "ڪوبه اکر يا لفظ نه مليو."
+      )
     );
+
     return;
+
   }
+
 
   rows.forEach(row => {
 
-    const card = createElement("article", "card");
+    const card = createElement("article","card");
 
-    const header = createElement("div", "card-header");
+    const header = createElement("div","card-header");
 
     const heading = document.createElement("div");
 
     heading.append(
-      createElement("div", "letter", row.Letter || "؟"),
-      createElement("div", "letter-name", row.LetterName || "")
+
+      createElement(
+        "div",
+        "letter",
+        row.Letter || "؟"
+      ),
+
+      createElement(
+        "div",
+        "letter-name",
+        row.LetterName || ""
+      )
+
     );
 
+
+    /* LETTER AUDIO BUTTON */
+
     const letterButton =
-      createElement("button", "play-letter", "▶");
+      createElement("button","play-letter","▶");
 
     letterButton.type = "button";
 
-    letterButton.onclick = () => {
+    letterButton.title = "اکر جو آواز ٻڌو";
+
+    letterButton.onclick = function() {
+
       playAudio(row.LetterAudio);
+
     };
 
-    header.append(heading, letterButton);
+
+    header.append(heading,letterButton);
 
     card.append(header);
 
-    const body = createElement("div", "card-body");
+
+    const body = createElement("div","card-body");
+
 
     body.append(
-      createElement("p", "", "لفظن تي ڪلڪ ڪري آواز ٻڌو")
+      createElement(
+        "p",
+        "",
+        "لفظن تي ڪلڪ ڪري آواز ٻڌو"
+      )
     );
 
-    const words = createElement("div", "words");
+
+    /* WORDS */
+
+    const words = createElement("div","words");
+
 
     for (let i = 1; i <= 3; i++) {
 
@@ -366,45 +575,69 @@ function renderData(rows) {
 
       if (!word) continue;
 
-      const button = createElement("button", "word-btn");
+
+      const button =
+        createElement("button","word-btn");
 
       button.type = "button";
 
+
       button.append(
-        createElement("span", "", word),
-        createElement("span", "sound", "🔊")
+
+        createElement("span","",word),
+
+        createElement("span","sound","🔊")
+
       );
 
-      button.onclick = () => playAudio(audio);
+
+      button.onclick = function() {
+
+        playAudio(audio);
+
+      };
+
 
       words.append(button);
+
     }
+
 
     body.append(words);
 
-    // IMAGE
-    const media = createElement("div", "media");
+
+    /* IMAGE AND VIDEO */
+
+    const media = createElement("div","media");
+
+
+    /* IMAGE */
 
     if (row.Image) {
 
       const img = document.createElement("img");
 
-      img.src = mediaUrl(row.Image, "image");
+      img.src = imageURL(row.Image);
 
       img.alt = row.Letter || "تصوير";
 
       img.loading = "lazy";
 
-      img.onerror = () => {
+      img.onerror = function() {
+
         img.replaceWith(
-          createElement("span", "", "تصوير نه کلي.")
+          createElement("span","","تصوير نه کلي.")
         );
+
       };
 
       media.append(img);
+
     }
 
-    // VIDEO
+
+    /* VIDEO */
+
     if (row.Video) {
 
       const id = driveId(row.Video);
@@ -438,22 +671,32 @@ function renderData(rows) {
         video.playsInline = true;
 
         media.append(video);
+
       }
+
     }
 
+
     if (media.childNodes.length) {
+
       body.append(media);
+
     }
+
 
     card.append(body);
 
     cards.append(card);
 
   });
+
 }
 
 
-// LOAD GOOGLE SHEET DATA
+/* ==================================
+   LOAD GOOGLE SHEET DATA
+================================== */
+
 function loadData() {
 
   const callbackName =
@@ -463,7 +706,8 @@ function loadData() {
 
   let finished = false;
 
-  const timer = setTimeout(() => {
+
+  const timer = setTimeout(function() {
 
     if (finished) return;
 
@@ -474,9 +718,9 @@ function loadData() {
     script.remove();
 
     statusBox.textContent =
-      "ڊيٽا حاصل نه ٿي. Apps Script ۾ Anyone access چيڪ ڪريو.";
+      "ڊيٽا حاصل نه ٿي. Apps Script جي Deployment چيڪ ڪريو.";
 
-  }, 20000);
+  },20000);
 
 
   window[callbackName] = function(result) {
@@ -491,6 +735,7 @@ function loadData() {
 
     script.remove();
 
+
     if (
       !result ||
       result.success !== true ||
@@ -498,16 +743,19 @@ function loadData() {
     ) {
 
       statusBox.textContent =
-        "Apps Script کان صحيح ڊيٽا نه ملي.";
+        "Google Sheet مان صحيح ڊيٽا نه ملي.";
 
       return;
+
     }
+
 
     allRows = result.data;
 
     statusBox.textContent =
       allRows.length +
       " اکر لوڊ ٿي ويا.";
+
 
     renderData(allRows);
 
@@ -525,7 +773,7 @@ function loadData() {
     delete window[callbackName];
 
     statusBox.textContent =
-      "Apps Script لنڪ کلي نه سگهيو. لنڪ ۽ deployment چيڪ ڪريو.";
+      "Apps Script لنڪ ۾ مسئلو آهي.";
 
   };
 
@@ -537,43 +785,66 @@ function loadData() {
     "&t=" +
     Date.now();
 
+
   document.head.appendChild(script);
 
 }
 
 
-// SEARCH
-searchInput.addEventListener("input", function() {
+/* ==================================
+   SEARCH
+================================== */
+
+searchInput.addEventListener("input",function() {
 
   const query = this.value.trim().toLowerCase();
 
   if (!query) {
+
     renderData(allRows);
+
     return;
+
   }
+
 
   const filtered = allRows.filter(row => {
 
     const values = [
+
       row.Letter,
+
       row.LetterName,
+
       row.Word1,
+
       row.Word2,
+
       row.Word3
+
     ];
 
+
     return values.some(value =>
-      String(value || "").toLowerCase().includes(query)
+
+      String(value || "")
+        .toLowerCase()
+        .includes(query)
+
     );
 
   });
+
 
   renderData(filtered);
 
 });
 
 
-// START WEBSITE
+/* ==================================
+   START WEBSITE
+================================== */
+
 loadData();
 
 </script>
