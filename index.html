@@ -354,8 +354,7 @@ const defaultLesson = {
    موجوده سبق ۽ آواز
 ===================================== */
 
-let lessons = [];
-
+let lessons = [defaultLesson];
 let currentLessonIndex = 0;
 
 const voicePlayer = document.getElementById("voicePlayer");
@@ -758,6 +757,8 @@ async function loadLessons() {
 
     try {
 
+        // GitHub مان سبقن جا فولڊر حاصل ڪريو
+
         const response = await fetch(API_ROOT);
 
         if (!response.ok) {
@@ -768,16 +769,24 @@ async function loadLessons() {
 
         const folders = await response.json();
 
-        const lessonFiles = folders.filter(function(item) {
+
+        // صرف فولڊر چونڊيو
+
+        const lessonFolders = folders.filter(function(item) {
 
             return item.type === "dir";
 
         });
 
 
+        // نوان سبق هتي گڏ ٿيندا
+
         const loadedLessons = [];
 
-        for (const folder of lessonFiles) {
+
+        // هر فولڊر مان lesson.json حاصل ڪريو
+
+        for (const folder of lessonFolders) {
 
             try {
 
@@ -787,11 +796,26 @@ async function loadLessons() {
                     encodeURIComponent(folder.name) +
                     "/lesson.json";
 
+
                 const lessonResponse = await fetch(jsonURL);
 
-                if (!lessonResponse.ok) continue;
+
+                if (!lessonResponse.ok) {
+
+                    console.log(
+                        "Lesson JSON نه مليو:",
+                        folder.name
+                    );
+
+                    continue;
+
+                }
+
 
                 const lessonData = await lessonResponse.json();
+
+
+                // سبق جي ضروري معلومات چيڪ ڪريو
 
                 if (
                     lessonData.title &&
@@ -799,9 +823,12 @@ async function loadLessons() {
                     Array.isArray(lessonData.items)
                 ) {
 
+                    lessonData.slug = folder.name;
+
                     loadedLessons.push(lessonData);
 
                 }
+
 
             } catch (error) {
 
@@ -813,6 +840,75 @@ async function loadLessons() {
             }
 
         }
+
+
+        // پهريون سبق هميشه محفوظ رکو
+
+        lessons = [defaultLesson];
+
+
+        // نوان سبق شامل ڪريو، ورجاءُ کان سواءِ
+
+        loadedLessons.forEach(function(newLesson) {
+
+            const alreadyExists = lessons.some(function(oldLesson) {
+
+                return (
+                    oldLesson.slug === newLesson.slug ||
+                    oldLesson.order === newLesson.order
+                );
+
+            });
+
+
+            if (!alreadyExists) {
+
+                lessons.push(newLesson);
+
+            }
+
+        });
+
+
+        // سبق نمبر موجب ترتيب ڏيو
+
+        lessons.sort(function(a, b) {
+
+            return (a.order || 999) - (b.order || 999);
+
+        });
+
+
+        // سڀ سبق ٻيهر ڏيکاريو
+
+        currentLessonIndex = 0;
+
+        showLesson(currentLessonIndex);
+
+
+        console.log(
+            "ڪل سبق:",
+            lessons.length
+        );
+
+
+    } catch (error) {
+
+        console.error("GitHub Lessons Error:", error);
+
+
+        // جيڪڏهن GitHub API ڪم نه ڪري
+        // ته پهريون سبق ظاهر ٿيندو
+
+        lessons = [defaultLesson];
+
+        currentLessonIndex = 0;
+
+        showLesson(0);
+
+    }
+
+}
 
 
         /* ترتيب موجب سبق */
