@@ -132,7 +132,7 @@ body {
     height: 25%;
 }
 
-/* ڇهڻ وقت هلڪو اثر */
+/* آواز هلڻ وقت اثر */
 
 .hotspot.playing {
     background: rgba(255, 222, 72, 0.12);
@@ -281,23 +281,26 @@ body {
 
         <!-- اک جو آواز -->
         <button
+            type="button"
             class="hotspot eye-zone"
             aria-label="اک جو آواز ٻڌو"
-            onclick="playVoice('media/audio/alif-ak.mp3', this)">
+            onclick="playVoice('media/media/audio/alif-ak.mp3', this)">
         </button>
 
         <!-- انب جو آواز -->
         <button
+            type="button"
             class="hotspot mango-zone"
             aria-label="انب جو آواز ٻڌو"
-            onclick="playVoice('media/audio/alif-anb.mp3', this)">
+            onclick="playVoice('media/media/audio/alif-anb.mp3', this)">
         </button>
 
         <!-- اٺ جو آواز -->
         <button
+            type="button"
             class="hotspot camel-zone"
             aria-label="اٺ جو آواز ٻڌو"
-            onclick="playVoice('media/audio/alif-uth.mp3', this)">
+            onclick="playVoice('media/media/audio/alif-uth.mp3', this)">
         </button>
 
     </section>
@@ -354,7 +357,9 @@ function playVoice(file, button) {
     });
 
     activeButton = button;
+
     player.src = file;
+    player.load();
 
     player.play()
         .then(() => {
@@ -362,7 +367,7 @@ function playVoice(file, button) {
         })
         .catch(error => {
             console.error("Audio error:", error);
-            alert("آواز نٿي هلي. مهرباني ڪري فائل جو نالو ۽ لنڪ چيڪ ڪريو.");
+            alert("آواز نه هلي. مهرباني ڪري آڊيو فائل جو رستو چيڪ ڪريو.");
         });
 }
 
