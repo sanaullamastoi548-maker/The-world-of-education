@@ -9,26 +9,32 @@
 
 <style>
 
+/* بنیادی ڈیزائن */
+
 * {
     box-sizing: border-box;
 }
 
 body {
     margin: 0;
-    padding: 15px;
     font-family: Arial, sans-serif;
-    background: #f1f8e9;
-    color: #24402a;
+    background: #edf4e9;
+    color: #24452c;
 }
 
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* اوپر کا ہیڈر */
+
 header {
-    background: linear-gradient(135deg, #176b38, #329b54);
+    background: linear-gradient(120deg, #145d35, #329653);
     color: white;
     text-align: center;
-    padding: 22px 10px;
-    border-radius: 15px;
-    margin-bottom: 18px;
-    box-shadow: 0 4px 10px #0002;
+    padding: 18px 10px;
+    box-shadow: 0 3px 10px #0002;
 }
 
 header h1 {
@@ -37,72 +43,125 @@ header h1 {
 }
 
 header p {
-    margin-bottom: 0;
-    font-size: 16px;
+    margin: 7px 0 0;
 }
 
-.container {
-    max-width: 750px;
-    margin: auto;
-}
+/* مرکزی ترتیب */
 
-.lesson-navigation {
+.main-layout {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
+    flex-direction: row;
+    min-height: calc(100vh - 110px);
 }
 
-.nav-button {
-    background: #247a43;
+/* سائیڈ بار */
+
+.sidebar {
+    width: 230px;
+    min-width: 230px;
+    background: #185b37;
     color: white;
-    border: none;
+    padding: 18px 12px;
+}
+
+.sidebar h2 {
+    text-align: center;
+    font-size: 21px;
+    margin-top: 5px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #ffffff55;
+}
+
+.lesson-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.lesson-link {
+    width: 100%;
+    text-align: right;
+    background: #ffffff18;
+    color: white;
+    border: 1px solid #ffffff35;
     border-radius: 9px;
-    padding: 11px 17px;
+    padding: 13px 12px;
     font-size: 16px;
-    cursor: pointer;
 }
 
-.nav-button:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-}
-
-.lesson-count {
-    font-size: 15px;
+.lesson-link.active {
+    background: #f3c85b;
+    color: #273b25;
     font-weight: bold;
 }
 
-.lesson-card {
-    background: white;
-    border-radius: 16px;
-    padding: 15px;
-    box-shadow: 0 4px 12px #0002;
+/* موبائل پر سائیڈ بار کھولنے کا بٹن */
+
+.sidebar-toggle {
+    display: none;
+    width: calc(100% - 20px);
+    margin: 10px;
+    padding: 12px;
+    background: #185b37;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    font-size: 16px;
 }
 
-.lesson-title {
-    text-align: center;
-    color: #176b38;
-    font-size: 27px;
-    margin: 5px 0 15px;
+/* کتاب کا حصہ */
+
+.content {
+    flex: 1;
+    padding: 25px 15px;
+    min-width: 0;
 }
+
+.book {
+    max-width: 850px;
+    margin: auto;
+    background: #fffdf5;
+    min-height: 650px;
+    border-radius: 12px;
+    border: 1px solid #e4d9b9;
+    box-shadow: 0 7px 22px #0002;
+    padding: 22px;
+    position: relative;
+}
+
+/* صفحے کا عنوان */
+
+.page-heading {
+    text-align: center;
+    color: #216a3b;
+    font-size: 28px;
+    margin: 5px 0 8px;
+}
+
+.page-number {
+    text-align: center;
+    color: #9b7831;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* تصویر */
 
 .image-card {
+    max-width: 650px;
     width: 100%;
-    max-width: 560px;
     margin: auto;
-    background: #fff;
-    border: 3px solid #d5e9d4;
+    border: 4px solid #d9b95f;
     border-radius: 12px;
-    padding: 8px;
+    padding: 5px;
+    background: white;
+    overflow: hidden;
 }
 
 .image-stage {
     width: 100%;
-    aspect-ratio: 1 / 1;
     position: relative;
-    overflow: hidden;
+    aspect-ratio: 1 / 1;
 }
 
 .lesson-image {
@@ -112,13 +171,14 @@ header p {
     object-fit: contain;
 }
 
+/* تصویر کے اوپر خفیہ کلک والے حصے */
+
 .hotspot {
     position: absolute;
     border: 2px solid transparent;
     background: transparent;
-    cursor: pointer;
-    border-radius: 10px;
     padding: 0;
+    border-radius: 8px;
 }
 
 .hotspot:focus-visible {
@@ -127,84 +187,136 @@ header p {
 }
 
 .hotspot.active {
-    border: 3px solid #ff9800;
+    border: 4px solid #ff9800;
     background: #ff980022;
 }
 
+/* ہدایات */
+
 .instruction {
     text-align: center;
-    font-size: 17px;
+    font-size: 18px;
     line-height: 1.8;
-    color: #49634d;
-    margin: 15px 5px;
+    margin: 20px 5px;
+    color: #536b50;
 }
+
+/* آواز کی اطلاع */
 
 .status {
     text-align: center;
     color: #247a43;
-    font-size: 14px;
-    min-height: 22px;
-    margin: 8px;
+    min-height: 25px;
+    font-size: 15px;
 }
+
+/* اگلا اور پچھلا صفحہ */
+
+.page-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #e6dfc8;
+}
+
+.page-button {
+    background: #247a43;
+    color: white;
+    border: none;
+    padding: 12px 23px;
+    border-radius: 9px;
+    font-size: 16px;
+}
+
+.page-button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.current-page {
+    color: #9b7831;
+    font-weight: bold;
+}
+
+/* وڈیو */
 
 .video-area {
     text-align: center;
-    margin: 15px 0;
+    margin: 15px;
 }
 
 .video-button {
-    background: #d97706;
+    background: #d77c12;
     color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 9px;
     padding: 12px 24px;
-    font-size: 17px;
-    cursor: pointer;
+    font-size: 16px;
 }
 
 .video-player {
     display: none;
     width: 100%;
-    margin-top: 12px;
-    border-radius: 12px;
+    max-width: 600px;
+    margin: 15px auto;
+    border-radius: 10px;
     background: black;
 }
 
+/* نیچے */
+
 footer {
+    background: #185b37;
+    color: white;
     text-align: center;
-    margin-top: 20px;
     padding: 15px;
-    color: #54705a;
-    font-size: 14px;
 }
 
-.loading {
-    text-align: center;
-    padding: 25px;
-    color: #247a43;
-}
+/* موبائل ڈیزائن */
 
-@media (max-width: 480px) {
+@media(max-width: 700px) {
 
-    body {
-        padding: 8px;
+    .main-layout {
+        display: block;
+    }
+
+    .sidebar {
+        display: none;
+        width: 100%;
+        min-width: 0;
+    }
+
+    .sidebar.open {
+        display: block;
+    }
+
+    .sidebar-toggle {
+        display: block;
+    }
+
+    .content {
+        padding: 10px;
+    }
+
+    .book {
+        padding: 12px;
+        min-height: 500px;
+    }
+
+    .page-heading {
+        font-size: 24px;
+    }
+
+    .page-button {
+        padding: 11px 15px;
+        font-size: 14px;
     }
 
     header h1 {
         font-size: 23px;
-    }
-
-    .lesson-title {
-        font-size: 23px;
-    }
-
-    .lesson-card {
-        padding: 9px;
-    }
-
-    .nav-button {
-        padding: 10px 12px;
-        font-size: 14px;
     }
 
 }
@@ -213,6 +325,9 @@ footer {
 </head>
 
 <body>
+
+
+<!-- اوپر کا ہیڈر -->
 
 <header>
 
@@ -223,54 +338,60 @@ footer {
 </header>
 
 
-<div class="container">
+<!-- موبائل سائیڈ بار بٹن -->
 
-    <div class="lesson-navigation">
-
-        <button class="nav-button"
-                id="prevButton"
-                onclick="changeLesson(-1)">
-            اڳيون
-        </button>
-
-        <span class="lesson-count" id="lessonCount">
-            سبق 1
-        </span>
-
-        <button class="nav-button"
-                id="nextButton"
-                onclick="changeLesson(1)">
-            پوئتي
-        </button>
-
-    </div>
+<button class="sidebar-toggle" onclick="toggleSidebar()">
+    ☰ سبقن جي فهرست کوليو
+</button>
 
 
-    <div id="lessonContainer">
+<div class="main-layout">
 
-        <div class="loading">
-            سبق لوڊ ٿي رهيو آهي...
+
+    <!-- سائیڈ بار -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <h2>📖 سبقن جي فهرست</h2>
+
+        <div class="lesson-list" id="lessonList">
+
         </div>
 
-    </div>
+    </aside>
+
+
+
+    <!-- کتاب کا صفحہ -->
+
+    <main class="content">
+
+        <div class="book" id="book">
+
+            <div id="lessonContainer">
+                <h2 class="page-heading">سبق لوڊ ٿي رهيو آهي...</h2>
+            </div>
+
+        </div>
+
+    </main>
 
 </div>
 
 
 <footer>
-
     🌸 تعليم هر ٻار جو حق آهي 🌸
-
 </footer>
 
 
 <audio id="voicePlayer"></audio>
 
 
+
 <script>
 
 /* =====================================
-   ويب سائيٽ جون بنيادي سيٽنگون
+   GITHUB سيٽنگون
 ===================================== */
 
 const USERNAME = "sanaullamastoi548-maker";
@@ -279,26 +400,27 @@ const REPOSITORY = "The-world-of-education";
 
 const BRANCH = "main";
 
-const API_ROOT =
-`https://api.github.com/repos/${USERNAME}/${REPOSITORY}/contents/media/lessons?ref=${BRANCH}`;
-
 const RAW_ROOT =
 `https://raw.githubusercontent.com/${USERNAME}/${REPOSITORY}/${BRANCH}/`;
 
+const API_ROOT =
+`https://api.github.com/repos/${USERNAME}/${REPOSITORY}/contents/media/lessons?ref=${BRANCH}`;
+
 
 /* =====================================
-   پهريون سبق: الف
-   جيڪڏهن اڃا lesson.json موجود نه هجي
-   ته هي سبق پاڻمرادو ظاهر ٿيندو.
+   سبق نمبر 1
 ===================================== */
 
-const defaultLesson = {
+const lesson1 = {
+
+    slug: "alif",
 
     order: 1,
 
     title: "ا ـ الف",
 
     image: "media/images/20261104_161107.jpg",
+
     instruction: "تصوير ۾ ڪنهن به شيءِ تي ڪلڪ ڪريو ۽ ان جو آواز ٻڌو.",
 
     items: [
@@ -342,29 +464,90 @@ const defaultLesson = {
             }
         }
 
-    ],
-
-    video: null
+    ]
 
 };
 
 
 /* =====================================
-   موجوده سبق ۽ آواز
+   سبق نمبر 2
 ===================================== */
 
-let lessons = [];
+const lesson2 = {
 
-let currentLessonIndex = 0;
+    slug: "bay",
 
-const voicePlayer = document.getElementById("voicePlayer");
+    order: 2,
 
-let activeHotspot = null;
+    title: "ب ـ بي",
+
+    image: "media/images/20261104_231313.jpg",
+
+    instruction: "تصوير ۾ هر حصي تي ڪلڪ ڪريو ۽ لفظ جو آواز ٻڌو.",
+
+    items: [
+
+        {
+            label: "Be-Badaq",
+
+            audio: "media/media/audio/be-badaq.mp3",
+
+            area: {
+                top: 0,
+                left: 0,
+                width: 100,
+                height: 33.33
+            }
+        },
+
+        {
+            label: "Be-Basar",
+
+            audio: "media/media/audio/be-basar.mp3",
+
+            area: {
+                top: 33.33,
+                left: 0,
+                width: 100,
+                height: 33.34
+            }
+        },
+
+        {
+            label: "Be-Batti",
+
+            audio: "media/media/audio/be-batti.mp3",
+
+            area: {
+                top: 66.67,
+                left: 0,
+                width: 100,
+                height: 33.33
+            }
+        }
+
+    ]
+
+};
 
 
 /* =====================================
-   فائيل جو صحيح لنڪ ٺاهڻ
+   سڀ سبق
 ===================================== */
+
+let lessons = [lesson1, lesson2];
+
+let currentIndex = 0;
+
+
+/* =====================================
+   آواز
+===================================== */
+
+const player = document.getElementById("voicePlayer");
+
+let activeButton = null;
+
 
 function getFileURL(path) {
 
@@ -377,68 +560,59 @@ function getFileURL(path) {
         return path;
     }
 
-    return RAW_ROOT +
-        path.split("/")
+    return RAW_ROOT + path
+        .split("/")
         .map(part => encodeURIComponent(part))
         .join("/");
 
 }
 
 
-/* =====================================
-   آواز بند ڪرڻ
-===================================== */
-
 function stopAudio() {
 
-    voicePlayer.pause();
+    player.pause();
 
-    voicePlayer.currentTime = 0;
+    player.currentTime = 0;
 
-    voicePlayer.removeAttribute("src");
+    player.removeAttribute("src");
 
-    voicePlayer.load();
+    player.load();
 
-    if (activeHotspot) {
+    if (activeButton) {
 
-        activeHotspot.classList.remove("active");
+        activeButton.classList.remove("active");
 
-        activeHotspot = null;
+        activeButton = null;
 
     }
 
 }
 
 
-/* =====================================
-   چونڊيل شيءِ جو آواز هلائڻ
-===================================== */
-
-function playVoice(audioPath, button) {
+function playAudio(path, button) {
 
     stopAudio();
 
-    if (!audioPath) return;
+    if (!path) return;
 
-    const audioURL = getFileURL(audioPath);
+    player.src = getFileURL(path);
 
-    voicePlayer.src = audioURL;
+    activeButton = button;
 
-    activeHotspot = button;
+    button.classList.add("active");
 
-    if (activeHotspot) {
-        activeHotspot.classList.add("active");
-    }
+    player.play().catch(function(error) {
 
-    voicePlayer.play().catch(error => {
+        console.log("Audio Error:", error);
 
-        console.error("Audio Error:", error);
+        showStatus("آواز هلائڻ ۾ مسئلو ٿيو.");
 
-        showStatus("آواز هلائڻ ۾ مسئلو ٿيو، ٻيهر ڪوشش ڪريو.");
+        if (activeButton) {
 
-        if (activeHotspot) {
-            activeHotspot.classList.remove("active");
-            activeHotspot = null;
+            activeButton.classList.remove("active");
+
+            activeButton = null;
+
         }
 
     });
@@ -446,17 +620,13 @@ function playVoice(audioPath, button) {
 }
 
 
-/* =====================================
-   آواز مڪمل ٿيڻ تي
-===================================== */
+player.addEventListener("ended", function() {
 
-voicePlayer.addEventListener("ended", function() {
+    if (activeButton) {
 
-    if (activeHotspot) {
+        activeButton.classList.remove("active");
 
-        activeHotspot.classList.remove("active");
-
-        activeHotspot = null;
+        activeButton = null;
 
     }
 
@@ -464,7 +634,7 @@ voicePlayer.addEventListener("ended", function() {
 
 
 /* =====================================
-   پيغام ڏيکارڻ
+   پيغام
 ===================================== */
 
 function showStatus(message) {
@@ -472,19 +642,72 @@ function showStatus(message) {
     const status = document.getElementById("statusMessage");
 
     if (status) {
+
         status.textContent = message;
+
     }
 
 }
 
 
 /* =====================================
-   سبق ڏيکارڻ
+   سائڊ بار
+===================================== */
+
+function toggleSidebar() {
+
+    document.getElementById("sidebar")
+        .classList.toggle("open");
+
+}
+
+
+/* =====================================
+   سائڊ بار ۾ سبق ڏيکارڻ
+===================================== */
+
+function renderSidebar() {
+
+    const list = document.getElementById("lessonList");
+
+    list.replaceChildren();
+
+    lessons.forEach(function(lesson, index) {
+
+        const button = document.createElement("button");
+
+        button.className = "lesson-link";
+
+        button.textContent =
+            "سبق " + (index + 1) + " — " + lesson.title;
+
+        button.onclick = function() {
+
+            showLesson(index);
+
+            document.getElementById("sidebar")
+                .classList.remove("open");
+
+        };
+
+        if (index === currentIndex) {
+
+            button.classList.add("active");
+
+        }
+
+        list.appendChild(button);
+
+    });
+
+}
+
+
+/* =====================================
+   سبق جو صفحو کولڻ
 ===================================== */
 
 function showLesson(index) {
-
-    if (!lessons.length) return;
 
     if (index < 0 || index >= lessons.length) return;
 
@@ -492,34 +715,39 @@ function showLesson(index) {
 
     closeVideo();
 
-    currentLessonIndex = index;
+    currentIndex = index;
 
     const lesson = lessons[index];
 
-    const container = document.getElementById("lessonContainer");
+    const container =
+        document.getElementById("lessonContainer");
 
     container.replaceChildren();
 
 
-    /* سبق جو ڪارڊ */
-
-    const card = document.createElement("div");
-
-    card.className = "lesson-card";
-
-
-    /* سبق جو عنوان */
+    /* عنوان */
 
     const title = document.createElement("h2");
 
-    title.className = "lesson-title";
+    title.className = "page-heading";
 
-    title.textContent = lesson.title || "سبق";
+    title.textContent = lesson.title;
 
-    card.appendChild(title);
+    container.appendChild(title);
 
 
-    /* تصوير وارو حصو */
+    /* سبق نمبر */
+
+    const number = document.createElement("div");
+
+    number.className = "page-number";
+
+    number.textContent = "سبق نمبر " + (index + 1);
+
+    container.appendChild(number);
+
+
+    /* تصوير */
 
     const imageCard = document.createElement("div");
 
@@ -530,71 +758,61 @@ function showLesson(index) {
     stage.className = "image-stage";
 
 
-    /* سبق جي تصوير */
-
     const image = document.createElement("img");
 
     image.className = "lesson-image";
 
-    image.alt = lesson.title || "سبق جي تصوير";
-
     image.src = getFileURL(lesson.image);
+
+    image.alt = lesson.title;
 
     image.onerror = function() {
 
-        showStatus("تصوير لوڊ نه ٿي سگهي. تصوير جو لنڪ چيڪ ڪريو.");
+        showStatus("تصوير لوڊ نه ٿي سگهي. تصوير جو رستو چيڪ ڪريو.");
 
     };
 
     stage.appendChild(image);
 
 
-    /* هر شيءِ لاءِ الڳ ڪلڪ ايريا */
+    /* تصوير جي هر شيءِ لاءِ الڳ ڪلڪ ايريا */
 
-    if (Array.isArray(lesson.items)) {
+    lesson.items.forEach(function(item) {
 
-        lesson.items.forEach(function(item) {
+        const button = document.createElement("button");
 
-            const button = document.createElement("button");
+        button.type = "button";
 
-            button.className = "hotspot";
+        button.className = "hotspot";
 
-            button.type = "button";
+        button.title = item.label;
 
-            button.title = item.label || "آواز ٻڌو";
-
-            button.setAttribute(
-                "aria-label",
-                item.label || "آواز ٻڌو"
-            );
-
-            const area = item.area || {};
-
-            button.style.top = (area.top || 0) + "%";
-
-            button.style.left = (area.left || 0) + "%";
-
-            button.style.width = (area.width || 10) + "%";
-
-            button.style.height = (area.height || 10) + "%";
+        button.setAttribute("aria-label", item.label);
 
 
-            button.addEventListener("click", function() {
+        button.style.top = item.area.top + "%";
 
-                playVoice(item.audio, button);
+        button.style.left = item.area.left + "%";
 
-            });
+        button.style.width = item.area.width + "%";
 
-            stage.appendChild(button);
+        button.style.height = item.area.height + "%";
 
-        });
 
-    }
+        button.onclick = function() {
+
+            playAudio(item.audio, button);
+
+        };
+
+        stage.appendChild(button);
+
+    });
 
 
     imageCard.appendChild(stage);
 
-    card.appendChild(imageCard);
+    container.appendChild(imageCard);
 
 
     /* هدايت */
@@ -603,14 +821,12 @@ function showLesson(index) {
 
     instruction.className = "instruction";
 
-    instruction.textContent =
-        lesson.instruction ||
-        "تصوير ۾ ڪنهن به شيءِ تي ڪلڪ ڪريو.";
+    instruction.textContent = lesson.instruction || "";
 
-    card.appendChild(instruction);
+    container.appendChild(instruction);
 
 
-    /* آواز جي حالت */
+    /* آواز جي اطلاع */
 
     const status = document.createElement("div");
 
@@ -618,10 +834,10 @@ function showLesson(index) {
 
     status.id = "statusMessage";
 
-    card.appendChild(status);
+    container.appendChild(status);
 
 
-    /* وڊيو وارو حصو */
+    /* جيڪڏهن سبق ۾ وڊيو موجود هجي */
 
     if (lesson.video) {
 
@@ -656,54 +872,75 @@ function showLesson(index) {
 
         videoArea.appendChild(video);
 
-        card.appendChild(videoArea);
+        container.appendChild(videoArea);
 
     }
 
 
-    container.appendChild(card);
+    /* اڳيون ۽ پويون صفحو */
+
+    const controls = document.createElement("div");
+
+    controls.className = "page-controls";
 
 
-    /* سبق جو نمبر */
+    const previous = document.createElement("button");
 
-    document.getElementById("lessonCount").textContent =
+    previous.className = "page-button";
 
-        "سبق " + (index + 1) + " / " + lessons.length;
+    previous.textContent = "→ پويون سبق";
+
+    previous.disabled = index === 0;
+
+    previous.onclick = function() {
+
+        showLesson(currentIndex - 1);
+
+    };
 
 
-    /* اڳيون ۽ پوئين بٽڻ */
+    const page = document.createElement("span");
 
-    document.getElementById("prevButton").disabled =
-        index === 0;
+    page.className = "current-page";
 
-    document.getElementById("nextButton").disabled =
-        index === lessons.length - 1;
+    page.textContent =
+        (index + 1) + " / " + lessons.length;
+
+
+    const next = document.createElement("button");
+
+    next.className = "page-button";
+
+    next.textContent = "اڳيون سبق ←";
+
+    next.disabled = index === lessons.length - 1;
+
+    next.onclick = function() {
+
+        showLesson(currentIndex + 1);
+
+    };
+
+
+    controls.appendChild(previous);
+
+    controls.appendChild(page);
+
+    controls.appendChild(next);
+
+    container.appendChild(controls);
+
+
+    renderSidebar();
 
 }
 
 
 /* =====================================
-   اڳيون ۽ پوئين سبق
+   وڊيو هلائڻ
 ===================================== */
 
-function changeLesson(direction) {
-
-    const newIndex = currentLessonIndex + direction;
-
-    if (newIndex >= 0 && newIndex < lessons.length) {
-
-        showLesson(newIndex);
-
-    }
-
-}
-
-
-/* =====================================
-   وڊيو کولڻ
-===================================== */
-
-function openVideo(videoPath) {
+function openVideo(path) {
 
     stopAudio();
 
@@ -711,13 +948,13 @@ function openVideo(videoPath) {
 
     if (!video) return;
 
-    video.src = getFileURL(videoPath);
+    video.src = getFileURL(path);
 
     video.style.display = "block";
 
-    video.play().catch(error => {
+    video.play().catch(function(error) {
 
-        console.error("Video Error:", error);
+        console.log("Video Error:", error);
 
         showStatus("وڊيو هلائڻ ۾ مسئلو ٿيو.");
 
@@ -725,10 +962,6 @@ function openVideo(videoPath) {
 
 }
 
-
-/* =====================================
-   وڊيو بند ڪرڻ
-===================================== */
 
 function closeVideo() {
 
@@ -750,104 +983,91 @@ function closeVideo() {
 
 
 /* =====================================
-   GitHub مان سبق ڳولڻ
+   GitHub مان نوان سبق پاڻمرادو ڳولڻ
 ===================================== */
 
-async function loadLessons() {
+async function loadMoreLessons() {
 
     try {
 
         const response = await fetch(API_ROOT);
 
-        if (!response.ok) {
-
-            throw new Error("Lessons folder not found");
-
-        }
+        if (!response.ok) return;
 
         const folders = await response.json();
 
-        const lessonFiles = folders.filter(function(item) {
+        const directories = folders.filter(function(item) {
 
             return item.type === "dir";
 
         });
 
 
-        const loadedLessons = [];
-
-        for (const folder of lessonFiles) {
+        for (const folder of directories) {
 
             try {
 
-                const jsonURL =
-                    RAW_ROOT +
+                const path =
                     "media/lessons/" +
-                    encodeURIComponent(folder.name) +
+                    folder.name +
                     "/lesson.json";
 
-                const lessonResponse = await fetch(jsonURL);
+                const jsonResponse = await fetch(getFileURL(path));
 
-                if (!lessonResponse.ok) continue;
+                if (!jsonResponse.ok) continue;
 
-                const lessonData = await lessonResponse.json();
+                const data = await jsonResponse.json();
 
                 if (
-                    lessonData.title &&
-                    lessonData.image &&
-                    Array.isArray(lessonData.items)
+                    !data.title ||
+                    !data.image ||
+                    !Array.isArray(data.items)
                 ) {
+                    continue;
+                }
 
-                    loadedLessons.push(lessonData);
+
+                /* جيڪڏهن سبق اڳ ۾ موجود نه هجي */
+
+                const alreadyExists = lessons.some(function(item) {
+
+                    return item.slug === folder.name;
+
+                });
+
+                if (!alreadyExists) {
+
+                    data.slug = folder.name;
+
+                    lessons.push(data);
 
                 }
 
             } catch (error) {
 
-                console.log(
-                    "هن فولڊر جو سبق لوڊ نه ٿيو:",
-                    folder.name
-                );
+                console.log("سبق لوڊ نه ٿيو:", folder.name);
 
             }
 
         }
 
 
-        /* ترتيب موجب سبق */
+        /* سبق نمبر موجب ترتيب */
 
-        loadedLessons.sort(function(a, b) {
+        lessons.sort(function(a, b) {
 
             return (a.order || 999) - (b.order || 999);
 
         });
 
 
-        /* جيڪڏهن GitHub مان سبق ملي وڃن */
-
-        if (loadedLessons.length > 0) {
-
-            lessons = loadedLessons;
-
-        } else {
-
-            lessons = [defaultLesson];
-
-        }
-
+        showLesson(currentIndex);
 
     } catch (error) {
 
-        console.log("GitHub Lessons Error:", error);
-
-        /* جيڪڏهن انٽرنيٽ يا API ۾ مسئلو هجي */
-
-        lessons = [defaultLesson];
+        console.log("GitHub API موجود ناهي:", error);
 
     }
-
-
-    showLesson(0);
 
 }
 
@@ -856,7 +1076,9 @@ async function loadLessons() {
    ويب سائيٽ شروع
 ===================================== */
 
-loadLessons();
+showLesson(0);
+
+loadMoreLessons();
 
 </script>
 
