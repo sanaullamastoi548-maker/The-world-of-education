@@ -61,6 +61,7 @@ main {
   padding: 13px;
   border-radius: 16px;
   box-shadow: 0 10px 28px #00000010;
+  margin-bottom: 20px;
 }
 
 input {
@@ -75,16 +76,6 @@ input {
 
 input:focus {
   border-color: #0b806f;
-}
-
-/* STATUS */
-
-#status {
-  text-align: center;
-  padding: 18px;
-  color: #647873;
-  font-size: 16px;
-  font-weight: bold;
 }
 
 /* GRID */
@@ -212,7 +203,7 @@ button:active {
   justify-content: center;
 }
 
-/* IMAGE AND VIDEO */
+/* MEDIA */
 
 .media {
   margin-top: 15px;
@@ -229,25 +220,7 @@ button:active {
   border: 1px solid #eef4f1;
 }
 
-.media iframe {
-  width: 100%;
-  height: 210px;
-  border: none;
-  border-radius: 12px;
-}
-
 /* FOOTER */
-
-.empty {
-  grid-column: 1/-1;
-  text-align: center;
-  padding: 35px;
-  background: white;
-  border-radius: 15px;
-  color: #647873;
-  font-size: 18px;
-  box-shadow: 0 10px 28px #00000010;
-}
 
 footer {
   text-align: center;
@@ -255,8 +228,6 @@ footer {
   padding: 25px;
   font-size: 15px;
 }
-
-/* MOBILE RESPONSIVE */
 
 @media(max-width:480px) {
   h1 {
@@ -289,10 +260,6 @@ footer {
     >
   </div>
 
-  <div id="status">
-    ڊيٽا لوڊ ٿي رهي آهي...
-  </div>
-
   <section id="cards" class="grid"></section>
 </main>
 
@@ -303,63 +270,54 @@ footer {
 <script>
 
 /* ==================================
-   GOOGLE APPS SCRIPT CONNECTION
+   DIRECT HARDCODED DATA (NO GOOGLE SHEET)
 ================================== */
 
-const API_URL = "https://script.google.com/macros/s/AKfycbz2FM1hUkibcvAhnZIkfN5HPOhsYXgyHovWreWFZVGrx1yKk_32WS-qjyFUi8FDgyUf/exec";
+const GITHUB_RAW_BASE = "https://raw.githubusercontent.com/sanaullamastoi548-maker/the-world-of-education/main/";
+
+// یہاں حرف الف کے ساتھ آپ کی تصویر اور تینوں آڈیو فائلیں جوڑ دی گئی ہیں
+const learningData = [
+  {
+    Letter: "ا",
+    LetterName: "الف",
+    LetterAudio: "media/audio/alif-ak.mp3",
+    Image: "media/images/20261104_161107.jpg", // آپ کی تصویر کا نام یہاں لگ گیا ہے
+    Word1: "اک",
+    Word1Audio: "media/audio/alif-ak.mp3",
+    Word2: "انب",
+    Word2Audio: "media/audio/alif-anb.mp3",
+    Word3: "اٺ",
+    Word3Audio: "media/audio/alif-uth.mp3"
+  }
+];
 
 const cards = document.getElementById("cards");
-const statusBox = document.getElementById("status");
 const searchInput = document.getElementById("searchInput");
-
-let allRows = [];
-
-// گلوبل آڈیو ابجیکٹ تاکہ آواز صاف اور بغیر پاپ اپ ونڈو کے چلے
 let currentAudio = null;
 
 
 /* ==================================
-   GOOGLE DRIVE FILE ID EXTRACTOR
+   DIRECT AUDIO PLAYER
 ================================== */
 
-function driveId(url) {
-  if (!url) return "";
-  const s = String(url).trim();
-  let m =
-    s.match(/\/file\/d\/([\w-]+)/) ||
-    s.match(/[?&]id=([\w-]+)/) ||
-    s.match(/\/d\/([\w-]+)/);
-  return m ? m[1] : "";
-}
-
-
-/* ==================================
-   AUDIO PLAYER (Advanced Fallback)
-================================== */
-
-function playAudio(url) {
-  if (!url) {
+function playAudio(path) {
+  if (!path) {
     alert("هن آواز جو لنڪ موجود ناهي.");
     return;
   }
 
-  let finalUrl = url.trim();
-  const id = driveId(finalUrl);
+  const finalUrl = GITHUB_RAW_BASE + path;
 
-  // اگر گوگل ڈرائیو کا لنک ہے تو اسے صحیح ڈاؤن لوڈ لنک بنائیں
-  if (id) {
-    finalUrl = "https://drive.google.com/uc?export=download&id=" + id;
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio = null;
   }
 
-  const audio = new Audio(finalUrl);
+  currentAudio = new Audio(finalUrl);
 
-  audio.play().then(() => {
-    console.log("آڈیو کامیابی سے چل رہی ہے");
-  }).catch((error) => {
-    console.error("Play error:", error);
-    
-    // اگر براؤزر بلاک کر دے تو براہ راست نئے ٹیب یا ونڈو میں آڈیو پلے کر دیں
-    window.open(finalUrl, "_blank");
+  currentAudio.play().catch(error => {
+    console.error("Audio play error:", error);
+    alert("آڊيو هلائڻ ۾ مسئلو ٿيو. گিট ہب پر فائل کا نام چیک کریں۔");
   });
 }
 
@@ -379,19 +337,7 @@ function createElement(tag, cls, text) {
 
 
 /* ==================================
-   IMAGE URL CONVERTER
-================================== */
-
-function imageURL(url) {
-  if (!url) return "";
-  const id = driveId(url);
-  if (!id) return url;
-  return "https://drive.google.com/uc?export=view&id=" + id;
-}
-
-
-/* ==================================
-   RENDER WEBSITE CARDS
+   RENDER CARDS
 ================================== */
 
 function renderData(rows) {
@@ -431,7 +377,7 @@ function renderData(rows) {
       createElement("div", "words-title", "لفظن تي ڪلڪ ڪري آواز ٻڌو:")
     );
 
-    /* WORDS */
+    /* WORDS WITH INDIVIDUAL AUDIO */
     const words = createElement("div", "words");
 
     for (let i = 1; i <= 3; i++) {
@@ -457,39 +403,18 @@ function renderData(rows) {
 
     body.append(words);
 
-    /* IMAGE AND VIDEO MEDIA SECTION */
+    /* MEDIA SECTION (IMAGE) */
     const media = createElement("div", "media");
 
-    /* IMAGE */
     if (row.Image) {
       const img = document.createElement("img");
-      img.src = imageURL(row.Image);
+      img.src = GITHUB_RAW_BASE + row.Image;
       img.alt = row.Letter || "تصوير";
       img.loading = "lazy";
       img.onerror = function() {
         img.replaceWith(createElement("span", "", "تصوير نه کلي."));
       };
       media.append(img);
-    }
-
-    /* VIDEO */
-    if (row.Video) {
-      const videoId = driveId(row.Video);
-
-      if (videoId) {
-        const iframe = document.createElement("iframe");
-        iframe.src = "https://drive.google.com/file/d/" + videoId + "/preview";
-        iframe.title = "تعليمي وڊيو";
-        iframe.allow = "autoplay; encrypted-media; picture-in-picture";
-        iframe.allowFullscreen = true;
-        media.append(iframe);
-      } else {
-        const video = document.createElement("video");
-        video.src = row.Video;
-        video.controls = true;
-        video.playsInline = true;
-        media.append(video);
-      }
     }
 
     if (media.childNodes.length) {
@@ -503,66 +428,18 @@ function renderData(rows) {
 
 
 /* ==================================
-   LOAD GOOGLE SHEET DATA VIA JSONP
-================================== */
-
-function loadData() {
-  const callbackName = "educationWorldCallback_" + Date.now();
-  const script = document.createElement("script");
-  let finished = false;
-
-  const timer = setTimeout(function() {
-    if (finished) return;
-    finished = true;
-    delete window[callbackName];
-    script.remove();
-    statusBox.textContent = "ڊيٽا حاصل نه ٿي. Apps Script جي Deployment چيڪ ڪريو.";
-  }, 20000);
-
-  window[callbackName] = function(result) {
-    if (finished) return;
-    finished = true;
-    clearTimeout(timer);
-    delete window[callbackName];
-    script.remove();
-
-    if (!result || result.success !== true || !Array.isArray(result.data)) {
-      statusBox.textContent = "Google Sheet مان صحيح ڊيٽا نه ملي.";
-      return;
-    }
-
-    allRows = result.data;
-    statusBox.textContent = allRows.length + " اکر ڪاميابي سان لوڊ ٿي ويا.";
-
-    renderData(allRows);
-  };
-
-  script.onerror = function() {
-    if (finished) return;
-    finished = true;
-    clearTimeout(timer);
-    delete window[callbackName];
-    statusBox.textContent = "Apps Script لنڪ يا نیٹ ورک ۾ مسئلو آهي.";
-  };
-
-  script.src = API_URL + "?callback=" + encodeURIComponent(callbackName) + "&t=" + Date.now();
-  document.head.appendChild(script);
-}
-
-
-/* ==================================
-   LIVE SEARCH FILTER
+   SEARCH FILTER
 ================================== */
 
 searchInput.addEventListener("input", function() {
   const query = this.value.trim().toLowerCase();
 
   if (!query) {
-    renderData(allRows);
+    renderData(learningData);
     return;
   }
 
-  const filtered = allRows.filter(row => {
+  const filtered = learningData.filter(row => {
     const values = [
       row.Letter,
       row.LetterName,
@@ -584,7 +461,7 @@ searchInput.addEventListener("input", function() {
    START WEBSITE
 ================================== */
 
-loadData();
+renderData(learningData);
 
 </script>
 
