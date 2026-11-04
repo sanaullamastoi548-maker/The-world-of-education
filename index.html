@@ -292,7 +292,14 @@ const RAW_ROOT =
    ته هي سبق پاڻمرادو ظاهر ٿيندو.
 ===================================== */
 
+
+/* =====================================
+   پهريون سبق: الف
+===================================== */
+
 const defaultLesson = {
+
+    slug: "alif",
 
     order: 1,
 
@@ -306,9 +313,7 @@ const defaultLesson = {
 
         {
             label: "اک",
-
             audio: "media/media/audio/alif-ak.mp3",
-
             area: {
                 top: 9,
                 left: 1,
@@ -319,9 +324,7 @@ const defaultLesson = {
 
         {
             label: "انب",
-
             audio: "media/media/audio/alif-anb.mp3",
-
             area: {
                 top: 40,
                 left: 55,
@@ -332,9 +335,7 @@ const defaultLesson = {
 
         {
             label: "اٺ",
-
             audio: "media/media/audio/alif-uth.mp3",
-
             area: {
                 top: 72,
                 left: 1,
@@ -351,16 +352,263 @@ const defaultLesson = {
 
 
 /* =====================================
-   موجوده سبق ۽ آواز
+   سڀ سبق ۽ موجوده صفحو
 ===================================== */
 
 let lessons = [defaultLesson];
+
 let currentLessonIndex = 0;
 
 const voicePlayer = document.getElementById("voicePlayer");
 
 let activeHotspot = null;
 
+
+/* =====================================
+   فائيل جو صحيح لنڪ
+===================================== */
+
+function getFileURL(path) {
+
+    if (!path) return "";
+
+    if (
+        path.startsWith("http://") ||
+        path.startsWith("https://")
+    ) {
+        return path;
+    }
+
+    return RAW_ROOT + path
+        .split("/")
+        .map(part => encodeURIComponent(part))
+        .join("/");
+
+}
+
+
+/* =====================================
+   آواز مڪمل بند ڪرڻ
+===================================== */
+
+function stopAudio() {
+
+    voicePlayer.pause();
+
+    voicePlayer.removeAttribute("src");
+
+    voicePlayer.load();
+
+    if (activeHotspot) {
+
+        activeHotspot.classList.remove("active");
+
+        activeHotspot = null;
+
+    }
+
+}
+
+
+/* =====================================
+   آواز هلائڻ
+===================================== */
+
+function playVoice(audioPath, button) {
+
+    stopAudio();
+
+    if (!audioPath) return;
+
+    voicePlayer.src = getFileURL(audioPath);
+
+    activeHotspot = button;
+
+    button.classList.add("active");
+
+    voicePlayer.play().catch(function(error) {
+
+        console.error("Audio Error:", error);
+
+        showStatus("آواز هلائڻ ۾ مسئلو ٿيو، ٻيهر ڪوشش ڪريو.");
+
+        if (activeHotspot) {
+
+            activeHotspot.classList.remove("active");
+
+            activeHotspot = null;
+
+        }
+
+    });
+
+}
+
+
+/* =====================================
+   آواز مڪمل ٿيڻ تي
+===================================== */
+
+voicePlayer.addEventListener("ended", function() {
+
+    if (activeHotspot) {
+
+        activeHotspot.classList.remove("active");
+
+        activeHotspot = null;
+
+    }
+
+});
+
+
+/* =====================================
+   اڳيون ۽ پويون صفحو
+===================================== */
+
+function changeLesson(direction) {
+
+    const newIndex = currentLessonIndex + direction;
+
+    if (newIndex < 0 || newIndex >= lessons.length) {
+
+        return;
+
+    }
+
+    showLesson(newIndex);
+
+}
+
+
+/* =====================================
+   GitHub مان سڀ سبق حاصل ڪرڻ
+===================================== */
+
+async function loadLessons() {
+
+    // پهريون سبق هميشه محفوظ
+
+    lessons = [defaultLesson];
+
+    try {
+
+        const response = await fetch(API_ROOT);
+
+        if (!response.ok) {
+
+            throw new Error("GitHub Lessons folder not found");
+
+        }
+
+        const folders = await response.json();
+
+        const lessonFolders = folders.filter(function(folder) {
+
+            return folder.type === "dir";
+
+        });
+
+        const loadedLessons = [];
+
+        for (const folder of lessonFolders) {
+
+            try {
+
+                const jsonURL =
+                    RAW_ROOT +
+                    "media/lessons/" +
+                    encodeURIComponent(folder.name) +
+                    "/lesson.json";
+
+                const lessonResponse = await fetch(jsonURL);
+
+                if (!lessonResponse.ok) continue;
+
+                const data = await lessonResponse.json();
+
+                if (
+                    data.title &&
+                    data.image &&
+                    Array.isArray(data.items) &&
+                    Number(data.order) > 1
+                ) {
+
+                    data.slug = folder.name;
+
+                    loadedLessons.push(data);
+
+                }
+
+            } catch (error) {
+
+                console.log(
+                    "سبق لوڊ نه ٿيو:",
+                    folder.name
+                );
+
+            }
+
+        }
+
+        // سبق نمبر موجب ترتيب
+
+        loadedLessons.sort(function(a, b) {
+
+            return Number(a.order) - Number(b.order);
+
+        });
+
+
+        // ورجاءُ کان سواءِ سبق شامل ڪريو
+
+        loadedLessons.forEach(function(newLesson) {
+
+            const exists = lessons.some(function(oldLesson) {
+
+                return oldLesson.slug === newLesson.slug ||
+                       oldLesson.order === newLesson.order;
+
+            });
+
+            if (!exists) {
+
+                lessons.push(newLesson);
+
+            }
+
+        });
+
+
+    } catch (error) {
+
+        console.error("Lessons Error:", error);
+
+    }
+
+
+    // سڀ سبق ترتيب ڏيو
+
+    lessons.sort(function(a, b) {
+
+        return Number(a.order) - Number(b.order);
+
+    });
+
+
+    // موجوده صفحو درست رکو
+
+    currentLessonIndex = Math.min(
+        currentLessonIndex,
+        lessons.length - 1
+    );
+
+
+    // پهريون صفحو کوليو
+
+    showLesson(currentLessonIndex);
+
+}
 
 /* =====================================
    فائيل جو صحيح لنڪ ٺاهڻ
@@ -688,11 +936,22 @@ function showLesson(index) {
 
 function changeLesson(direction) {
 
+    // نئين سبق جو نمبر معلوم ڪريو
     const newIndex = currentLessonIndex + direction;
 
-    if (newIndex >= 0 && newIndex < lessons.length) {
+    // چيڪ ڪريو ته سبق موجود آهي
+    if (
+        newIndex >= 0 &&
+        newIndex < lessons.length
+    ) {
 
-        showLesson(newIndex);
+        // پراڻو آڊيو بند ڪريو
+        stopAudio();
+
+        // نئون سبق ڏيکاريو
+        currentLessonIndex = newIndex;
+
+        showLesson(currentLessonIndex);
 
     }
 
@@ -753,39 +1012,29 @@ function closeVideo() {
    GitHub مان سبق ڳولڻ
 ===================================== */
 
+
 async function loadLessons() {
+
+    // پہلے سے موجود سبق محفوظ رکھیں
+    lessons = [defaultLesson, lesson2];
 
     try {
 
-        // GitHub مان سبقن جا فولڊر حاصل ڪريو
-
+        // GitHub سے سبقن جا فولڊر حاصل ڪريو
         const response = await fetch(API_ROOT);
 
         if (!response.ok) {
-
             throw new Error("Lessons folder not found");
-
         }
 
         const folders = await response.json();
 
-
         // صرف فولڊر چونڊيو
-
         const lessonFolders = folders.filter(function(item) {
-
             return item.type === "dir";
-
         });
 
-
-        // نوان سبق هتي گڏ ٿيندا
-
-        const loadedLessons = [];
-
-
         // هر فولڊر مان lesson.json حاصل ڪريو
-
         for (const folder of lessonFolders) {
 
             try {
@@ -796,27 +1045,16 @@ async function loadLessons() {
                     encodeURIComponent(folder.name) +
                     "/lesson.json";
 
-
                 const lessonResponse = await fetch(jsonURL);
 
-
                 if (!lessonResponse.ok) {
-
-                    console.log(
-                        "Lesson JSON نه مليو:",
-                        folder.name
-                    );
-
+                    console.log("Lesson JSON نه مليو:", folder.name);
                     continue;
-
                 }
-
 
                 const lessonData = await lessonResponse.json();
 
-
                 // سبق جي ضروري معلومات چيڪ ڪريو
-
                 if (
                     lessonData.title &&
                     lessonData.image &&
@@ -825,10 +1063,21 @@ async function loadLessons() {
 
                     lessonData.slug = folder.name;
 
-                    loadedLessons.push(lessonData);
+                    // ساڳيو سبق ٻيهر شامل نه ڪريو
+                    const alreadyExists = lessons.some(function(existing) {
+
+                        return (
+                            existing.slug === lessonData.slug ||
+                            Number(existing.order) === Number(lessonData.order)
+                        );
+
+                    });
+
+                    if (!alreadyExists) {
+                        lessons.push(lessonData);
+                    }
 
                 }
-
 
             } catch (error) {
 
@@ -841,6 +1090,23 @@ async function loadLessons() {
 
         }
 
+    } catch (error) {
+
+        console.log("GitHub مان سبق لوڊ نه ٿيا:", error);
+
+    }
+
+    // سبقن کي ترتيب سان رکو
+    lessons.sort(function(a, b) {
+        return Number(a.order) - Number(b.order);
+    });
+
+    // پهريون سبق ڏيکاريو
+    currentLessonIndex = 0;
+
+    showLesson(currentLessonIndex);
+
+}
 
         // پهريون سبق هميشه محفوظ رکو
 
