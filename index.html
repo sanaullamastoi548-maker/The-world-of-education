@@ -1,467 +1,418 @@
 <!DOCTYPE html>
-<html lang="ur" dir="rtl">
+<html lang="sd" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>تعلیم کی دنیا</title>
+<title>تعليم جي دنيا | سنڌي الفابيٽ</title>
 
 <style>
-
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  margin: 0;
-  font-family: Tahoma, Arial, sans-serif;
-  background: #f3f8f5;
-  color: #17312d;
+    font-family: "Noto Naskh Arabic", "Noto Sans Arabic",
+                 "Segoe UI", sans-serif;
+    background:
+        radial-gradient(circle at top, #eaffd7, transparent 45%),
+        linear-gradient(135deg, #e5f8d5, #f7ffe9, #d7f0d1);
+    color: #174b29;
+    min-height: 100vh;
+    padding: 15px;
 }
 
-/* HEADER */
-
-header {
-  background: linear-gradient(135deg,#064b45,#0b806f);
-  color: white;
-  text-align: center;
-  padding: 30px 15px 38px;
+.container {
+    max-width: 850px;
+    margin: auto;
 }
 
-.brand {
-  display: inline-block;
-  padding: 8px 18px;
-  border: 1px solid #ffffff55;
-  border-radius: 25px;
-  background: #ffffff18;
+/* مٿيون حصو */
+
+.header {
+    background: linear-gradient(135deg, #07552e, #12834b, #064326);
+    color: white;
+    text-align: center;
+    padding: 22px 12px;
+    border-radius: 25px;
+    box-shadow: 0 8px 25px #174b2940;
+    border: 3px solid #d6b64e;
+    margin-bottom: 20px;
 }
 
-h1 {
-  font-size: 42px;
-  margin: 14px 0 5px;
+.header h1 {
+    font-size: clamp(27px, 6vw, 40px);
+    margin-bottom: 7px;
 }
 
-header p {
-  margin: 0;
-  font-size: 17px;
+.header p {
+    font-size: 16px;
+    color: #fff3b7;
 }
 
-/* MAIN */
+/* سبق جو عنوان */
 
-main {
-  max-width: 1100px;
-  margin: -20px auto 0;
-  padding: 0 15px 40px;
+.lesson {
+    text-align: center;
+    margin-bottom: 18px;
 }
 
-/* SEARCH */
-
-.search-box {
-  background: white;
-  padding: 13px;
-  border-radius: 16px;
-  box-shadow: 0 10px 28px #00000010;
-  margin-bottom: 20px;
-}
-
-input {
-  width: 100%;
-  padding: 13px;
-  border: 1px solid #e1ece7;
-  border-radius: 11px;
-  font-size: 17px;
-  font-family: inherit;
-  outline: none;
-}
-
-input:focus {
-  border-color: #0b806f;
-}
-
-/* GRID */
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(270px,1fr));
-  gap: 17px;
-}
-
-/* CARD */
-
-.card {
-  background: white;
-  border: 1px solid #e1ece7;
-  border-radius: 19px;
-  overflow: hidden;
-  box-shadow: 0 10px 28px #00000010;
-  transition: transform 0.2s ease;
-}
-
-.card:hover {
-  transform: translateY(-3px);
-}
-
-.card-header {
-  background: #e9f5f0;
-  padding: 17px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.letter {
-  font-size: 55px;
-  color: #075e54;
-  font-weight: bold;
-  line-height: 1.1;
-}
-
-.letter-name {
-  font-size: 19px;
-  color: #647873;
-  margin-top: 4px;
-}
-
-/* BUTTONS */
-
-button {
-  font-family: inherit;
-  cursor: pointer;
-  transition: transform 0.1s ease, background 0.2s ease;
-}
-
-button:active {
-  transform: scale(0.96);
-}
-
-.play-letter {
-  width: 48px;
-  height: 48px;
-  border: none;
-  border-radius: 50%;
-  background: #075e54;
-  color: white;
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 10px rgba(7, 94, 84, 0.3);
-}
-
-.play-letter:hover {
-  background: #0b806f;
-}
-
-/* WORDS */
-
-.card-body {
-  padding: 16px;
-}
-
-.words-title {
-  font-size: 14px;
-  color: #647873;
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-
-.words {
-  display: grid;
-  gap: 9px;
-}
-
-.word-btn {
-  width: 100%;
-  padding: 12px 14px;
-  border: 1px solid #e1ece7;
-  border-radius: 11px;
-  background: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: inherit;
-  font-size: 18px;
-  cursor: pointer;
-  text-align: right;
-  color: #17312d;
-}
-
-.word-btn:hover {
-  background: #f2faf6;
-  border-color: #9bcfc2;
-}
-
-.sound {
-  color: #0b806f;
-  font-size: 18px;
-  background: #e9f5f0;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* MEDIA */
-
-.media {
-  margin-top: 15px;
-  display: grid;
-  gap: 12px;
-}
-
-.media img {
-  width: 100%;
-  max-height: 220px;
-  object-fit: contain;
-  border-radius: 12px;
-  background: #f9fbf9;
-  border: 1px solid #eef4f1;
-}
-
-/* FOOTER */
-
-footer {
-  text-align: center;
-  color: #647873;
-  padding: 25px;
-  font-size: 15px;
-}
-
-@media(max-width:480px) {
-  h1 {
+.lesson h2 {
     font-size: 32px;
-  }
-  .grid {
-    grid-template-columns: 1fr;
-  }
+    color: #07552e;
 }
 
+.lesson p {
+    font-size: 17px;
+    color: #53735a;
+    margin-top: 5px;
+}
+
+/* تصوير */
+
+.image-card {
+    position: relative;
+    background: white;
+    padding: 9px;
+    border-radius: 25px;
+    border: 4px solid #d8b64b;
+    box-shadow:
+        0 10px 25px #174b2930,
+        inset 0 0 12px #e8d58a;
+    overflow: hidden;
+}
+
+.lesson-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: block;
+    object-fit: contain;
+    border-radius: 15px;
+}
+
+/* تصوير اندر لڪل ڇهڻ واريون جايون */
+
+.hotspot {
+    position: absolute;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 35px;
+    z-index: 5;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+/* اک */
+
+.eye-zone {
+    top: 9%;
+    left: 1%;
+    width: 49%;
+    height: 30%;
+}
+
+/* انب */
+
+.mango-zone {
+    top: 40%;
+    left: 55%;
+    width: 43%;
+    height: 30%;
+}
+
+/* اٺ */
+
+.camel-zone {
+    top: 72%;
+    left: 1%;
+    width: 57%;
+    height: 25%;
+}
+
+/* ڇهڻ وقت هلڪو اثر */
+
+.hotspot.playing {
+    background: rgba(255, 222, 72, 0.12);
+    box-shadow: 0 0 0 5px rgba(255, 205, 35, 0.65);
+    animation: touchPulse 0.8s infinite alternate;
+}
+
+@keyframes touchPulse {
+    from {
+        box-shadow: 0 0 0 3px rgba(255,205,35,.25);
+    }
+    to {
+        box-shadow: 0 0 0 9px rgba(255,205,35,.7);
+    }
+}
+
+/* هدايت */
+
+.instruction {
+    background: #fff9d9;
+    border: 2px dashed #d5ae36;
+    padding: 15px;
+    border-radius: 18px;
+    text-align: center;
+    margin-top: 18px;
+    font-size: 17px;
+    color: #6a5111;
+}
+
+/* وڊيو جو بٽڻ */
+
+.video-section {
+    text-align: center;
+    margin: 22px 0;
+}
+
+.video-btn {
+    background: linear-gradient(135deg, #f7b928, #e68a09);
+    color: #422600;
+    border: 3px solid #fff0ad;
+    padding: 14px 30px;
+    border-radius: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 6px 15px #a36b2538;
+}
+
+.video-btn:active {
+    transform: scale(.96);
+}
+
+/* وڊيو پليئر */
+
+.video-box {
+    display: none;
+    margin-top: 18px;
+    background: #073d25;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.video-box video {
+    width: 100%;
+    border-radius: 14px;
+    display: block;
+}
+
+.close-video {
+    margin-top: 10px;
+    background: #fff0b5;
+    border: none;
+    padding: 9px 22px;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* هيٺيون حصو */
+
+.footer {
+    background: #07552e;
+    color: white;
+    text-align: center;
+    padding: 17px;
+    border-radius: 20px;
+    margin-top: 25px;
+    font-size: 15px;
+}
+
+.footer span {
+    color: #ffdc64;
+}
+
+/* موبائل لاءِ */
+
+@media(max-width: 500px) {
+    body {
+        padding: 9px;
+    }
+
+    .header {
+        padding: 18px 8px;
+        border-radius: 19px;
+    }
+
+    .lesson h2 {
+        font-size: 27px;
+    }
+
+    .instruction {
+        font-size: 15px;
+    }
+
+    .video-btn {
+        font-size: 18px;
+        padding: 12px 25px;
+    }
+}
 </style>
 </head>
 
 <body>
 
-<header>
-  <div class="brand">
-    📚 تعلیم جو آسان سفر
-  </div>
-  <h1>تعلیم کی دنیا</h1>
-  <p>اچو ته سنڌي اکر ۽ لفظ سکون</p>
-</header>
+<div class="container">
 
-<main>
-  <div class="search-box">
-    <input
-      type="search"
-      id="searchInput"
-      placeholder="اکر يا لفظ ڳوليو..."
-    >
-  </div>
+    <header class="header">
+        <h1>🌿 تعليم جي دنيا 🌿</h1>
+        <p>اچو تہ سنڌي الفابيٽ راند ڪندي سکون</p>
+    </header>
 
-  <section id="cards" class="grid"></section>
-</main>
+    <section class="lesson">
+        <h2>ا ـ الف</h2>
+        <p>تصوير ۾ موجود شين کي ڇُهي آواز ٻڌو</p>
+    </section>
 
-<footer>
-  تعلیم کی دنیا — سنڌي سکيا
-</footer>
+    <section class="image-card">
+
+        <img
+            class="lesson-image"
+            src="media/images/20261104_161107.jpg"
+            alt="الف، اک، انب ۽ اٺ"
+        >
+
+        <audio id="voicePlayer" preload="none"></audio>
+
+        <!-- اک جو آواز -->
+        <button
+            class="hotspot eye-zone"
+            aria-label="اک جو آواز ٻڌو"
+            onclick="playVoice('media/audio/alif-ak.mp3', this)">
+        </button>
+
+        <!-- انب جو آواز -->
+        <button
+            class="hotspot mango-zone"
+            aria-label="انب جو آواز ٻڌو"
+            onclick="playVoice('media/audio/alif-anb.mp3', this)">
+        </button>
+
+        <!-- اٺ جو آواز -->
+        <button
+            class="hotspot camel-zone"
+            aria-label="اٺ جو آواز ٻڌو"
+            onclick="playVoice('media/audio/alif-uth.mp3', this)">
+        </button>
+
+    </section>
+
+    <div class="instruction">
+        👆 ٻارو! تصوير ۾ اک، انب يا اٺ کي ڇُهو
+        ۽ انهن جا آواز ٻڌو.
+    </div>
+
+    <section class="video-section">
+
+        <button class="video-btn" onclick="openVideo()">
+            ▶ سبق جي وڊيو ڏسو
+        </button>
+
+        <div class="video-box" id="videoBox">
+
+            <video id="lessonVideo" controls playsinline>
+                <source src="media/videos/alif.mp4" type="video/mp4">
+                اوهان جو برائوزر وڊيو هلائي نٿو سگهي.
+            </video>
+
+            <button class="close-video" onclick="closeVideo()">
+                ✕ وڊيو بند ڪريو
+            </button>
+
+        </div>
+
+    </section>
+
+    <footer class="footer">
+        <span>تعليم جي دنيا</span>
+        <br>
+        ٻارن لاءِ سکيا جو هڪ سهڻو سفر ❤️
+    </footer>
+
+</div>
 
 <script>
 
-/* ==================================
-   DIRECT HARDCODED DATA (NO GOOGLE SHEET)
-================================== */
+const player = document.getElementById("voicePlayer");
 
-const GITHUB_RAW_BASE = "https://raw.githubusercontent.com/sanaullamastoi548-maker/the-world-of-education/main/";
+let activeButton = null;
 
-// یہاں حرف الف کے ساتھ آپ کی تصویر اور تینوں آڈیو فائلیں جوڑ دی گئی ہیں
-const learningData = [
-  {
-    Letter: "ا",
-    LetterName: "الف",
-    LetterAudio: "media/audio/alif-ak.mp3",
-    Image: "media/images/20261104_161107.jpg", // آپ کی تصویر کا نام یہاں لگ گیا ہے
-    Word1: "اک",
-    Word1Audio: "media/audio/alif-ak.mp3",
-    Word2: "انب",
-    Word2Audio: "media/audio/alif-anb.mp3",
-    Word3: "اٺ",
-    Word3Audio: "media/audio/alif-uth.mp3"
-  }
-];
+/* آواز هلائڻ */
 
-const cards = document.getElementById("cards");
-const searchInput = document.getElementById("searchInput");
-let currentAudio = null;
+function playVoice(file, button) {
 
+    player.pause();
+    player.currentTime = 0;
 
-/* ==================================
-   DIRECT AUDIO PLAYER
-================================== */
+    document.querySelectorAll(".hotspot").forEach(item => {
+        item.classList.remove("playing");
+    });
 
-function playAudio(path) {
-  if (!path) {
-    alert("هن آواز جو لنڪ موجود ناهي.");
-    return;
-  }
+    activeButton = button;
+    player.src = file;
 
-  const finalUrl = GITHUB_RAW_BASE + path;
-
-  if (currentAudio) {
-    currentAudio.pause();
-    currentAudio = null;
-  }
-
-  currentAudio = new Audio(finalUrl);
-
-  currentAudio.play().catch(error => {
-    console.error("Audio play error:", error);
-    alert("آڊيو هلائڻ ۾ مسئلو ٿيو. گিট ہب پر فائل کا نام چیک کریں۔");
-  });
+    player.play()
+        .then(() => {
+            button.classList.add("playing");
+        })
+        .catch(error => {
+            console.error("Audio error:", error);
+            alert("آواز نٿي هلي. مهرباني ڪري فائل جو نالو ۽ لنڪ چيڪ ڪريو.");
+        });
 }
 
+/* آواز ختم ٿيڻ تي */
 
-/* ==================================
-   CREATE ELEMENT HELPER
-================================== */
+player.addEventListener("ended", function() {
 
-function createElement(tag, cls, text) {
-  const el = document.createElement(tag);
-  if (cls) el.className = cls;
-  if (text !== undefined) {
-    el.textContent = text;
-  }
-  return el;
-}
-
-
-/* ==================================
-   RENDER CARDS
-================================== */
-
-function renderData(rows) {
-  cards.replaceChildren();
-
-  if (!rows.length) {
-    cards.append(
-      createElement("div", "empty", "ڪوبه اکر يا لفظ نه مليو.")
-    );
-    return;
-  }
-
-  rows.forEach(row => {
-    const card = createElement("article", "card");
-    const header = createElement("div", "card-header");
-    const heading = document.createElement("div");
-
-    heading.append(
-      createElement("div", "letter", row.Letter || "؟"),
-      createElement("div", "letter-name", row.LetterName || "")
-    );
-
-    /* LETTER AUDIO BUTTON */
-    const letterButton = createElement("button", "play-letter", "▶");
-    letterButton.type = "button";
-    letterButton.title = "اکر جو آواز ٻڌو";
-    letterButton.onclick = function() {
-      playAudio(row.LetterAudio);
-    };
-
-    header.append(heading, letterButton);
-    card.append(header);
-
-    const body = createElement("div", "card-body");
-
-    body.append(
-      createElement("div", "words-title", "لفظن تي ڪلڪ ڪري آواز ٻڌو:")
-    );
-
-    /* WORDS WITH INDIVIDUAL AUDIO */
-    const words = createElement("div", "words");
-
-    for (let i = 1; i <= 3; i++) {
-      const word = row["Word" + i];
-      const audio = row["Word" + i + "Audio"];
-
-      if (!word) continue;
-
-      const button = createElement("button", "word-btn");
-      button.type = "button";
-
-      button.append(
-        createElement("span", "", word),
-        createElement("span", "sound", "🔊")
-      );
-
-      button.onclick = function() {
-        playAudio(audio);
-      };
-
-      words.append(button);
+    if (activeButton) {
+        activeButton.classList.remove("playing");
+        activeButton = null;
     }
 
-    body.append(words);
-
-    /* MEDIA SECTION (IMAGE) */
-    const media = createElement("div", "media");
-
-    if (row.Image) {
-      const img = document.createElement("img");
-      img.src = GITHUB_RAW_BASE + row.Image;
-      img.alt = row.Letter || "تصوير";
-      img.loading = "lazy";
-      img.onerror = function() {
-        img.replaceWith(createElement("span", "", "تصوير نه کلي."));
-      };
-      media.append(img);
-    }
-
-    if (media.childNodes.length) {
-      body.append(media);
-    }
-
-    card.append(body);
-    cards.append(card);
-  });
-}
-
-
-/* ==================================
-   SEARCH FILTER
-================================== */
-
-searchInput.addEventListener("input", function() {
-  const query = this.value.trim().toLowerCase();
-
-  if (!query) {
-    renderData(learningData);
-    return;
-  }
-
-  const filtered = learningData.filter(row => {
-    const values = [
-      row.Letter,
-      row.LetterName,
-      row.Word1,
-      row.Word2,
-      row.Word3
-    ];
-
-    return values.some(value =>
-      String(value || "").toLowerCase().includes(query)
-    );
-  });
-
-  renderData(filtered);
 });
 
+/* وڊيو کولڻ */
 
-/* ==================================
-   START WEBSITE
-================================== */
+function openVideo() {
 
-renderData(learningData);
+    const box = document.getElementById("videoBox");
+    const video = document.getElementById("lessonVideo");
+
+    player.pause();
+
+    document.querySelectorAll(".hotspot").forEach(item => {
+        item.classList.remove("playing");
+    });
+
+    box.style.display = "block";
+
+    video.play().catch(error => {
+        console.log("Video playback:", error);
+    });
+
+    box.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+}
+
+/* وڊيو بند ڪرڻ */
+
+function closeVideo() {
+
+    const video = document.getElementById("lessonVideo");
+
+    video.pause();
+    video.currentTime = 0;
+
+    document.getElementById("videoBox").style.display = "none";
+}
 
 </script>
 
