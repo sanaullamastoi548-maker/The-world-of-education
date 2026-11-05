@@ -1,1 +1,879 @@
+<!DOCTYPE html>
+<html lang="sd" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>سنڌي الفابيٽ - پڙهو ۽ لکو</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans Arabic', Tahoma, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    padding: 20px 12px;
+    background: linear-gradient(135deg,#e8fff3,#fff7df);
+    color: #17352c;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.main-title {
+    font-size: 27px;
+    font-weight: 900;
+    color: #07523d;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #557267;
+    margin-bottom: 15px;
+    line-height: 1.9;
+}
+
+.welcome-btn {
+    background: #e5a000;
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.app-container {
+    max-width: 1050px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 18px;
+    align-items: start;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 22px;
+    box-shadow: 0 10px 28px #174c3610;
+    border: 1px solid #d9e9e1;
+}
+
+.card-heading {
+    font-size: 19px;
+    font-weight: 900;
+    color: #07523d;
+    margin-bottom: 15px;
+}
+
+.alphabet-grid {
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 9px;
+    max-height: 520px;
+    overflow-y: auto;
+    padding: 3px;
+}
+
+.letter-btn {
+    min-height: 58px;
+    border: 2px solid #dcebe3;
+    border-radius: 13px;
+    background: #f6fbf8;
+    color: #174b38;
+    font-size: 25px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.letter-btn.selected,
+.letter-btn:hover {
+    background: #087f5b;
+    color: white;
+    border-color: #087f5b;
+}
+
+.lesson {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.lesson-box {
+    background: #f2faf5;
+    border: 1px solid #deeee4;
+    border-radius: 16px;
+    padding: 13px;
+    text-align: center;
+    min-height: 130px;
+}
+
+.label {
+    font-size: 13px;
+    color: #668477;
+    font-weight: bold;
+}
+
+.big-letter {
+    font-size: 70px;
+    color: #087f5b;
+    font-weight: 900;
+    line-height: 1.5;
+}
+
+.example-word {
+    font-size: 30px;
+    color: #9a6500;
+    font-weight: 900;
+    margin-top: 12px;
+}
+
+.example-note {
+    font-size: 13px;
+    color: #63786e;
+}
+
+.action-row {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 12px 0;
+}
+
+.action-btn {
+    border: none;
+    border-radius: 25px;
+    padding: 10px 15px;
+    font-weight: bold;
+    background: #e8f4ed;
+    color: #07523d;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.action-btn.primary {
+    background: #087f5b;
+    color: white;
+}
+
+.action-btn:active,
+.welcome-btn:active {
+    transform: scale(.96);
+}
+
+.instruction {
+    background: #fff6dc;
+    border: 1px solid #f5e4ae;
+    padding: 10px;
+    border-radius: 12px;
+    text-align: center;
+    color: #805a0b;
+    font-weight: bold;
+    margin: 12px 0;
+    line-height: 1.8;
+}
+
+.toolbar {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 12px 0;
+}
+
+.color-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 2px 5px #0003;
+    cursor: pointer;
+}
+
+.color-btn.active {
+    outline: 2px solid #087f5b;
+}
+
+.clear-btn {
+    background: #d94848;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.canvas-wrapper {
+    position: relative;
+    width: 100%;
+    height: 230px;
+    border: 2px dashed #9bbcaf;
+    border-radius: 17px;
+    overflow: hidden;
+    background: repeating-linear-gradient(
+        to bottom,
+        #fff 0,
+        #fff 71px,
+        #edf4ef 72px,
+        #fff 73px
+    );
+}
+
+.target-letter {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 110px;
+    font-weight: 900;
+    color: #dce9e1;
+    pointer-events: none;
+    user-select: none;
+}
+
+canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+    cursor: crosshair;
+}
+
+.progress {
+    text-align: center;
+    font-size: 13px;
+    margin-top: 10px;
+    color: #658073;
+}
+
+footer {
+    text-align: center;
+    margin-top: 22px;
+    color: #789086;
+    font-size: 13px;
+}
+
+@media(max-width:760px) {
+    .app-container {
+        grid-template-columns: 1fr;
+    }
+
+    .alphabet-grid {
+        grid-template-columns: repeat(5,1fr);
+        max-height: 300px;
+    }
+
+    .main-title {
+        font-size: 23px;
+    }
+}
+
+@media(max-width:360px) {
+    .alphabet-grid {
+        grid-template-columns: repeat(4,1fr);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <h1 class="main-title">
+        🌿 سنڌي الفابيٽ ـ پڙهو ۽ لکو
+    </h1>
+
+    <p class="subtitle">
+        اچو ٻارو! سنڌي اکر سڃاڻون، پڙهون ۽ خوبصورت لکت جي مشق ڪريون.
+    </p>
+
+    <button class="welcome-btn" onclick="welcomeVoice()">
+        🔊 ڀليڪار! آواز ٻڌو
+    </button>
+
+</header>
+
+
+<div class="app-container">
+
+    <!-- حروف کی فہرست -->
+
+    <div class="card">
+
+        <h2 class="card-heading">
+            📚 سنڌي اکر چونڊيو
+        </h2>
+
+        <div class="alphabet-grid" id="alphabetGrid"></div>
+
+    </div>
+
+
+    <!-- پڑھنے اور لکھنے کا حصہ -->
+
+    <div class="card">
+
+        <h2 class="card-heading">
+            👀 پڙهو، ٻڌو ۽ سکو
+        </h2>
+
+        <div class="lesson">
+
+            <div class="lesson-box">
+
+                <div class="label">اڄ جو اکر</div>
+
+                <div class="big-letter" id="shownLetter">ا</div>
+
+                <div class="example-note" id="letterName">
+                    الف
+                </div>
+
+            </div>
+
+
+            <div class="lesson-box">
+
+                <div class="label">لفظ جي مثال</div>
+
+                <div class="example-word" id="exampleWord">
+                    اک
+                </div>
+
+                <div class="example-note" id="exampleMeaning">
+                    لفظ پڙهو
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="action-row">
+
+            <button class="action-btn primary"
+                    id="voiceButton"
+                    onclick="hearWord()">
+                🔊 لفظ ٻڌو
+            </button>
+
+            <button class="action-btn" onclick="previousLetter()">
+                ◀ اڳيون
+            </button>
+
+            <button class="action-btn" onclick="nextLetter()">
+                اڳتي ▶
+            </button>
+
+        </div>
+
+
+        <div class="instruction">
+            ✍️ هيٺ ڏنل هلڪي اکر کي ڏسي، آڱر يا مائوس سان لکو.
+        </div>
+
+
+        <!-- قلم کے رنگ -->
+
+        <div class="toolbar">
+
+            <button class="color-btn active"
+                style="background:#17352c"
+                onclick="setColor('#17352c',this)">
+            </button>
+
+            <button class="color-btn"
+                style="background:#e03131"
+                onclick="setColor('#e03131',this)">
+            </button>
+
+            <button class="color-btn"
+                style="background:#1971c2"
+                onclick="setColor('#1971c2',this)">
+            </button>
+
+            <button class="color-btn"
+                style="background:#2f9e44"
+                onclick="setColor('#2f9e44',this)">
+            </button>
+
+            <button class="clear-btn" onclick="clearCanvas()">
+                🧽 صاف ڪريو
+            </button>
+
+        </div>
+
+
+        <!-- لکھنے کا بورڈ -->
+
+        <div class="canvas-wrapper">
+
+            <div class="target-letter" id="targetLetter">
+                ا
+            </div>
+
+            <canvas id="drawingCanvas"></canvas>
+
+        </div>
+
+        <div class="progress" id="progress">
+            اکر 1 / 51
+        </div>
+
+    </div>
+
+</div>
+
+
+<footer>
+    سنڌي سکيا لاءِ هڪ سادي ۽ وڻندڙ مشق گاهه ❤️
+</footer>
+
+
+<script>
+
+// ===================================
+// آپ کے دیے ہوئے اصل سندھی حروف اور الفاظ
+// ===================================
+
+const urduAlphabets = [
+
+    {letter:"ا", name:"الف", word:"اک", audio:"media/media/audio/alif-ak.mp3"},
+
+    {letter:"ب", name:"بي", word:"بدڪ", audio:"media/media/audio/be-badaq.mp3"},
+
+    {letter:"ٻ", name:"ٻ", word:"ٻڪري", audio:"media/media/audio/ba-bakri.mp3"},
+
+    {letter:"ڀ", name:"ڀ", word:"ڀٿ", audio:"media/media/audio/bh-bhat.mp3"},
+
+    {letter:"ت", name:"تي", word:"تارو", audio:"media/media/audio/te-taro.mp3"},
+
+    {letter:"ٿ", name:"ٿ", word:"ٿمڀو", audio:"media/media/audio/th-thambho.mp3"},
+
+    {letter:"ٽ", name:"ٽ", word:"ٽوپي", audio:"media/media/audio/te-topi.mp3"},
+
+    {letter:"ٺ", name:"ٺ", word:"ٺوٺ", audio:"media/media/audio/th-thoth.mp3"},
+
+    {letter:"ث", name:"ثي", word:"ثمر"},
+
+    {letter:"پ", name:"پي", word:"پڳ"},
+
+    {letter:"ج", name:"جيم", word:"جتي"},
+
+    {letter:"ڄ", name:"ڄ", word:"ڄڀ"},
+
+    {letter:"جھ", name:"جھ", word:"جھرڪي"},
+
+    {letter:"ڃ", name:"ڃ", word:"مڃ"},
+
+    {letter:"چ", name:"چي", word:"چنڊ"},
+
+    {letter:"ڇ", name:"ڇي", word:"ڇٽي"},
+
+    {letter:"ح", name:"حي", word:"حجم"},
+
+    {letter:"خ", name:"خي", word:"خچر"},
+
+    {letter:"د", name:"دال", word:"در"},
+
+    {letter:"ڌ", name:"ڌ", word:"ڌوٻي"},
+
+    {letter:"ڏ", name:"ڏ", word:"ڏيڏر"},
+
+    {letter:"ڊ", name:"ڊ", word:"ڊريل"},
+
+    {letter:"ڍ", name:"ڍ", word:"ڍڳو"},
+
+    {letter:"ذ", name:"ذال", word:"ذرو"},
+
+    {letter:"ر", name:"ري", word:"ريل"},
+
+    {letter:"ٽ", name:"ٽ", word:"ماڙي"},
+
+    {letter:"ز", name:"زي", word:"زنجير"},
+
+    {letter:"س", name:"سين", word:"سيٽي"},
+
+    {letter:"ش", name:"شين", word:"شينھن"},
+
+    {letter:"ص", name:"صاد", word:"صوف"},
+
+    {letter:"ض", name:"ضاد", word:"ضعيف"},
+
+    {letter:"ط", name:"طا", word:"طوطو"},
+
+    {letter:"ظ", name:"ظا", word:"ظالم"},
+
+    {letter:"ع", name:"عين", word:"عينک"},
+
+    {letter:"غ", name:"غين", word:"غاليچو"},
+
+    {letter:"ف", name:"في", word:"فانوس"},
+
+    {letter:"ڦ", name:"ڦ", word:"ڦيٿو"},
+
+    {letter:"ق", name:"قاف", word:"قلم"},
+
+    {letter:"ڪ", name:"ڪاف", word:"ڪتو"},
+
+    {letter:"ک", name:"ک", word:"کٽ"},
+
+    {letter:"گ", name:"گ", word:"گڏھ"},
+
+    {letter:"ڳ", name:"ڳ", word:"ڳئون"},
+
+    {letter:"گھہ", name:"گھہ", word:"گھوڙو"},
+
+    {letter:"ڱ", name:"ڱ", word:"سڱ"},
+
+    {letter:"ل", name:"لام", word:"لڪڻ"},
+
+    {letter:"م", name:"ميم", word:"مس"},
+
+    {letter:"ن", name:"نون", word:"نٿ"},
+
+    {letter:"ڻ", name:"ڻ", word:"وڻ"},
+
+    {letter:"و", name:"واو", word:"وا"},
+
+    {letter:"ھ", name:"ھي", word:"ھاٿي"},
+
+    {letter:"ء", name:"همزو", word:"ائٽ"},
+
+    {letter:"ي", name:"يي", word:"يڪتارو"}
+
+];
+
+
+// ===================================
+// حروف کی فہرست بنانا
+// ===================================
+
+const grid = document.getElementById("alphabetGrid");
+
+let currentIndex = 0;
+
+let penColor = "#17352c";
+
+let drawing = false;
+
+urduAlphabets.forEach((item,index) => {
+
+    const btn = document.createElement("button");
+
+    btn.className = "letter-btn";
+
+    btn.textContent = item.letter;
+
+    btn.onclick = () => selectLetter(index);
+
+    grid.appendChild(btn);
+
+});
+
+
+// ===================================
+// حرف منتخب کرنا
+// ===================================
+
+function selectLetter(index) {
+
+    currentIndex =
+        (index + urduAlphabets.length) % urduAlphabets.length;
+
+    const item = urduAlphabets[currentIndex];
+
+    document.getElementById("shownLetter").textContent =
+        item.letter;
+
+    document.getElementById("letterName").textContent =
+        item.name;
+
+    document.getElementById("exampleWord").textContent =
+        item.word;
+
+    document.getElementById("exampleMeaning").textContent =
+        "هن لفظ کي پڙهو ۽ لکو";
+
+    document.getElementById("targetLetter").textContent =
+        item.letter;
+
+    document.getElementById("progress").textContent =
+        `اکر ${currentIndex+1} / ${urduAlphabets.length}`;
+
+    document.querySelectorAll(".letter-btn").forEach((btn,i) => {
+
+        btn.classList.toggle("selected",i === currentIndex);
+
+    });
+
+    const voiceButton = document.getElementById("voiceButton");
+
+    voiceButton.style.display = item.audio ? "inline-block" : "none";
+
+    clearCanvas();
+
+}
+
+
+// ===================================
+// اصل MP3 آواز چلانا
+// ===================================
+
+function hearWord() {
+
+    const item = urduAlphabets[currentIndex];
+
+    if (!item.audio) return;
+
+    const audio = new Audio(item.audio);
+
+    audio.play().catch(() => {
+
+        alert("آواز جي فائل نه ملي سگهي. مهرباني ڪري فائل جو نالو چيڪ ڪريو.");
+
+    });
+
+}
+
+
+// خوش آمدیدی آواز
+// ===================================
+
+function welcomeVoice() {
+
+    if (!("speechSynthesis" in window)) {
+
+        alert("هن برائوزر ۾ آواز جي سهولت موجود ناهي.");
+
+        return;
+
+    }
+
+    window.speechSynthesis.cancel();
+
+    const msg = new SpeechSynthesisUtterance(
+        "اچو ٻارو! سنڌي اکر پڙهون ۽ لکڻ سکون."
+    );
+
+    msg.lang = "sd-PK";
+
+    msg.rate = 0.8;
+
+    window.speechSynthesis.speak(msg);
+
+}
+
+
+// ===================================
+// اگلا اور پچھلا حرف
+// ===================================
+
+function nextLetter() {
+
+    selectLetter(currentIndex + 1);
+
+}
+
+function previousLetter() {
+
+    selectLetter(currentIndex - 1);
+
+}
+
+
+// ===================================
+// لکھنے کا بورڈ
+// ===================================
+
+const canvas = document.getElementById("drawingCanvas");
+
+const ctx = canvas.getContext("2d");
+
+
+function resizeCanvas() {
+
+    const rect = canvas.getBoundingClientRect();
+
+    const ratio = window.devicePixelRatio || 1;
+
+    const oldCanvas = document.createElement("canvas");
+
+    oldCanvas.width = canvas.width;
+
+    oldCanvas.height = canvas.height;
+
+    if (oldCanvas.width && oldCanvas.height) {
+
+        oldCanvas.getContext("2d").drawImage(canvas,0,0);
+
+    }
+
+    canvas.width = rect.width * ratio;
+
+    canvas.height = rect.height * ratio;
+
+    ctx.setTransform(ratio,0,0,ratio,0,0);
+
+    if (oldCanvas.width && oldCanvas.height) {
+
+        ctx.drawImage(
+            oldCanvas,
+            0,0,
+            oldCanvas.width,
+            oldCanvas.height,
+            0,0,
+            rect.width,
+            rect.height
+        );
+
+    }
+
+}
+
+
+// قلم کا رنگ تبدیل کرنا
+
+function setColor(color,element) {
+
+    penColor = color;
+
+    document.querySelectorAll(".color-btn").forEach(btn => {
+
+        btn.classList.remove("active");
+
+    });
+
+    element.classList.add("active");
+
+}
+
+
+// لکھائی صاف کرنا
+
+function clearCanvas() {
+
+    const rect = canvas.getBoundingClientRect();
+
+    ctx.clearRect(
+        0,
+        0,
+        rect.width,
+        rect.height
+    );
+
+}
+
+
+// انگلی یا ماؤس کی جگہ معلوم کرنا
+
+function getPosition(e) {
+
+    const rect = canvas.getBoundingClientRect();
+
+    return {
+
+        x: e.clientX - rect.left,
+
+        y: e.clientY - rect.top
+
+    };
+
+}
+
+
+// لکھنا شروع
+
+canvas.addEventListener("pointerdown",e => {
+
+    e.preventDefault();
+
+    drawing = true;
+
+    canvas.setPointerCapture(e.pointerId);
+
+    const pos = getPosition(e);
+
+    ctx.beginPath();
+
+    ctx.moveTo(pos.x,pos.y);
+
+});
+
+
+// لکھائی جاری
+
+canvas.addEventListener("pointermove",e => {
+
+    if (!drawing) return;
+
+    e.preventDefault();
+
+    const pos = getPosition(e);
+
+    ctx.strokeStyle = penColor;
+
+    ctx.lineWidth = 6;
+
+    ctx.lineCap = "round";
+
+    ctx.lineJoin = "round";
+
+    ctx.lineTo(pos.x,pos.y);
+
+    ctx.stroke();
+
+});
+
+
+// لکھائی بند
+
+function stopDrawing() {
+
+    drawing = false;
+
+    ctx.closePath();
+
+}
+
+canvas.addEventListener("pointerup",stopDrawing);
+
+canvas.addEventListener("pointercancel",stopDrawing);
+
+canvas.addEventListener("lostpointercapture",stopDrawing);
+
+
+// اسکرین کا سائز تبدیل ہونے پر بورڈ درست رکھنا
+
+window.addEventListener("resize",resizeCanvas);
+
+
+// ===================================
+// آغاز
+// ===================================
+
+resizeCanvas();
+
+selectLetter(0);
+
+</script>
+
+</body>
+</html>
