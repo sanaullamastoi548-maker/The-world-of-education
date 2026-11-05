@@ -58,3 +58,64 @@ items: [
         audio: "media/media/audio/ba-bairi.mp3"
     }
 ]
+
+/* =====================================
+   سبق نمبر 4
+===================================== */
+
+const lesson4 = {
+
+    slug: "bho",
+
+    order: 4,
+
+    title: "ڀ ـ ڀي",
+
+    image: "media/images/20261105_113223.jpg",
+
+    instruction: "تصوير ۾ هر شيءِ تي ڪلڪ ڪريو ۽ ان جو آواز ٻڌو.",
+
+    items: [
+
+        {
+            label: "ڀت",
+
+            audio: "media/media/audio/bh-bhat.mp3",
+
+            area: {
+                top: 0,
+                left: 0,
+                width: 100,
+                height: 33.33
+            }
+        },
+
+        {
+            label: "ڀولڙو",
+
+            audio: "media/media/audio/bh-bholro.mp3",
+
+            area: {
+                top: 33.33,
+                left: 0,
+                width: 100,
+                height: 33.34
+            }
+        },
+
+        {
+            label: "ڀينڊي",
+
+            audio: "media/media/audio/bh-bhindi.mp3",
+
+            area: {
+                top: 66.67,
+                left: 0,
+                width: 100,
+                height: 33.33
+            }
+        }
+
+    ]
+
+};
