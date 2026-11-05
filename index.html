@@ -8,9 +8,6 @@
 <title>تعليم جي دنيا</title>
 
 <style>
-
-/* بنیادی ڈیزائن */
-
 * {
     box-sizing: border-box;
 }
@@ -26,8 +23,6 @@ button {
     font-family: inherit;
     cursor: pointer;
 }
-
-/* اوپر کا ہیڈر */
 
 header {
     background: linear-gradient(120deg, #145d35, #329653);
@@ -46,15 +41,11 @@ header p {
     margin: 7px 0 0;
 }
 
-/* مرکزی ترتیب */
-
 .main-layout {
     display: flex;
     flex-direction: row;
     min-height: calc(100vh - 110px);
 }
-
-/* سائیڈ بار */
 
 .sidebar {
     width: 230px;
@@ -95,8 +86,6 @@ header p {
     font-weight: bold;
 }
 
-/* موبائل پر سائیڈ بار کھولنے کا بٹن */
-
 .sidebar-toggle {
     display: none;
     width: calc(100% - 20px);
@@ -108,8 +97,6 @@ header p {
     border-radius: 9px;
     font-size: 16px;
 }
-
-/* کتاب کا حصہ */
 
 .content {
     flex: 1;
@@ -129,8 +116,6 @@ header p {
     position: relative;
 }
 
-/* صفحے کا عنوان */
-
 .page-heading {
     text-align: center;
     color: #216a3b;
@@ -144,8 +129,6 @@ header p {
     font-size: 16px;
     margin-bottom: 20px;
 }
-
-/* تصویر */
 
 .image-card {
     max-width: 650px;
@@ -171,8 +154,6 @@ header p {
     object-fit: contain;
 }
 
-/* تصویر کے اوپر خفیہ کلک والے حصے */
-
 .hotspot {
     position: absolute;
     border: 2px solid transparent;
@@ -191,8 +172,6 @@ header p {
     background: #ff980022;
 }
 
-/* ہدایات */
-
 .instruction {
     text-align: center;
     font-size: 18px;
@@ -201,16 +180,12 @@ header p {
     color: #536b50;
 }
 
-/* آواز کی اطلاع */
-
 .status {
     text-align: center;
     color: #247a43;
     min-height: 25px;
     font-size: 15px;
 }
-
-/* اگلا اور پچھلا صفحہ */
 
 .page-controls {
     display: flex;
@@ -241,8 +216,6 @@ header p {
     font-weight: bold;
 }
 
-/* وڈیو */
-
 .video-area {
     text-align: center;
     margin: 15px;
@@ -266,16 +239,12 @@ header p {
     background: black;
 }
 
-/* نیچے */
-
 footer {
     background: #185b37;
     color: white;
     text-align: center;
     padding: 15px;
 }
-
-/* موبائل ڈیزائن */
 
 @media(max-width: 700px) {
 
@@ -318,55 +287,34 @@ footer {
     header h1 {
         font-size: 23px;
     }
-
 }
-
 </style>
 </head>
 
 <body>
 
-
-<!-- اوپر کا ہیڈر -->
-
 <header>
-
     <h1>🌿 تعليم جي دنيا 🌿</h1>
-
     <p>اچو ته گڏجي سکون ۽ اڳتي وڌون</p>
-
 </header>
-
-
-<!-- موبائل سائیڈ بار بٹن -->
 
 <button class="sidebar-toggle" onclick="toggleSidebar()">
     ☰ سبقن جي فهرست کوليو
 </button>
 
-
 <div class="main-layout">
-
-
-    <!-- سائیڈ بار -->
 
     <aside class="sidebar" id="sidebar">
 
         <h2>📖 سبقن جي فهرست</h2>
 
-        <div class="lesson-list" id="lessonList">
-
-        </div>
+        <div class="lesson-list" id="lessonList"></div>
 
     </aside>
 
-
-
-    <!-- کتاب کا صفحہ -->
-
     <main class="content">
 
-        <div class="book" id="book">
+        <div class="book">
 
             <div id="lessonContainer">
                 <h2 class="page-heading">سبق لوڊ ٿي رهيو آهي...</h2>
@@ -378,20 +326,16 @@ footer {
 
 </div>
 
-
 <footer>
     🌸 تعليم هر ٻار جو حق آهي 🌸
 </footer>
 
-
 <audio id="voicePlayer"></audio>
-
-
 
 <script>
 
 /* =====================================
-   GITHUB سيٽنگون
+   GITHUB SETTINGS
 ===================================== */
 
 const USERNAME = "sanaullamastoi548-maker";
@@ -483,12 +427,12 @@ const lesson2 = {
 
     image: "media/images/20261104_231313.jpg",
 
-    instruction: "تصوير ۾ هر حصي تي ڪلڪ ڪريو ۽ لفظ جو آواز ٻڌو.",
+    instruction: "تصوير ۾ هر شيءِ تي ڪلڪ ڪريو ۽ ان جو آواز ٻڌو.",
 
     items: [
 
         {
-            label: "Be-Badaq",
+            label: "بطخ",
 
             audio: "media/media/audio/be-badaq.mp3",
 
@@ -501,7 +445,7 @@ const lesson2 = {
         },
 
         {
-            label: "Be-Basar",
+            label: "بصر",
 
             audio: "media/media/audio/be-basar.mp3",
 
@@ -514,9 +458,71 @@ const lesson2 = {
         },
 
         {
-            label: "Be-Batti",
+            label: "بتي",
 
             audio: "media/media/audio/be-batti.mp3",
+
+            area: {
+                top: 66.67,
+                left: 0,
+                width: 100,
+                height: 33.33
+            }
+        }
+
+    ]
+
+};
+
+
+/* =====================================
+   سبق نمبر 3
+===================================== */
+
+const lesson3 = {
+
+    slug: "bay-do-chashmi",
+
+    order: 3,
+
+    title: "ٻ ـ ٻ",
+
+    image: "media/images/20261105_055821.jpg",
+
+    instruction: "تصوير ۾ ٻڪري، ٻلي يا ٻيڙي تي ٽچ ڪريو ۽ ان جو آواز ٻڌو.",
+
+    items: [
+
+        {
+            label: "ٻڪري",
+
+            audio: "media/media/audio/ba-bakri.mp3",
+
+            area: {
+                top: 0,
+                left: 0,
+                width: 100,
+                height: 33.33
+            }
+        },
+
+        {
+            label: "ٻلي",
+
+            audio: "media/media/audio/ba-billi.mp3",
+
+            area: {
+                top: 33.33,
+                left: 0,
+                width: 100,
+                height: 33.34
+            }
+        },
+
+        {
+            label: "ٻيڙي",
+
+            audio: "media/media/audio/ba-bairi.mp3",
 
             area: {
                 top: 66.67,
@@ -535,7 +541,7 @@ const lesson2 = {
    سڀ سبق
 ===================================== */
 
-let lessons = [lesson1, lesson2];
+let lessons = [lesson1, lesson2, lesson3];
 
 let currentIndex = 0;
 
@@ -605,7 +611,7 @@ function playAudio(path, button) {
 
         console.log("Audio Error:", error);
 
-        showStatus("آواز هلائڻ ۾ مسئلو ٿيو.");
+        showStatus("آواز هلائڻ ۾ مسئلو ٿيو. آڊيو فائل چيڪ ڪريو.");
 
         if (activeButton) {
 
@@ -642,9 +648,7 @@ function showStatus(message) {
     const status = document.getElementById("statusMessage");
 
     if (status) {
-
         status.textContent = message;
-
     }
 
 }
@@ -663,7 +667,7 @@ function toggleSidebar() {
 
 
 /* =====================================
-   سائڊ بار ۾ سبق ڏيکارڻ
+   سائڊ بار ۾ سبق
 ===================================== */
 
 function renderSidebar() {
@@ -691,9 +695,7 @@ function renderSidebar() {
         };
 
         if (index === currentIndex) {
-
             button.classList.add("active");
-
         }
 
         list.appendChild(button);
@@ -704,7 +706,7 @@ function renderSidebar() {
 
 
 /* =====================================
-   سبق جو صفحو کولڻ
+   سبق کولڻ
 ===================================== */
 
 function showLesson(index) {
@@ -768,14 +770,14 @@ function showLesson(index) {
 
     image.onerror = function() {
 
-        showStatus("تصوير لوڊ نه ٿي سگهي. تصوير جو رستو چيڪ ڪريو.");
+        showStatus("تصوير لوڊ نه ٿي سگهي. تصوير جو نالو چيڪ ڪريو.");
 
     };
 
     stage.appendChild(image);
 
 
-    /* تصوير جي هر شيءِ لاءِ الڳ ڪلڪ ايريا */
+    /* هر شيءِ لاءِ الڳ ٽچ ايريا */
 
     lesson.items.forEach(function(item) {
 
@@ -789,7 +791,6 @@ function showLesson(index) {
 
         button.setAttribute("aria-label", item.label);
 
-
         button.style.top = item.area.top + "%";
 
         button.style.left = item.area.left + "%";
@@ -797,7 +798,6 @@ function showLesson(index) {
         button.style.width = item.area.width + "%";
 
         button.style.height = item.area.height + "%";
-
 
         button.onclick = function() {
 
@@ -837,7 +837,7 @@ function showLesson(index) {
     container.appendChild(status);
 
 
-    /* جيڪڏهن سبق ۾ وڊيو موجود هجي */
+    /* وڊيو */
 
     if (lesson.video) {
 
@@ -877,7 +877,7 @@ function showLesson(index) {
     }
 
 
-    /* اڳيون ۽ پويون صفحو */
+    /* اڳيون ۽ پويون سبق */
 
     const controls = document.createElement("div");
 
@@ -937,7 +937,7 @@ function showLesson(index) {
 
 
 /* =====================================
-   وڊيو هلائڻ
+   وڊيو
 ===================================== */
 
 function openVideo(path) {
@@ -983,7 +983,7 @@ function closeVideo() {
 
 
 /* =====================================
-   GitHub مان نوان سبق پاڻمرادو ڳولڻ
+   GITHUB مان نوان سبق لوڊ ڪرڻ
 ===================================== */
 
 async function loadMoreLessons() {
@@ -1027,11 +1027,14 @@ async function loadMoreLessons() {
                 }
 
 
-                /* جيڪڏهن سبق اڳ ۾ موجود نه هجي */
+                /* اڳ ۾ موجود سبق ٻيهر شامل نه ڪريو */
 
                 const alreadyExists = lessons.some(function(item) {
 
-                    return item.slug === folder.name;
+                    return (
+                        item.slug === folder.name ||
+                        Number(item.order) === Number(data.order)
+                    );
 
                 });
 
@@ -1056,7 +1059,7 @@ async function loadMoreLessons() {
 
         lessons.sort(function(a, b) {
 
-            return (a.order || 999) - (b.order || 999);
+            return Number(a.order) - Number(b.order);
 
         });
 
