@@ -4,7 +4,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>تعليم جي دنيا</title>
 
 <style>
@@ -113,7 +112,6 @@ header p {
     border: 1px solid #e4d9b9;
     box-shadow: 0 7px 22px #0002;
     padding: 22px;
-    position: relative;
 }
 
 .page-heading {
@@ -305,23 +303,16 @@ footer {
 <div class="main-layout">
 
     <aside class="sidebar" id="sidebar">
-
         <h2>📖 سبقن جي فهرست</h2>
-
         <div class="lesson-list" id="lessonList"></div>
-
     </aside>
 
     <main class="content">
-
         <div class="book">
-
             <div id="lessonContainer">
                 <h2 class="page-heading">سبق لوڊ ٿي رهيو آهي...</h2>
             </div>
-
         </div>
-
     </main>
 
 </div>
@@ -339,9 +330,7 @@ footer {
 ===================================== */
 
 const USERNAME = "sanaullamastoi548-maker";
-
 const REPOSITORY = "The-world-of-education";
-
 const BRANCH = "main";
 
 const RAW_ROOT =
@@ -358,9 +347,7 @@ const API_ROOT =
 const lesson1 = {
 
     slug: "alif",
-
     order: 1,
-
     title: "ا ـ الف",
 
     image: "media/images/20261104_161107.jpg",
@@ -371,7 +358,6 @@ const lesson1 = {
 
         {
             label: "اک",
-
             audio: "media/media/audio/alif-ak.mp3",
 
             area: {
@@ -384,7 +370,6 @@ const lesson1 = {
 
         {
             label: "انب",
-
             audio: "media/media/audio/alif-anb.mp3",
 
             area: {
@@ -397,7 +382,6 @@ const lesson1 = {
 
         {
             label: "اٺ",
-
             audio: "media/media/audio/alif-uth.mp3",
 
             area: {
@@ -409,7 +393,6 @@ const lesson1 = {
         }
 
     ]
-
 };
 
 
@@ -420,9 +403,7 @@ const lesson1 = {
 const lesson2 = {
 
     slug: "bay",
-
     order: 2,
-
     title: "ب ـ بي",
 
     image: "media/images/20261104_231313.jpg",
@@ -433,7 +414,6 @@ const lesson2 = {
 
         {
             label: "بطخ",
-
             audio: "media/media/audio/be-badaq.mp3",
 
             area: {
@@ -446,7 +426,6 @@ const lesson2 = {
 
         {
             label: "بصر",
-
             audio: "media/media/audio/be-basar.mp3",
 
             area: {
@@ -459,7 +438,6 @@ const lesson2 = {
 
         {
             label: "بتي",
-
             audio: "media/media/audio/be-batti.mp3",
 
             area: {
@@ -471,7 +449,6 @@ const lesson2 = {
         }
 
     ]
-
 };
 
 
@@ -482,9 +459,7 @@ const lesson2 = {
 const lesson3 = {
 
     slug: "bay-do-chashmi",
-
     order: 3,
-
     title: "ٻ ـ ٻ",
 
     image: "media/images/20261105_055821.jpg",
@@ -495,7 +470,6 @@ const lesson3 = {
 
         {
             label: "ٻڪري",
-
             audio: "media/media/audio/ba-bakri.mp3",
 
             area: {
@@ -508,7 +482,6 @@ const lesson3 = {
 
         {
             label: "ٻلي",
-
             audio: "media/media/audio/ba-billi.mp3",
 
             area: {
@@ -521,7 +494,6 @@ const lesson3 = {
 
         {
             label: "ٻيڙي",
-
             audio: "media/media/audio/ba-bairi.mp3",
 
             area: {
@@ -533,7 +505,62 @@ const lesson3 = {
         }
 
     ]
+};
 
+
+/* =====================================
+   سبق نمبر 4
+===================================== */
+
+const lesson4 = {
+
+    slug: "bho",
+    order: 4,
+    title: "ڀ ـ ڀي",
+
+    image: "media/images/20261105_113223.jpg",
+
+    instruction: "تصوير ۾ ڀت، ڀولڙو يا ڀينڊي تي ٽچ ڪريو ۽ ان جو آواز ٻڌو.",
+
+    items: [
+
+        {
+            label: "ڀت",
+            audio: "media/media/audio/bh-bhat.mp3",
+
+            area: {
+                top: 0,
+                left: 0,
+                width: 100,
+                height: 33.33
+            }
+        },
+
+        {
+            label: "ڀولڙو",
+            audio: "media/media/audio/bh-bholro.mp3",
+
+            area: {
+                top: 33.33,
+                left: 0,
+                width: 100,
+                height: 33.34
+            }
+        },
+
+        {
+            label: "ڀينڊي",
+            audio: "media/media/audio/bh-bhindi.mp3",
+
+            area: {
+                top: 66.67,
+                left: 0,
+                width: 100,
+                height: 33.33
+            }
+        }
+
+    ]
 };
 
 
@@ -541,9 +568,18 @@ const lesson3 = {
    سڀ سبق
 ===================================== */
 
-let lessons = [lesson1, lesson2, lesson3, lesson4];
+let lessons = [
+    lesson1,
+    lesson2,
+    lesson3,
+    lesson4
+];
+
+let currentIndex = 0;
+
+
 /* =====================================
-   آواز
+   آواز جو نظام
 ===================================== */
 
 const player = document.getElementById("voicePlayer");
@@ -566,7 +602,6 @@ function getFileURL(path) {
         .split("/")
         .map(part => encodeURIComponent(part))
         .join("/");
-
 }
 
 
@@ -585,9 +620,7 @@ function stopAudio() {
         activeButton.classList.remove("active");
 
         activeButton = null;
-
     }
-
 }
 
 
@@ -614,11 +647,9 @@ function playAudio(path, button) {
             activeButton.classList.remove("active");
 
             activeButton = null;
-
         }
 
     });
-
 }
 
 
@@ -629,8 +660,13 @@ player.addEventListener("ended", function() {
         activeButton.classList.remove("active");
 
         activeButton = null;
-
     }
+
+});
+
+player.addEventListener("error", function() {
+
+    showStatus("آڊيو فائل نه ملي. ان جو نالو ۽ رستو چيڪ ڪريو.");
 
 });
 
@@ -663,7 +699,7 @@ function toggleSidebar() {
 
 
 /* =====================================
-   سائڊ بار ۾ سبق
+   سبقن جي فهرست
 ===================================== */
 
 function renderSidebar() {
@@ -702,7 +738,7 @@ function renderSidebar() {
 
 
 /* =====================================
-   سبق کولڻ
+   سبق جو صفحو
 ===================================== */
 
 function showLesson(index) {
@@ -773,7 +809,7 @@ function showLesson(index) {
     stage.appendChild(image);
 
 
-    /* هر شيءِ لاءِ الڳ ٽچ ايريا */
+    /* تصوير تي الڳ الڳ ٽچ ايريا */
 
     lesson.items.forEach(function(item) {
 
@@ -979,7 +1015,7 @@ function closeVideo() {
 
 
 /* =====================================
-   GITHUB مان نوان سبق لوڊ ڪرڻ
+   GitHub مان وڌيڪ سبق لوڊ ڪرڻ
 ===================================== */
 
 async function loadMoreLessons() {
@@ -988,7 +1024,12 @@ async function loadMoreLessons() {
 
         const response = await fetch(API_ROOT);
 
-        if (!response.ok) return;
+        if (!response.ok) {
+
+            console.log("GitHub lessons folder not found.");
+
+            return;
+        }
 
         const folders = await response.json();
 
@@ -1029,7 +1070,10 @@ async function loadMoreLessons() {
 
                     return (
                         item.slug === folder.name ||
-                        Number(item.order) === Number(data.order)
+                        (
+                            data.order &&
+                            Number(item.order) === Number(data.order)
+                        )
                     );
 
                 });
@@ -1064,7 +1108,7 @@ async function loadMoreLessons() {
 
     } catch (error) {
 
-        console.log("GitHub API موجود ناهي:", error);
+        console.log("GitHub API Error:", error);
 
     }
 
