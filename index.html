@@ -237,11 +237,34 @@ header p {
     background: black;
 }
 
+/* FOOTER */
+
 footer {
     background: #185b37;
     color: white;
     text-align: center;
-    padding: 15px;
+    padding: 20px 12px;
+}
+
+/* WRITING BUTTON */
+
+.writing-link {
+    display: inline-block;
+    margin: 18px auto 5px;
+    padding: 15px 28px;
+    background: #f3c85b;
+    color: #185b37;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    border: 3px solid white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px #0003;
+}
+
+.writing-link:hover {
+    background: white;
+    color: #185b37;
 }
 
 @media(max-width: 700px) {
@@ -287,23 +310,9 @@ footer {
     }
 
     .writing-link {
-    display: block;
-    width: fit-content;
-    margin: 25px auto;
-    padding: 14px 25px;
-    background: #247a43;
-    color: white;
-    text-decoration: none;
-    font-size: 19px;
-    font-weight: bold;
-    border-radius: 10px;
-    text-align: center;
-}
-
-.writing-link:hover {
-    background: #185b37;
-}
-    
+        font-size: 18px;
+        padding: 13px 20px;
+    }
 }
 </style>
 </head>
@@ -337,16 +346,18 @@ footer {
 </div>
 
 <footer>
-    🌸 تعليم هر ٻار جو حق آهي 🌸
+    <div>🌸 تعليم هر ٻار جو حق آهي 🌸</div>
+
+    <a href="writing.html" class="writing-link">
+        ✍️ سنڌي لکڻ جي مشق
+    </a>
 </footer>
 
 <audio id="voicePlayer"></audio>
 
 <script>
 
-/* =====================================
-   GITHUB SETTINGS
-===================================== */
+/* GITHUB SETTINGS */
 
 const USERNAME = "sanaullamastoi548-maker";
 const REPOSITORY = "The-world-of-education";
@@ -359,465 +370,252 @@ const API_ROOT =
 `https://api.github.com/repos/${USERNAME}/${REPOSITORY}/contents/media/lessons?ref=${BRANCH}`;
 
 
-/* =====================================
-   سبق نمبر 1
-===================================== */
+/* سبق 1 */
 
 const lesson1 = {
-
     slug: "alif",
     order: 1,
     title: "ا ـ الف",
-
     image: "media/images/20261104_161107.jpg",
-
     instruction: "تصوير ۾ ڪنهن به شيءِ تي ڪلڪ ڪريو ۽ ان جو آواز ٻڌو.",
-
     items: [
-
         {
             label: "اک",
             audio: "media/media/audio/alif-ak.mp3",
-
-            area: {
-                top: 9,
-                left: 1,
-                width: 49,
-                height: 30
-            }
+            area: {top: 9, left: 1, width: 49, height: 30}
         },
-
         {
             label: "انب",
             audio: "media/media/audio/alif-anb.mp3",
-
-            area: {
-                top: 40,
-                left: 55,
-                width: 43,
-                height: 30
-            }
+            area: {top: 40, left: 55, width: 43, height: 30}
         },
-
         {
             label: "اٺ",
             audio: "media/media/audio/alif-uth.mp3",
-
-            area: {
-                top: 72,
-                left: 1,
-                width: 57,
-                height: 25
-            }
+            area: {top: 72, left: 1, width: 57, height: 25}
         }
-
     ]
 };
 
 
-/* =====================================
-   سبق نمبر 2
-===================================== */
+/* سبق 2 */
 
 const lesson2 = {
-
     slug: "bay",
     order: 2,
     title: "ب ـ بي",
-
     image: "media/images/20261104_231313.jpg",
-
     instruction: "تصوير ۾ هر شيءِ تي ڪلڪ ڪريو ۽ ان جو آواز ٻڌو.",
-
     items: [
-
         {
             label: "بطخ",
             audio: "media/media/audio/be-badaq.mp3",
-
-            area: {
-                top: 0,
-                left: 0,
-                width: 100,
-                height: 33.33
-            }
+            area: {top: 0, left: 0, width: 100, height: 33.33}
         },
-
         {
             label: "بصر",
             audio: "media/media/audio/be-basar.mp3",
-
-            area: {
-                top: 33.33,
-                left: 0,
-                width: 100,
-                height: 33.34
-            }
+            area: {top: 33.33, left: 0, width: 100, height: 33.34}
         },
-
         {
             label: "بتي",
             audio: "media/media/audio/be-batti.mp3",
-
-            area: {
-                top: 66.67,
-                left: 0,
-                width: 100,
-                height: 33.33
-            }
+            area: {top: 66.67, left: 0, width: 100, height: 33.33}
         }
-
     ]
 };
 
 
-/* =====================================
-   سبق نمبر 3
-===================================== */
+/* سبق 3 */
 
 const lesson3 = {
-
     slug: "bay-do-chashmi",
     order: 3,
     title: "ٻ ـ ٻ",
-
     image: "media/images/20261105_055821.jpg",
-
     instruction: "تصوير ۾ ٻڪري، ٻلي يا ٻيڙي تي ٽچ ڪريو ۽ ان جو آواز ٻڌو.",
-
     items: [
-
         {
             label: "ٻڪري",
             audio: "media/media/audio/ba-bakri.mp3",
-
-            area: {
-                top: 0,
-                left: 0,
-                width: 100,
-                height: 33.33
-            }
+            area: {top: 0, left: 0, width: 100, height: 33.33}
         },
-
         {
             label: "ٻلي",
             audio: "media/media/audio/ba-billi.mp3",
-
-            area: {
-                top: 33.33,
-                left: 0,
-                width: 100,
-                height: 33.34
-            }
+            area: {top: 33.33, left: 0, width: 100, height: 33.34}
         },
-
         {
             label: "ٻيڙي",
             audio: "media/media/audio/ba-bairi.mp3",
-
-            area: {
-                top: 66.67,
-                left: 0,
-                width: 100,
-                height: 33.33
-            }
+            area: {top: 66.67, left: 0, width: 100, height: 33.33}
         }
-
     ]
 };
 
 
-/* =====================================
-   سبق نمبر 4
-===================================== */
+/* سبق 4 */
 
 const lesson4 = {
-
     slug: "bho",
     order: 4,
     title: "ڀ ـ ڀي",
-
     image: "media/images/20261105_113223.jpg",
-
     instruction: "تصوير ۾ ڀت، ڀولڙو يا ڀينڊي تي ٽچ ڪريو ۽ ان جو آواز ٻڌو.",
-
     items: [
-
         {
             label: "ڀت",
             audio: "media/media/audio/bh-bhat.mp3",
-
-            area: {
-                top: 0,
-                left: 0,
-                width: 100,
-                height: 33.33
-            }
+            area: {top: 0, left: 0, width: 100, height: 33.33}
         },
-
         {
             label: "ڀولڙو",
             audio: "media/media/audio/bh-bholro.mp3",
-
-            area: {
-                top: 33.33,
-                left: 0,
-                width: 100,
-                height: 33.34
-            }
+            area: {top: 33.33, left: 0, width: 100, height: 33.34}
         },
-
         {
             label: "ڀينڊي",
             audio: "media/media/audio/bh-bhindi.mp3",
-
-            area: {
-                top: 66.67,
-                left: 0,
-                width: 100,
-                height: 33.33
-            }
+            area: {top: 66.67, left: 0, width: 100, height: 33.33}
         }
-
     ]
 };
-    
-/* =====================================
-   سبق نمبر 5
-===================================== */
+
+
+/* سبق 5 */
 
 const lesson5 = {
-
     slug: "te",
     order: 5,
     title: "ت ـ تي",
-
     image: "media/images/20261105_120127.jpg",
-
     instruction: "تصوير ۾ تارو، تالو يا تلوار تي ڪلڪ ڪريو ۽ ان جو آواز ٻڌو.",
-
     items: [
-
         {
             label: "تارو",
             audio: "media/media/audio/te-taro.mp3",
-
-            area: {
-                top: 0,
-                left: 0,
-                width: 100,
-                height: 33.33
-            }
+            area: {top: 0, left: 0, width: 100, height: 33.33}
         },
-
         {
             label: "تالو",
             audio: "media/media/audio/te-talo.mp3",
-
-            area: {
-                top: 33.33,
-                left: 0,
-                width: 100,
-                height: 33.34
-            }
+            area: {top: 33.33, left: 0, width: 100, height: 33.34}
         },
-
         {
             label: "تلوار",
             audio: "media/media/audio/te-talwar.mp3",
-
-            area: {
-                top: 66.67,
-                left: 0,
-                width: 100,
-                height: 33.33
-            }
+            area: {top: 66.67, left: 0, width: 100, height: 33.33}
         }
-
     ]
 };
 
 
-    /* =====================================
-   سبق نمبر 6
-===================================== */
+/* سبق 6 */
 
 const lesson6 = {
-
     slug: "th",
     order: 6,
     title: "ٿ ـ ٿ",
-
     image: "media/images/20261105_124154.jpg",
-
     instruction: "تصوير ۾ ٿمڀو، ٿيلو يا ٿوم تي ڪلڪ ڪريو ۽ ان جو آواز ٻڌو.",
-
     items: [
-
         {
             label: "ٿمڀو",
             audio: "media/media/audio/th-thambho.mp3",
-
-            area: {
-                top: 0,
-                left: 0,
-                width: 100,
-                height: 33.33
-            }
+            area: {top: 0, left: 0, width: 100, height: 33.33}
         },
-
         {
             label: "ٿيلو",
             audio: "media/media/audio/th-theelo.mp3",
-
-            area: {
-                top: 33.33,
-                left: 0,
-                width: 100,
-                height: 33.34
-            }
+            area: {top: 33.33, left: 0, width: 100, height: 33.34}
         },
-
         {
             label: "ٿوم",
             audio: "media/media/audio/th-thoom.mp3",
-
-            area: {
-                top: 66.67,
-                left: 0,
-                width: 100,
-                height: 33.33
-            }
+            area: {top: 66.67, left: 0, width: 100, height: 33.33}
         }
-
     ]
 };
 
-    /* =====================================
-   سبق نمبر 7
-===================================== */
+
+/* سبق 7 */
 
 const lesson7 = {
-
     slug: "tt",
     order: 7,
     title: "ٽ ـ ٽ",
-
     image: "media/images/20261105_135052.jpg",
-
     instruction: "تصوير ۾ ٽوپي، ٽنڊڻ يا ٽانگو تي ڪلڪ ڪريو ۽ ان جو آواز ٻڌو.",
-
     items: [
-
         {
             label: "ٽوپي",
             audio: "media/media/audio/te-topi.mp3",
-
-            area: {
-                top: 0,
-                left: 0,
-                width: 100,
-                height: 33.33
-            }
+            area: {top: 0, left: 0, width: 100, height: 33.33}
         },
-
         {
             label: "ٽنڊڻ",
             audio: "media/media/audio/te-tindhan.mp3",
-
-            area: {
-                top: 33.33,
-                left: 0,
-                width: 100,
-                height: 33.34
-            }
+            area: {top: 33.33, left: 0, width: 100, height: 33.34}
         },
-
         {
             label: "ٽانگو",
             audio: "media/media/audio/te-tango.mp3",
-
-            area: {
-                top: 66.67,
-                left: 0,
-                width: 100,
-                height: 33.33
-            }
+            area: {top: 66.67, left: 0, width: 100, height: 33.33}
         }
-
     ]
 };
 
+
+/* سبق 8 */
+
 const lesson8 = {
-  slug: "tth",
-  order: 8,
-  title: "ٺ ـ ٺ",
-  instruction: "تصوير ۾ ٺوٺ، ٺپو يا ٺڪر تي ڪلڪ ڪريو ۽ ان جو آواز ٻڌو.",
-
-  image: "media/images/20261105_154801.jpg",
-
-  items: [
-    {
-      label: "ٺوٺ",
-      audio: "media/media/audio/th-thoth.mp3",
-      area: {
-        top: 0,
-        left: 0,
-        width: 100,
-        height: 33.33
-      }
-    },
-    {
-      label: "ٺپو",
-      audio: "media/media/audio/th-thappo.mp3",
-      area: {
-        top: 33.33,
-        left: 0,
-        width: 100,
-        height: 33.34
-      }
-    },
-    {
-      label: "ٺڪر",
-      audio: "media/media/audio/th-thakkar.mp3",
-      area: {
-        top: 66.67,
-        left: 0,
-        width: 100,
-        height: 33.33
-      }
-    }
-  ]
+    slug: "tth",
+    order: 8,
+    title: "ٺ ـ ٺ",
+    instruction: "تصوير ۾ ٺوٺ، ٺپو يا ٺڪر تي ڪلڪ ڪريو ۽ ان جو آواز ٻڌو.",
+    image: "media/images/20261105_154801.jpg",
+    items: [
+        {
+            label: "ٺوٺ",
+            audio: "media/media/audio/th-thoth.mp3",
+            area: {top: 0, left: 0, width: 100, height: 33.33}
+        },
+        {
+            label: "ٺپو",
+            audio: "media/media/audio/th-thappo.mp3",
+            area: {top: 33.33, left: 0, width: 100, height: 33.34}
+        },
+        {
+            label: "ٺڪر",
+            audio: "media/media/audio/th-thakkar.mp3",
+            area: {top: 66.67, left: 0, width: 100, height: 33.33}
+        }
+    ]
 };
-    
-    
-/* =====================================
-   سڀ سبق
-===================================== */
 
-let lessons = [lesson1, 
-               lesson2, 
-               lesson3, 
-               lesson4, 
-               lesson5,
-              lesson6,
-              lesson7,
-              lesson8];
+
+/* سڀ سبق */
+
+let lessons = [
+    lesson1,
+    lesson2,
+    lesson3,
+    lesson4,
+    lesson5,
+    lesson6,
+    lesson7,
+    lesson8
+];
 
 let currentIndex = 0;
 
 
-/* =====================================
-   آواز جو نظام
-===================================== */
+/* آواز جو نظام */
 
 const player = document.getElementById("voicePlayer");
-
 let activeButton = null;
 
-
 function getFileURL(path) {
-
     if (!path) return "";
 
     if (
@@ -833,126 +631,85 @@ function getFileURL(path) {
         .join("/");
 }
 
-
 function stopAudio() {
-
     player.pause();
-
     player.currentTime = 0;
-
     player.removeAttribute("src");
-
     player.load();
 
     if (activeButton) {
-
         activeButton.classList.remove("active");
-
         activeButton = null;
     }
 }
 
-
 function playAudio(path, button) {
-
     stopAudio();
 
     if (!path) return;
 
     player.src = getFileURL(path);
-
     activeButton = button;
-
     button.classList.add("active");
 
     player.play().catch(function(error) {
-
         console.log("Audio Error:", error);
-
         showStatus("آواز هلائڻ ۾ مسئلو ٿيو. آڊيو فائل چيڪ ڪريو.");
 
         if (activeButton) {
-
             activeButton.classList.remove("active");
-
             activeButton = null;
         }
-
     });
 }
 
-
 player.addEventListener("ended", function() {
-
     if (activeButton) {
-
         activeButton.classList.remove("active");
-
         activeButton = null;
     }
-
 });
 
 player.addEventListener("error", function() {
-
     showStatus("آڊيو فائل نه ملي. ان جو نالو ۽ رستو چيڪ ڪريو.");
-
 });
 
 
-/* =====================================
-   پيغام
-===================================== */
+/* پيغام */
 
 function showStatus(message) {
-
     const status = document.getElementById("statusMessage");
 
     if (status) {
         status.textContent = message;
     }
-
 }
 
 
-/* =====================================
-   سائڊ بار
-===================================== */
+/* سائڊ بار */
 
 function toggleSidebar() {
-
     document.getElementById("sidebar")
         .classList.toggle("open");
-
 }
 
 
-/* =====================================
-   سبقن جي فهرست
-===================================== */
+/* سبقن جي فهرست */
 
 function renderSidebar() {
-
     const list = document.getElementById("lessonList");
-
     list.replaceChildren();
 
     lessons.forEach(function(lesson, index) {
-
         const button = document.createElement("button");
 
         button.className = "lesson-link";
-
-        button.textContent =
-            "سبق " + (index + 1) + " — " + lesson.title;
+        button.textContent = "سبق " + (index + 1) + " — " + lesson.title;
 
         button.onclick = function() {
-
             showLesson(index);
-
             document.getElementById("sidebar")
                 .classList.remove("open");
-
         };
 
         if (index === currentIndex) {
@@ -960,319 +717,192 @@ function renderSidebar() {
         }
 
         list.appendChild(button);
-
     });
-
 }
 
 
-/* =====================================
-   سبق جو صفحو
-===================================== */
+/* سبق جو صفحو */
 
 function showLesson(index) {
-
     if (index < 0 || index >= lessons.length) return;
 
     stopAudio();
-
     closeVideo();
 
     currentIndex = index;
 
     const lesson = lessons[index];
-
-    const container =
-        document.getElementById("lessonContainer");
+    const container = document.getElementById("lessonContainer");
 
     container.replaceChildren();
 
-
-    /* عنوان */
-
     const title = document.createElement("h2");
-
     title.className = "page-heading";
-
     title.textContent = lesson.title;
-
     container.appendChild(title);
 
-
-    /* سبق نمبر */
-
     const number = document.createElement("div");
-
     number.className = "page-number";
-
     number.textContent = "سبق نمبر " + (index + 1);
-
     container.appendChild(number);
 
-
-    /* تصوير */
-
     const imageCard = document.createElement("div");
-
     imageCard.className = "image-card";
 
     const stage = document.createElement("div");
-
     stage.className = "image-stage";
 
-
     const image = document.createElement("img");
-
     image.className = "lesson-image";
-
     image.src = getFileURL(lesson.image);
-
     image.alt = lesson.title;
 
     image.onerror = function() {
-
         showStatus("تصوير لوڊ نه ٿي سگهي. تصوير جو نالو چيڪ ڪريو.");
-
     };
 
     stage.appendChild(image);
 
-
-    /* تصوير تي الڳ الڳ ٽچ ايريا */
-
     lesson.items.forEach(function(item) {
-
         const button = document.createElement("button");
 
         button.type = "button";
-
         button.className = "hotspot";
-
         button.title = item.label;
-
         button.setAttribute("aria-label", item.label);
 
         button.style.top = item.area.top + "%";
-
         button.style.left = item.area.left + "%";
-
         button.style.width = item.area.width + "%";
-
         button.style.height = item.area.height + "%";
 
         button.onclick = function() {
-
             playAudio(item.audio, button);
-
         };
 
         stage.appendChild(button);
-
     });
 
-
     imageCard.appendChild(stage);
-
     container.appendChild(imageCard);
 
-
-    /* هدايت */
-
     const instruction = document.createElement("p");
-
     instruction.className = "instruction";
-
     instruction.textContent = lesson.instruction || "";
-
     container.appendChild(instruction);
 
-
-    /* آواز جي اطلاع */
-
     const status = document.createElement("div");
-
     status.className = "status";
-
     status.id = "statusMessage";
-
     container.appendChild(status);
 
-
-    /* وڊيو */
-
     if (lesson.video) {
-
         const videoArea = document.createElement("div");
-
         videoArea.className = "video-area";
 
         const videoButton = document.createElement("button");
-
         videoButton.className = "video-button";
-
         videoButton.textContent = "▶ وڊيو ڏسو";
 
         videoButton.onclick = function() {
-
             openVideo(lesson.video);
-
         };
 
         videoArea.appendChild(videoButton);
 
-
         const video = document.createElement("video");
-
         video.id = "lessonVideo";
-
         video.className = "video-player";
-
         video.controls = true;
-
         video.playsInline = true;
 
         videoArea.appendChild(video);
-
         container.appendChild(videoArea);
-
     }
 
-
-    /* اڳيون ۽ پويون سبق */
-
     const controls = document.createElement("div");
-
     controls.className = "page-controls";
 
-
     const previous = document.createElement("button");
-
     previous.className = "page-button";
-
     previous.textContent = "→ پويون سبق";
-
     previous.disabled = index === 0;
 
     previous.onclick = function() {
-
         showLesson(currentIndex - 1);
-
     };
 
-
     const page = document.createElement("span");
-
     page.className = "current-page";
-
-    page.textContent =
-        (index + 1) + " / " + lessons.length;
-
+    page.textContent = (index + 1) + " / " + lessons.length;
 
     const next = document.createElement("button");
-
     next.className = "page-button";
-
     next.textContent = "اڳيون سبق ←";
-
     next.disabled = index === lessons.length - 1;
 
     next.onclick = function() {
-
         showLesson(currentIndex + 1);
-
     };
 
-
     controls.appendChild(previous);
-
     controls.appendChild(page);
-
     controls.appendChild(next);
 
     container.appendChild(controls);
 
-
     renderSidebar();
-
 }
 
 
-/* =====================================
-   وڊيو
-===================================== */
+/* وڊيو */
 
 function openVideo(path) {
-
     stopAudio();
 
     const video = document.getElementById("lessonVideo");
-
     if (!video) return;
 
     video.src = getFileURL(path);
-
     video.style.display = "block";
 
     video.play().catch(function(error) {
-
         console.log("Video Error:", error);
-
         showStatus("وڊيو هلائڻ ۾ مسئلو ٿيو.");
-
     });
-
 }
 
-
 function closeVideo() {
-
     const video = document.getElementById("lessonVideo");
 
     if (video) {
-
         video.pause();
-
         video.removeAttribute("src");
-
         video.load();
-
         video.style.display = "none";
-
     }
-
 }
 
 
-/* =====================================
-   GitHub مان وڌيڪ سبق لوڊ ڪرڻ
-===================================== */
+/* GitHub مان وڌيڪ سبق لوڊ ڪرڻ */
 
 async function loadMoreLessons() {
-
     try {
-
         const response = await fetch(API_ROOT);
 
         if (!response.ok) {
-
             console.log("GitHub lessons folder not found.");
-
             return;
         }
 
         const folders = await response.json();
 
         const directories = folders.filter(function(item) {
-
             return item.type === "dir";
-
         });
 
-
         for (const folder of directories) {
-
             try {
-
                 const path =
                     "media/lessons/" +
                     folder.name +
@@ -1292,11 +922,7 @@ async function loadMoreLessons() {
                     continue;
                 }
 
-
-                /* اڳ ۾ موجود سبق ٻيهر شامل نه ڪريو */
-
                 const alreadyExists = lessons.some(function(item) {
-
                     return (
                         item.slug === folder.name ||
                         (
@@ -1304,60 +930,36 @@ async function loadMoreLessons() {
                             Number(item.order) === Number(data.order)
                         )
                     );
-
                 });
 
                 if (!alreadyExists) {
-
                     data.slug = folder.name;
-
                     lessons.push(data);
-
                 }
 
             } catch (error) {
-
                 console.log("سبق لوڊ نه ٿيو:", folder.name);
-
             }
-
         }
 
-
-        /* سبق نمبر موجب ترتيب */
-
         lessons.sort(function(a, b) {
-
             return Number(a.order) - Number(b.order);
-
         });
-
 
         showLesson(currentIndex);
 
     } catch (error) {
-
         console.log("GitHub API Error:", error);
-
     }
-
 }
 
 
-/* =====================================
-   ويب سائيٽ شروع
-===================================== */
+/* ويب سائيٽ شروع */
 
 showLesson(0);
-
 loadMoreLessons();
 
 </script>
-
-    <a href="writing.html" class="writing-link">
-    ✍️ سنڌي لکڻ جي مشق
-</a>
-
 
 </body>
 </html>
