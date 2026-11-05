@@ -37,3 +37,24 @@
     }
   ]
 }
+
+
+image: "media/images/20261105_055821.jpg",
+
+items: [
+    {
+        name: "ٻڪري",
+        english: "Goat",
+        audio: "media/media/audio/ba-bakri.mp3"
+    },
+    {
+        name: "ٻلي",
+        english: "Cat",
+        audio: "media/media/audio/ba-billi.mp3"
+    },
+    {
+        name: "ٻيڙي",
+        english: "Boat",
+        audio: "media/media/audio/ba-bairi.mp3"
+    }
+]
