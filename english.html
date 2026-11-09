@@ -163,8 +163,11 @@ header {
     margin-top: 10px;
 }
 
-.example-image {
-    font-size: 65px;
+/* آپ کی اپنی ڈالی ہوئی تصویر کے لیے اسٹائل */
+.example-img-tag {
+    width: 75px;
+    height: 75px;
+    object-fit: contain;
     margin-top: 5px;
 }
 
@@ -326,7 +329,7 @@ footer {
         <a class="language-btn active" href="english.html">English</a>
     </div>
 
-    <button class="back-btn" onclick="welcomeVoice()">🔊 Welcome! Listen</button>
+    <button class="back-btn" onclick="playWelcomeAudio()">🔊 Welcome! Listen</button>
 </header>
 
 <div class="app-container">
@@ -350,15 +353,15 @@ footer {
 
             <div class="lesson-box">
                 <div class="label">Word Example</div>
-                <div class="example-image" id="exampleImage">🍎</div>
+                <!-- یہاں آپ کی اپنی تصویر (Aa.png) شو ہوگی -->
+                <div><img id="exampleImgTag" src="media/images/Aa.png" alt="Apple" class="example-img-tag"></div>
                 <div class="example-word" id="exampleWord">Apple</div>
                 <div class="example-note" id="exampleMeaning">A is for Apple</div>
             </div>
         </div>
 
         <div class="action-row">
-            <button class="action-btn primary" onclick="hearLetterAndWord()">🔊 Listen A for Apple</button>
-            <button class="action-btn" onclick="hearWord()">🗣️ Say Word</button>
+            <button class="action-btn primary" onclick="playCurrentAudio()">🔊 Listen Audio</button>
             <button class="action-btn" onclick="previousLetter()">◀ Previous</button>
             <button class="action-btn" onclick="nextLetter()">Next ▶</button>
         </div>
@@ -391,38 +394,41 @@ footer {
     Learning English is fun! ❤️
 </footer>
 
+<!-- آڈیو چلانے کے لیے پلئیر -->
+<audio id="voicePlayer"></audio>
+
 <script>
 // ===================================
-// English alphabet and example words (A to Z)
+// English alphabet with your custom image names (Aa.png) and audio names (Aa.mp3)
 // ===================================
 
 const alphabet = [
-    {letter:"A", word:"Apple", image:"🍎"},
-    {letter:"B", word:"Ball", image:"⚽"},
-    {letter:"C", word:"Cat", image:"🐱"},
-    {letter:"D", word:"Dog", image:"🐶"},
-    {letter:"E", word:"Elephant", image:"🐘"},
-    {letter:"F", word:"Fish", image:"🐟"},
-    {letter:"G", word:"Grapes", image:"🍇"},
-    {letter:"H", word:"House", image:"🏠"},
-    {letter:"I", word:"Ice Cream", image:"🍦"},
-    {letter:"J", word:"Jug", image:"🫗"},
-    {letter:"K", word:"Kite", image:"🪁"},
-    {letter:"L", word:"Lion", image:"🦁"},
-    {letter:"M", word:"Mango", image:"🥭"},
-    {letter:"N", word:"Nest", image:"🪺"},
-    {letter:"O", word:"Orange", image:"🍊"},
-    {letter:"P", word:"Parrot", image:"🦜"},
-    {letter:"Q", word:"Queen", image:"👑"},
-    {letter:"R", word:"Rabbit", image:"🐰"},
-    {letter:"S", word:"Sun", image:"☀️"},
-    {letter:"T", word:"Tiger", image:"🐯"},
-    {letter:"U", word:"Umbrella", image:"☂️"},
-    {letter:"V", word:"Van", image:"🚐"},
-    {letter:"W", word:"Watch", image:"⌚"},
-    {letter:"X", word:"Xylophone", image:"🎵"},
-    {letter:"Y", word:"Yak", image:"🐂"},
-    {letter:"Z", word:"Zebra", image:"🦓"}
+    {letter:"Aa", word:"Apple", img:"Aa.png", audio:"Aa.mp3"},
+    {letter:"Bb", word:"Ball", img:"Bb.png", audio:"Bb.mp3"},
+    {letter:"Cc", word:"Cat", img:"Cc.png", audio:"Cc.mp3"},
+    {letter:"Dd", word:"Dog", img:"Dd.png", audio:"Dd.mp3"},
+    {letter:"Ee", word:"Elephant", img:"Ee.png", audio:"Ee.mp3"},
+    {letter:"Ff", word:"Fish", img:"Ff.png", audio:"Ff.mp3"},
+    {letter:"Gg", word:"Grapes", img:"Gg.png", audio:"Gg.mp3"},
+    {letter:"Hh", word:"House", img:"Hh.png", audio:"Hh.mp3"},
+    {letter:"Ii", word:"Ice Cream", img:"Ii.png", audio:"Ii.mp3"},
+    {letter:"Jj", word:"Jug", img:"Jj.png", audio:"Jj.mp3"},
+    {letter:"Kk", word:"Kite", img:"Kk.png", audio:"Kk.mp3"},
+    {letter:"Ll", word:"Lion", img:"Ll.png", audio:"Ll.mp3"},
+    {letter:"Mm", word:"Mango", img:"Mm.png", audio:"Mm.mp3"},
+    {letter:"Nn", word:"Nest", img:"Nn.png", audio:"Nn.mp3"},
+    {letter:"Oo", word:"Orange", img:"Oo.png", audio:"Oo.mp3"},
+    {letter:"Pp", word:"Parrot", img:"Pp.png", audio:"Pp.mp3"},
+    {letter:"Qq", word:"Queen", img:"Qq.png", audio:"Qq.mp3"},
+    {letter:"Rr", word:"Rabbit", img:"Rr.png", audio:"Rr.mp3"},
+    {letter:"Ss", word:"Sun", img:"Ss.png", audio:"Ss.mp3"},
+    {letter:"Tt", word:"Tiger", img:"Tt.png", audio:"Tt.mp3"},
+    {letter:"Uu", word:"Umbrella", img:"Uu.png", audio:"Uu.mp3"},
+    {letter:"Vv", word:"Van", img:"Vv.png", audio:"Vv.mp3"},
+    {letter:"Ww", word:"Watch", img:"Ww.png", audio:"Ww.mp3"},
+    {letter:"Xx", word:"Xylophone", img:"Xx.png", audio:"Xx.mp3"},
+    {letter:"Yy", word:"Yak", img:"Yy.png", audio:"Yy.mp3"},
+    {letter:"Zz", word:"Zebra", img:"Zz.png", audio:"Zz.mp3"}
 ];
 
 const grid = document.getElementById("alphabetGrid");
@@ -430,14 +436,17 @@ let currentIndex = 0;
 let penColor = "#17352c";
 let drawing = false;
 
+const player = document.getElementById("voicePlayer");
+
 // Create alphabet buttons dynamically
 alphabet.forEach((item, index) => {
     const btn = document.createElement("button");
     btn.className = "letter-btn";
-    btn.textContent = item.letter;
+    // بٹن پر بڑا حرف دکھانے کے لیے صرف پہلا حرف (جیسے A) دکھائیں گے
+    btn.textContent = item.letter.charAt(0);
     btn.onclick = () => {
         selectLetter(index);
-        hearLetterAndWord();
+        playCurrentAudio();
     };
     grid.appendChild(btn);
 });
@@ -447,12 +456,15 @@ function selectLetter(index) {
     currentIndex = (index + alphabet.length) % alphabet.length;
     const item = alphabet[currentIndex];
 
-    document.getElementById("shownLetter").textContent = item.letter;
+    document.getElementById("shownLetter").textContent = item.letter.charAt(0);
     document.getElementById("letterName").textContent = "Letter " + item.letter;
     document.getElementById("exampleWord").textContent = item.word;
-    document.getElementById("exampleImage").textContent = item.image;
-    document.getElementById("exampleMeaning").textContent = item.letter + " is for " + item.word;
-    document.getElementById("targetLetter").textContent = item.letter;
+    
+    // تصویر کا پاتھ سیٹ کرنا (آپ کے فولڈر کے حساب سے: media/images/)
+    document.getElementById("exampleImgTag").src = "media/images/" + item.img;
+    
+    document.getElementById("exampleMeaning").textContent = item.letter.charAt(0) + " is for " + item.word;
+    document.getElementById("targetLetter").textContent = item.letter.charAt(0);
     document.getElementById("progress").textContent = `Letter ${currentIndex+1} / ${alphabet.length}`;
 
     document.querySelectorAll(".letter-btn").forEach((btn, i) => {
@@ -462,57 +474,30 @@ function selectLetter(index) {
     clearCanvas();
 }
 
-// Speech Synthesis Setup
-function getEnglishVoice() {
-    const voices = window.speechSynthesis.getVoices();
-    return (
-        voices.find(v => v.lang.toLowerCase() === "en-in") ||
-        voices.find(v => v.lang.toLowerCase() === "en-pk") ||
-        voices.find(v => v.lang.toLowerCase().startsWith("en-gb")) ||
-        voices.find(v => v.lang.toLowerCase().startsWith("en-us")) ||
-        voices.find(v => v.lang.toLowerCase().startsWith("en"))
-    );
-}
-
-function speakEnglish(text) {
-    if (!("speechSynthesis" in window)) {
-        alert("Your browser does not support voice.");
-        return;
-    }
-    window.speechSynthesis.cancel();
-    const msg = new SpeechSynthesisUtterance(text);
-    const voice = getEnglishVoice();
-    if (voice) {
-        msg.voice = voice;
-    }
-    msg.lang = voice ? voice.lang : "en-IN";
-    msg.rate = 0.82;
-    msg.pitch = 1;
-    window.speechSynthesis.speak(msg);
-}
-
-function hearLetterAndWord() {
+// آپ کی اپنی ریکارڈ شدہ آڈیو چلانے کا فنکشن
+function playCurrentAudio() {
     const item = alphabet[currentIndex];
-    speakEnglish(item.letter + ". " + item.word + ". " + item.letter + " is for " + item.word);
+    // آڈیو کا پاتھ (آپ کے فولڈر کے حساب سے: media/english-audio/)
+    player.src = "media/english-audio/" + item.audio;
+    player.play().catch(error => {
+        console.log("Audio play error:", error);
+    });
 }
 
-function hearWord() {
-    const item = alphabet[currentIndex];
-    speakEnglish(item.word);
-}
-
-function welcomeVoice() {
-    speakEnglish("Welcome children! Let's learn the English alphabet together.");
+function playWelcomeAudio() {
+    // اگر آپ کے پاس ویلکم کی کوئی آڈیو ہے تو یہاں دے سکتے ہیں، ورنہ خالی چھوڑ سکتے ہیں
+    player.src = "media/english-audio/welcome.mp3";
+    player.play().catch(e => console.log(e));
 }
 
 function nextLetter() {
     selectLetter(currentIndex + 1);
-    hearLetterAndWord();
+    playCurrentAudio();
 }
 
 function previousLetter() {
     selectLetter(currentIndex - 1);
-    hearLetterAndWord();
+    playCurrentAudio();
 }
 
 // Drawing Board Code
@@ -593,12 +578,6 @@ window.addEventListener("resize", resizeCanvas);
 // Initialize
 resizeCanvas();
 selectLetter(0);
-
-if ("speechSynthesis" in window) {
-    window.speechSynthesis.onvoiceschanged = () => {
-        window.speechSynthesis.getVoices();
-    };
-}
 </script>
 
 </body>
