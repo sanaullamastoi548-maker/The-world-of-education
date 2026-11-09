@@ -1,1 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>English Alphabet - Learn and Speak</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    padding: 18px 12px;
+    background: linear-gradient(135deg,#e8fff3,#fff7df);
+    color: #17352c;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.main-title {
+    font-size: 28px;
+    font-weight: 900;
+    color: #07523d;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #557267;
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+.language-switch {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.language-btn {
+    border: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    background: white;
+    color: #07523d;
+    cursor: pointer;
+    box-shadow: 0 3px 10px #0001;
+}
+
+.language-btn.active {
+    background: #087f5b;
+    color: white;
+}
+
+.back-btn {
+    display: inline-block;
+    background: #e5a000;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.app-container {
+    max-width: 1050px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 18px;
+    align-items: start;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 22px;
+    box-shadow: 0 10px 28px #174c3610;
+    border: 1px solid #d9e9e1;
+}
+
+.card-heading {
+    font-size: 19px;
+    font-weight: 900;
+    color: #07523d;
+    margin-bottom: 15px;
+}
+
+.alphabet-grid {
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 9px;
+    max-height: 520px;
+    overflow-y: auto;
+    padding: 3px;
+}
+
+.letter-btn {
+    min-height: 58px;
+    border: 2px solid #dcebe3;
+    border-radius: 13px;
+    background: #f6fbf8;
+    color: #174b38;
+    font-size: 25px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.letter-btn.selected,
+.letter-btn:hover {
+    background: #087f5b;
+    color: white;
+    border-color: #087f5b;
+}
+
+.lesson {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.lesson-box {
+    background: #f2faf5;
+    border: 1px solid #deeee4;
+    border-radius: 16px;
+    padding: 13px;
+    text-align: center;
+    min-height: 145px;
+}
+
+.label {
+    font-size: 13px;
+    color: #668477;
+    font-weight: bold;
+}
+
+.big-letter {
+    font-size: 75px;
+    color: #087f5b;
+    font-weight: 900;
+    line-height: 1.4;
+}
+
+.example-word {
+    font-size: 28px;
+    color: #9a6500;
+    font-weight: 900;
+    margin-top: 10px;
+}
+
+.example-image {
+    font-size: 65px;
+    margin-top: 5px;
+}
+
+.example-note {
+    font-size: 13px;
+    color: #63786e;
+    margin-top: 5px;
+}
+
+.action-row {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 12px 0;
+}
+
+.action-btn {
+    border: none;
+    border-radius: 25px;
+    padding: 11px 16px;
+    font-weight: bold;
+    background: #e8f4ed;
+    color: #07523d;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.action-btn.primary {
+    background: #087f5b;
+    color: white;
+}
+
+.action-btn:active,
+.language-btn:active {
+    transform: scale(.96);
+}
+
+.instruction {
+    background: #fff6dc;
+    border: 1px solid #f5e4ae;
+    padding: 10px;
+    border-radius: 12px;
+    text-align: center;
+    color: #805a0b;
+    font-weight: bold;
+    margin: 12px 0;
+    line-height: 1.8;
+}
+
+.toolbar {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 12px 0;
+}
+
+.color-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 2px 5px #0003;
+    cursor: pointer;
+}
+
+.color-btn.active {
+    outline: 2px solid #087f5b;
+}
+
+.clear-btn {
+    background: #d94848;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.canvas-wrapper {
+    position: relative;
+    width: 100%;
+    height: 230px;
+    border: 2px dashed #9bbcaf;
+    border-radius: 17px;
+    overflow: hidden;
+    background: repeating-linear-gradient(
+        to bottom,
+        #fff 0,
+        #fff 71px,
+        #edf4ef 72px,
+        #fff 73px
+    );
+}
+
+.target-letter {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 115px;
+    font-weight: 900;
+    color: #dce9e1;
+    pointer-events: none;
+    user-select: none;
+}
+
+canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+    cursor: crosshair;
+}
+
+.progress {
+    text-align: center;
+    font-size: 13px;
+    margin-top: 10px;
+    color: #658073;
+}
+
+footer {
+    text-align: center;
+    margin-top: 22px;
+    color: #789086;
+    font-size: 13px;
+}
+
+@media(max-width:760px) {
+    .app-container {
+        grid-template-columns: 1fr;
+    }
+
+    .alphabet-grid {
+        grid-template-columns: repeat(5,1fr);
+        max-height: 300px;
+    }
+
+    .main-title {
+        font-size: 23px;
+    }
+}
+
+@media(max-width:360px) {
+    .alphabet-grid {
+        grid-template-columns: repeat(4,1fr);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <h1 class="main-title">
+        📚 English Alphabet - Learn and Speak
+    </h1>
+
+    <p class="subtitle">
+        Let's learn English letters, words and pronunciation!
+    </p>
+
+    <div class="language-switch">
+
+        <a class="language-btn" href="index.html">
+            سنڌي
+        </a>
+
+        <button class="language-btn active">
+            English
+        </button>
+
+    </div>
+
+    <button class="back-btn" onclick="welcomeVoice()">
+        🔊 Welcome! Listen
+    </button>
+
+</header>
+
+
+<div class="app-container">
+
+    <!-- English letters list -->
+
+    <div class="card">
+
+        <h2 class="card-heading">
+            🔤 Choose a Letter
+        </h2>
+
+        <div class="alphabet-grid" id="alphabetGrid"></div>
+
+    </div>
+
+
+    <!-- Reading and writing section -->
+
+    <div class="card">
+
+        <h2 class="card-heading">
+            👀 Read, Listen and Learn
+        </h2>
+
+        <div class="lesson">
+
+            <div class="lesson-box">
+
+                <div class="label">Today's Letter</div>
+
+                <div class="big-letter" id="shownLetter">A</div>
+
+                <div class="example-note" id="letterName">
+                    Letter A
+                </div>
+
+            </div>
+
+            <div class="lesson-box">
+
+                <div class="label">Word Example</div>
+
+                <div class="example-image" id="exampleImage">🍎</div>
+
+                <div class="example-word" id="exampleWord">
+                    Apple
+                </div>
+
+                <div class="example-note" id="exampleMeaning">
+                    A is for Apple
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="action-row">
+
+            <button class="action-btn primary"
+                    onclick="hearLetterAndWord()">
+                🔊 Listen
+            </button>
+
+            <button class="action-btn"
+                    onclick="hearWord()">
+                🗣️ Say Word
+            </button>
+
+            <button class="action-btn"
+                    onclick="previousLetter()">
+                ◀ Previous
+            </button>
+
+            <button class="action-btn"
+                    onclick="nextLetter()">
+                Next ▶
+            </button>
+
+        </div>
+
+
+        <div class="instruction">
+            ✍️ Look at the light letter below and write it with your finger.
+        </div>
+
+
+        <!-- Pen colors -->
+
+        <div class="toolbar">
+
+            <button class="color-btn active"
+                style="background:#17352c"
+                onclick="setColor('#17352c',this)">
+            </button>
+
+            <button class="color-btn"
+                style="background:#e03131"
+                onclick="setColor('#e03131',this)">
+            </button>
+
+            <button class="color-btn"
+                style="background:#1971c2"
+                onclick="setColor('#1971c2',this)">
+            </button>
+
+            <button class="color-btn"
+                style="background:#2f9e44"
+                onclick="setColor('#2f9e44',this)">
+            </button>
+
+            <button class="clear-btn" onclick="clearCanvas()">
+                🧽 Clear
+            </button>
+
+        </div>
+
+
+        <!-- Writing board -->
+
+        <div class="canvas-wrapper">
+
+            <div class="target-letter" id="targetLetter">
+                A
+            </div>
+
+            <canvas id="drawingCanvas"></canvas>
+
+        </div>
+
+        <div class="progress" id="progress">
+            Letter 1 / 26
+        </div>
+
+    </div>
+
+</div>
+
+
+<footer>
+    Learning English is fun! ❤️
+</footer>
+
+
+<script>
+
+// ===================================
+// English alphabet and example words
+// ===================================
+
+const alphabet = [
+
+    {letter:"A", word:"Apple", image:"🍎"},
+    {letter:"B", word:"Ball", image:"⚽"},
+    {letter:"C", word:"Cat", image:"🐱"},
+    {letter:"D", word:"Dog", image:"🐶"},
+    {letter:"E", word:"Elephant", image:"🐘"},
+    {letter:"F", word:"Fish", image:"🐟"},
+    {letter:"G", word:"Grapes", image:"🍇"},
+    {letter:"H", word:"House", image:"🏠"},
+    {letter:"I", word:"Ice Cream", image:"🍦"},
+    {letter:"J", word:"Jug", image:"🫗"},
+    {letter:"K", word:"Kite", image:"🪁"},
+    {letter:"L", word:"Lion", image:"🦁"},
+    {letter:"M", word:"Mango", image:"🥭"},
+    {letter:"N", word:"Nest", image:"🪺"},
+    {letter:"O", word:"Orange", image:"🍊"},
+    {letter:"P", word:"Parrot", image:"🦜"},
+    {letter:"Q", word:"Queen", image:"👑"},
+    {letter:"R", word:"Rabbit", image:"🐰"},
+    {letter:"S", word:"Sun", image:"☀️"},
+    {letter:"T", word:"Tiger", image:"🐯"},
+    {letter:"U", word:"Umbrella", image:"☂️"},
+    {letter:"V", word:"Van", image:"🚐"},
+    {letter:"W", word:"Watch", image:"⌚"},
+    {letter:"X", word:"Xylophone", image:"🎵"},
+    {letter:"Y", word:"Yak", image:"🐂"},
+    {letter:"Z", word:"Zebra", image:"🦓"}
+
+];
+
+
+// ===================================
+// Create alphabet buttons
+// ===================================
+
+const grid = document.getElementById("alphabetGrid");
+
+let currentIndex = 0;
+let penColor = "#17352c";
+let drawing = false;
+
+alphabet.forEach((item,index) => {
+
+    const btn = document.createElement("button");
+
+    btn.className = "letter-btn";
+    btn.textContent = item.letter;
+    btn.onclick = () => selectLetter(index);
+
+    grid.appendChild(btn);
+
+});
+
+
+// ===================================
+// Select a letter
+// ===================================
+
+function selectLetter(index) {
+
+    currentIndex =
+        (index + alphabet.length) % alphabet.length;
+
+    const item = alphabet[currentIndex];
+
+    document.getElementById("shownLetter").textContent =
+        item.letter;
+
+    document.getElementById("letterName").textContent =
+        "Letter " + item.letter;
+
+    document.getElementById("exampleWord").textContent =
+        item.word;
+
+    document.getElementById("exampleImage").textContent =
+        item.image;
+
+    document.getElementById("exampleMeaning").textContent =
+        item.letter + " is for " + item.word;
+
+    document.getElementById("targetLetter").textContent =
+        item.letter;
+
+    document.getElementById("progress").textContent =
+        `Letter ${currentIndex+1} / ${alphabet.length}`;
+
+    document.querySelectorAll(".letter-btn").forEach((btn,i) => {
+
+        btn.classList.toggle("selected",i === currentIndex);
+
+    });
+
+    clearCanvas();
+
+}
+
+
+// ===================================
+// Select English voice
+// ===================================
+
+function getEnglishVoice() {
+
+    const voices = window.speechSynthesis.getVoices();
+
+    return (
+        voices.find(v => v.lang.toLowerCase() === "en-in") ||
+        voices.find(v => v.lang.toLowerCase() === "en-pk") ||
+        voices.find(v => v.lang.toLowerCase().startsWith("en-gb")) ||
+        voices.find(v => v.lang.toLowerCase().startsWith("en-us")) ||
+        voices.find(v => v.lang.toLowerCase().startsWith("en"))
+    );
+
+}
+
+
+// ===================================
+// Speak text in English
+// ===================================
+
+function speakEnglish(text) {
+
+    if (!("speechSynthesis" in window)) {
+
+        alert("Your browser does not support voice.");
+
+        return;
+
+    }
+
+    window.speechSynthesis.cancel();
+
+    const msg = new SpeechSynthesisUtterance(text);
+
+    const voice = getEnglishVoice();
+
+    if (voice) {
+        msg.voice = voice;
+    }
+
+    msg.lang = voice ? voice.lang : "en-IN";
+    msg.rate = 0.82;
+    msg.pitch = 1;
+
+    window.speechSynthesis.speak(msg);
+
+}
+
+
+// ===================================
+// Listen to letter and word
+// ===================================
+
+function hearLetterAndWord() {
+
+    const item = alphabet[currentIndex];
+
+    speakEnglish(
+        item.letter + ". " + item.word
+    );
+
+}
+
+
+// ===================================
+// Listen to word only
+// ===================================
+
+function hearWord() {
+
+    const item = alphabet[currentIndex];
+
+    speakEnglish(item.word);
+
+}
+
+
+// ===================================
+// Welcome voice
+// ===================================
+
+function welcomeVoice() {
+
+    speakEnglish(
+        "Welcome children! Let's learn the English alphabet together."
+    );
+
+}
+
+
+// ===================================
+// Next and previous letters
+// ===================================
+
+function nextLetter() {
+
+    selectLetter(currentIndex + 1);
+
+}
+
+function previousLetter() {
+
+    selectLetter(currentIndex - 1);
+
+}
+
+
+// ===================================
+// Writing board
+// ===================================
+
+const canvas = document.getElementById("drawingCanvas");
+
+const ctx = canvas.getContext("2d");
+
+
+// Resize writing board
+
+function resizeCanvas() {
+
+    const rect = canvas.getBoundingClientRect();
+
+    const ratio = window.devicePixelRatio || 1;
+
+    const oldCanvas = document.createElement("canvas");
+
+    oldCanvas.width = canvas.width;
+    oldCanvas.height = canvas.height;
+
+    if (oldCanvas.width && oldCanvas.height) {
+
+        oldCanvas.getContext("2d").drawImage(canvas,0,0);
+
+    }
+
+    canvas.width = rect.width * ratio;
+    canvas.height = rect.height * ratio;
+
+    ctx.setTransform(ratio,0,0,ratio,0,0);
+
+    if (oldCanvas.width && oldCanvas.height) {
+
+        ctx.drawImage(
+            oldCanvas,
+            0,0,
+            oldCanvas.width,
+            oldCanvas.height,
+            0,0,
+            rect.width,
+            rect.height
+        );
+
+    }
+
+}
+
+
+// Change pen color
+
+function setColor(color,element) {
+
+    penColor = color;
+
+    document.querySelectorAll(".color-btn").forEach(btn => {
+
+        btn.classList.remove("active");
+
+    });
+
+    element.classList.add("active");
+
+}
+
+
+// Clear writing board
+
+function clearCanvas() {
+
+    const rect = canvas.getBoundingClientRect();
+
+    ctx.clearRect(
+        0,
+        0,
+        rect.width,
+        rect.height
+    );
+
+}
+
+
+// Get finger or mouse position
+
+function getPosition(e) {
+
+    const rect = canvas.getBoundingClientRect();
+
+    return {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+    };
+
+}
+
+
+// Start writing
+
+canvas.addEventListener("pointerdown",e => {
+
+    e.preventDefault();
+
+    drawing = true;
+
+    canvas.setPointerCapture(e.pointerId);
+
+    const pos = getPosition(e);
+
+    ctx.beginPath();
+
+    ctx.moveTo(pos.x,pos.y);
+
+});
+
+
+// Continue writing
+
+canvas.addEventListener("pointermove",e => {
+
+    if (!drawing) return;
+
+    e.preventDefault();
+
+    const pos = getPosition(e);
+
+    ctx.strokeStyle = penColor;
+    ctx.lineWidth = 6;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
+    ctx.lineTo(pos.x,pos.y);
+
+    ctx.stroke();
+
+});
+
+
+// Stop writing
+
+function stopDrawing() {
+
+    drawing = false;
+
+    ctx.closePath();
+
+}
+
+canvas.addEventListener("pointerup",stopDrawing);
+canvas.addEventListener("pointercancel",stopDrawing);
+canvas.addEventListener("lostpointercapture",stopDrawing);
+
+
+// Resize screen
+
+window.addEventListener("resize",resizeCanvas);
+
+
+// ===================================
+// Start English lesson
+// ===================================
+
+resizeCanvas();
+
+selectLetter(0);
+
+
+// Load available voices
+
+if ("speechSynthesis" in window) {
+    window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.getVoices();
+    };
+}
+
+</script>
+
+</body>
+</html>
