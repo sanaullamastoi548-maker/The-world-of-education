@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>English Alphabet - Learn and Speak</title>
-    
 
 <style>
 * {
@@ -81,7 +80,7 @@ header {
     max-width: 1050px;
     margin: auto;
     display: grid;
-    grid-template-columns: 1fr 1.2fr;
+    grid-template-columns: 240px 1fr;
     gap: 18px;
     align-items: start;
 }
@@ -95,29 +94,31 @@ header {
 }
 
 .card-heading {
-    font-size: 19px;
+    font-size: 17px;
     font-weight: 900;
     color: #07523d;
     margin-bottom: 15px;
+    text-align: center;
 }
 
+/* سائیڈ والی چھوٹی اے بی سی لسٹ */
 .alphabet-grid {
     display: grid;
-    grid-template-columns: repeat(5,1fr);
-    gap: 9px;
-    max-height: 520px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    max-height: 480px;
     overflow-y: auto;
-    padding: 3px;
+    padding: 2px;
 }
 
 .letter-btn {
-    min-height: 58px;
+    min-height: 45px;
     border: 2px solid #dcebe3;
-    border-radius: 13px;
+    border-radius: 10px;
     background: #f6fbf8;
     color: #174b38;
-    font-size: 25px;
-    font-weight: 900;
+    font-size: 18px;
+    font-weight: bold;
     cursor: pointer;
 }
 
@@ -129,65 +130,66 @@ header {
 }
 
 .lesson {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 15px;
     margin-bottom: 15px;
 }
 
-.lesson-box {
+.lesson-box-large {
     background: #f2faf5;
-    border: 1px solid #deeee4;
-    border-radius: 16px;
-    padding: 15px;
+    border: 2px solid #deeee4;
+    border-radius: 20px;
+    padding: 20px;
     text-align: center;
-    min-height: 200px;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
-.label {
-    font-size: 14px;
-    color: #668477;
-    font-weight: bold;
-    margin-bottom: 10px;
+/* تصویر بہت بڑی اور پیاری نظر آئے گی، اور ٹچ کرنے پر ہاتھ کا نشان بنے گا */
+.big-img-tag {
+    width: 280px;
+    height: 280px;
+    object-fit: contain;
+    display: block;
+    margin: 10px auto;
+    cursor: pointer;
+    border-radius: 15px;
+    transition: transform 0.2s ease;
+}
+
+.big-img-tag:active {
+    transform: scale(0.96);
 }
 
 .big-letter {
-    font-size: 90px;
+    font-size: 50px;
     color: #087f5b;
     font-weight: 900;
-    line-height: 1;
-}
-
-/* تصویر کو بڑا اور واضح کرنے کے لیے اسٹائل */
-.big-img-tag {
-    width: 140px;
-    height: 140px;
-    object-fit: contain;
-    display: block;
-    margin: auto;
+    margin-bottom: 5px;
 }
 
 .action-row {
     display: flex;
-    gap: 8px;
+    gap: 10px;
     justify-content: center;
     flex-wrap: wrap;
-    margin: 12px 0;
+    margin: 15px 0;
 }
 
 .action-btn {
     border: none;
     border-radius: 25px;
-    padding: 12px 22px;
+    padding: 12px 25px;
     font-weight: bold;
     background: #e8f4ed;
     color: #07523d;
     cursor: pointer;
-    font-size: 15px;
+    font-size: 16px;
 }
 
 .action-btn.primary {
@@ -247,7 +249,7 @@ header {
 .canvas-wrapper {
     position: relative;
     width: 100%;
-    height: 230px;
+    height: 200px;
     border: 2px dashed #9bbcaf;
     border-radius: 17px;
     overflow: hidden;
@@ -266,7 +268,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 115px;
+    font-size: 100px;
     font-weight: 900;
     color: #dce9e1;
     pointer-events: none;
@@ -301,11 +303,12 @@ footer {
         grid-template-columns: 1fr;
     }
     .alphabet-grid {
-        grid-template-columns: repeat(5,1fr);
-        max-height: 300px;
+        grid-template-columns: repeat(6, 1fr);
+        max-height: 220px;
     }
-    .main-title {
-        font-size: 23px;
+    .big-img-tag {
+        width: 220px;
+        height: 220px;
     }
 }
 </style>
@@ -328,27 +331,22 @@ footer {
 
 <div class="app-container">
 
-    <!-- English letters list -->
+    <!-- سائیڈ میں چھوٹی اے بی سی لسٹ -->
     <div class="card">
-        <h2 class="card-heading">🔤 Choose a Letter</h2>
+        <h2 class="card-heading">🔤 Alphabet</h2>
         <div class="alphabet-grid" id="alphabetGrid"></div>
     </div>
 
-    <!-- Reading and writing section -->
+    <!-- مین سیکشن: بڑی تصویر اور لیسن -->
     <div class="card">
         <h2 class="card-heading">👀 Read, Listen and Learn</h2>
 
         <div class="lesson">
-            <!-- بڑا حرف -->
-            <div class="lesson-box">
-                <div class="label">Letter</div>
+            <div class="lesson-box-large">
                 <div class="big-letter" id="shownLetter">Aa</div>
-            </div>
-
-            <!-- بڑی تصویر -->
-            <div class="lesson-box">
-                <div class="label">Picture</div>
-                <div><img id="exampleImgTag" src="media/images/Aa.png" alt="Alphabet" class="big-img-tag"></div>
+                <!-- تصویر پر کلک کرنے سے آڈیو چلے گی -->
+                <img id="exampleImgTag" src="" alt="Alphabet" class="big-img-tag" onclick="playCurrentAudio()" title="Click to hear voice!">
+                <div style="font-size: 13px; color: #557267; margin-top: 5px;">👆 تصویر پر ٹچ کریں یا نیچے بٹن دبائیں</div>
             </div>
         </div>
 
@@ -391,36 +389,36 @@ footer {
 
 <script>
 // ===================================
-// English alphabet list (A to Z) with custom images and audios
+// English alphabet list (A to Z) with exact image paths and audio names
 // ===================================
 
 const alphabet = [
-    {letter:"Aa", img:"Aa.png", audio:"Aa.mp3"},
-    {letter:"Bb", img:"Bb.png", audio:"Bb.mp3"},
-    {letter:"Cc", img:"Cc.png", audio:"Cc.mp3"},
-    {letter:"Dd", img:"Dd.png", audio:"Dd.mp3"},
-    {letter:"Ee", img:"Ee.png", audio:"Ee.mp3"},
-    {letter:"Ff", img:"Ff.png", audio:"Ff.mp3"},
-    {letter:"Gg", img:"Gg.png", audio:"Gg.mp3"},
-    {letter:"Hh", img:"Hh.png", audio:"Hh.mp3"},
-    {letter:"Ii", img:"Ii.png", audio:"Ii.mp3"},
-    {letter:"Jj", img:"Jj.png", audio:"Jj.mp3"},
-    {letter:"Kk", img:"Kk.png", audio:"Kk.mp3"},
-    {letter:"Ll", img:"Ll.png", audio:"Ll.mp3"},
-    {letter:"Mm", img:"Mm.png", audio:"Mm.mp3"},
-    {letter:"Nn", img:"Nn.png", audio:"Nn.mp3"},
-    {letter:"Oo", img:"Oo.png", audio:"Oo.mp3"},
-    {letter:"Pp", img:"Pp.png", audio:"Pp.mp3"},
-    {letter:"Qq", img:"Qq.png", audio:"Qq.mp3"},
-    {letter:"Rr", img:"Rr.png", audio:"Rr.mp3"},
-    {letter:"Ss", img:"Ss.png", audio:"Ss.mp3"},
-    {letter:"Tt", img:"Tt.png", audio:"Tt.mp3"},
-    {letter:"Uu", img:"Uu.png", audio:"Uu.mp3"},
-    {letter:"Vv", img:"Vv.png", audio:"Vv.mp3"},
-    {letter:"Ww", img:"Ww.png", audio:"Ww.mp3"},
-    {letter:"Xx", img:"Xx.png", audio:"Xx.mp3"},
-    {letter:"Yy", img:"Yy.png", audio:"Yy.mp3"},
-    {letter:"Zz", img:"Zz.png", audio:"Zz.mp3"}
+    {letter:"Aa", img:"media/images/Aa.jpg", audio:"Aa.mp3"},
+    {letter:"Bb", img:"media/images/Bb.jpg", audio:"Bb.mp3"},
+    {letter:"Cc", img:"media/images/Cc.jpg", audio:"Cc.mp3"},
+    {letter:"Dd", img:"media/images/Dd.jpg", audio:"Dd.mp3"},
+    {letter:"Ee", img:"media/images/Ee.jpg", audio:"Ee.mp3"},
+    {letter:"Ff", img:"media/images/Ff.jpg", audio:"Ff.mp3"},
+    {letter:"Gg", img:"media/images/Gg.jpg", audio:"Gg.mp3"},
+    {letter:"Hh", img:"media/images/Hh.jpg", audio:"Hh.mp3"},
+    {letter:"Ii", img:"media/images/Ii.png", audio:"Ii.mp3"},
+    {letter:"Jj", img:"media/images/Jj.png", audio:"Jj.mp3"},
+    {letter:"Kk", img:"media/images/Kk.jpg", audio:"Kk.mp3"},
+    {letter:"Ll", img:"media/images/Ll.jpg", audio:"Ll.mp3"},
+    {letter:"Mm", img:"media/images/Mm.jpg", audio:"Mm.mp3"},
+    {letter:"Nn", img:"media/images/Nn.jpg", audio:"Nn.mp3"},
+    {letter:"Oo", img:"media/images/Oo.jpg", audio:"Oo.mp3"},
+    {letter:"Pp", img:"media/images/Pp.jpg", audio:"Pp.mp3"},
+    {letter:"Qq", img:"media/images/Qq.jpg", audio:"Qq.mp3"},
+    {letter:"Rr", img:"media/images/Rr.jpg", audio:"Rr.mp3"},
+    {letter:"Ss", img:"media/images/Ss.jpg", audio:"Ss.mp3"},
+    {letter:"Tt", img:"media/images/Tt.jpg", audio:"Tt.mp3"},
+    {letter:"Uu", img:"media/images/Uu.jpg", audio:"Uu.mp3"},
+    {letter:"Vv", img:"media/images/Vv.jpg", audio:"Vv.mp3"},
+    {letter:"Ww", img:"media/images/Ww.jpg", audio:"Ww.mp3"},
+    {letter:"Xx", img:"media/images/Xx.jpg", audio:"Xx.mp3"},
+    {letter:"Yy", img:"media/images/Yy.jpg", audio:"Yy.mp3"},
+    {letter:"Zz", img:"media/images/Zz.jpg", audio:"Zz.mp3"}
 ];
 
 const grid = document.getElementById("alphabetGrid");
@@ -430,11 +428,11 @@ let drawing = false;
 
 const player = document.getElementById("voicePlayer");
 
-// Create alphabet buttons dynamically
+// Create alphabet buttons dynamically (Small buttons on sidebar)
 alphabet.forEach((item, index) => {
     const btn = document.createElement("button");
     btn.className = "letter-btn";
-    btn.textContent = item.letter.charAt(0); // بٹن پر صرف پہلا بڑا حرف دکھائے گا
+    btn.textContent = item.letter.charAt(0);
     btn.onclick = () => {
         selectLetter(index);
         playCurrentAudio();
@@ -449,8 +447,8 @@ function selectLetter(index) {
 
     document.getElementById("shownLetter").textContent = item.letter;
     
-    // بڑی تصویر کا پاتھ (media/images/)
-    document.getElementById("exampleImgTag").src = "media/images/" + item.img;
+    // بڑی تصویر سیٹ کرنا
+    document.getElementById("exampleImgTag").src = item.img;
     
     document.getElementById("targetLetter").textContent = item.letter.charAt(0);
     document.getElementById("progress").textContent = `Letter ${currentIndex+1} / ${alphabet.length}`;
@@ -462,7 +460,7 @@ function selectLetter(index) {
     clearCanvas();
 }
 
-// آپ کی اپنی ریکارڈ شدہ آڈیو چلانے کا فنکشن (Aa.mp3 سے Zz.mp3 تک)
+// آڈیو چلانے کا فنکشن (media/english-audio/ سے آڈیو اٹھائے گا)
 function playCurrentAudio() {
     const item = alphabet[currentIndex];
     player.src = "media/english-audio/" + item.audio;
