@@ -80,7 +80,7 @@ header {
     max-width: 1050px;
     margin: auto;
     display: grid;
-    grid-template-columns: 1fr 1.1fr;
+    grid-template-columns: 1fr 1.2fr;
     gap: 18px;
     align-items: start;
 }
@@ -130,7 +130,7 @@ header {
 .lesson {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 15px;
     margin-bottom: 15px;
 }
 
@@ -138,43 +138,36 @@ header {
     background: #f2faf5;
     border: 1px solid #deeee4;
     border-radius: 16px;
-    padding: 13px;
+    padding: 15px;
     text-align: center;
-    min-height: 145px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .label {
-    font-size: 13px;
+    font-size: 14px;
     color: #668477;
     font-weight: bold;
+    margin-bottom: 10px;
 }
 
 .big-letter {
-    font-size: 75px;
+    font-size: 90px;
     color: #087f5b;
     font-weight: 900;
-    line-height: 1.4;
+    line-height: 1;
 }
 
-.example-word {
-    font-size: 28px;
-    color: #9a6500;
-    font-weight: 900;
-    margin-top: 10px;
-}
-
-/* آپ کی اپنی ڈالی ہوئی تصویر کے لیے اسٹائل */
-.example-img-tag {
-    width: 75px;
-    height: 75px;
+/* تصویر کو بڑا اور واضح کرنے کے لیے اسٹائل */
+.big-img-tag {
+    width: 140px;
+    height: 140px;
     object-fit: contain;
-    margin-top: 5px;
-}
-
-.example-note {
-    font-size: 13px;
-    color: #63786e;
-    margin-top: 5px;
+    display: block;
+    margin: auto;
 }
 
 .action-row {
@@ -188,12 +181,12 @@ header {
 .action-btn {
     border: none;
     border-radius: 25px;
-    padding: 11px 16px;
+    padding: 12px 22px;
     font-weight: bold;
     background: #e8f4ed;
     color: #07523d;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 15px;
 }
 
 .action-btn.primary {
@@ -321,7 +314,7 @@ footer {
 
 <header>
     <h1 class="main-title">📚 English Alphabet - Learn and Speak</h1>
-    <p class="subtitle">Let's learn English letters, words and pronunciation!</p>
+    <p class="subtitle">Let's learn English letters and pronunciation!</p>
 
     <!-- Language Switcher Buttons -->
     <div class="language-switch">
@@ -329,7 +322,7 @@ footer {
         <a class="language-btn active" href="english.html">English</a>
     </div>
 
-    <button class="back-btn" onclick="playWelcomeAudio()">🔊 Welcome! Listen</button>
+    <button class="back-btn" onclick="playCurrentAudio()">🔊 Listen Letter</button>
 </header>
 
 <div class="app-container">
@@ -345,23 +338,21 @@ footer {
         <h2 class="card-heading">👀 Read, Listen and Learn</h2>
 
         <div class="lesson">
+            <!-- بڑا حرف -->
             <div class="lesson-box">
-                <div class="label">Today's Letter</div>
-                <div class="big-letter" id="shownLetter">A</div>
-                <div class="example-note" id="letterName">Letter A</div>
+                <div class="label">Letter</div>
+                <div class="big-letter" id="shownLetter">Aa</div>
             </div>
 
+            <!-- بڑی تصویر -->
             <div class="lesson-box">
-                <div class="label">Word Example</div>
-                <!-- یہاں آپ کی اپنی تصویر (Aa.png) شو ہوگی -->
-                <div><img id="exampleImgTag" src="media/images/Aa.png" alt="Apple" class="example-img-tag"></div>
-                <div class="example-word" id="exampleWord">Apple</div>
-                <div class="example-note" id="exampleMeaning">A is for Apple</div>
+                <div class="label">Picture</div>
+                <div><img id="exampleImgTag" src="media/images/Aa.png" alt="Alphabet" class="big-img-tag"></div>
             </div>
         </div>
 
         <div class="action-row">
-            <button class="action-btn primary" onclick="playCurrentAudio()">🔊 Listen Audio</button>
+            <button class="action-btn primary" onclick="playCurrentAudio()">🔊 Play Sound</button>
             <button class="action-btn" onclick="previousLetter()">◀ Previous</button>
             <button class="action-btn" onclick="nextLetter()">Next ▶</button>
         </div>
@@ -399,36 +390,36 @@ footer {
 
 <script>
 // ===================================
-// English alphabet with your custom image names (Aa.png) and audio names (Aa.mp3)
+// English alphabet list (A to Z) with custom images and audios
 // ===================================
 
 const alphabet = [
-    {letter:"Aa", word:"Apple", img:"Aa.png", audio:"Aa.mp3"},
-    {letter:"Bb", word:"Ball", img:"Bb.png", audio:"Bb.mp3"},
-    {letter:"Cc", word:"Cat", img:"Cc.png", audio:"Cc.mp3"},
-    {letter:"Dd", word:"Dog", img:"Dd.png", audio:"Dd.mp3"},
-    {letter:"Ee", word:"Elephant", img:"Ee.png", audio:"Ee.mp3"},
-    {letter:"Ff", word:"Fish", img:"Ff.png", audio:"Ff.mp3"},
-    {letter:"Gg", word:"Grapes", img:"Gg.png", audio:"Gg.mp3"},
-    {letter:"Hh", word:"House", img:"Hh.png", audio:"Hh.mp3"},
-    {letter:"Ii", word:"Ice Cream", img:"Ii.png", audio:"Ii.mp3"},
-    {letter:"Jj", word:"Jug", img:"Jj.png", audio:"Jj.mp3"},
-    {letter:"Kk", word:"Kite", img:"Kk.png", audio:"Kk.mp3"},
-    {letter:"Ll", word:"Lion", img:"Ll.png", audio:"Ll.mp3"},
-    {letter:"Mm", word:"Mango", img:"Mm.png", audio:"Mm.mp3"},
-    {letter:"Nn", word:"Nest", img:"Nn.png", audio:"Nn.mp3"},
-    {letter:"Oo", word:"Orange", img:"Oo.png", audio:"Oo.mp3"},
-    {letter:"Pp", word:"Parrot", img:"Pp.png", audio:"Pp.mp3"},
-    {letter:"Qq", word:"Queen", img:"Qq.png", audio:"Qq.mp3"},
-    {letter:"Rr", word:"Rabbit", img:"Rr.png", audio:"Rr.mp3"},
-    {letter:"Ss", word:"Sun", img:"Ss.png", audio:"Ss.mp3"},
-    {letter:"Tt", word:"Tiger", img:"Tt.png", audio:"Tt.mp3"},
-    {letter:"Uu", word:"Umbrella", img:"Uu.png", audio:"Uu.mp3"},
-    {letter:"Vv", word:"Van", img:"Vv.png", audio:"Vv.mp3"},
-    {letter:"Ww", word:"Watch", img:"Ww.png", audio:"Ww.mp3"},
-    {letter:"Xx", word:"Xylophone", img:"Xx.png", audio:"Xx.mp3"},
-    {letter:"Yy", word:"Yak", img:"Yy.png", audio:"Yy.mp3"},
-    {letter:"Zz", word:"Zebra", img:"Zz.png", audio:"Zz.mp3"}
+    {letter:"Aa", img:"Aa.png", audio:"Aa.mp3"},
+    {letter:"Bb", img:"Bb.png", audio:"Bb.mp3"},
+    {letter:"Cc", img:"Cc.png", audio:"Cc.mp3"},
+    {letter:"Dd", img:"Dd.png", audio:"Dd.mp3"},
+    {letter:"Ee", img:"Ee.png", audio:"Ee.mp3"},
+    {letter:"Ff", img:"Ff.png", audio:"Ff.mp3"},
+    {letter:"Gg", img:"Gg.png", audio:"Gg.mp3"},
+    {letter:"Hh", img:"Hh.png", audio:"Hh.mp3"},
+    {letter:"Ii", img:"Ii.png", audio:"Ii.mp3"},
+    {letter:"Jj", img:"Jj.png", audio:"Jj.mp3"},
+    {letter:"Kk", img:"Kk.png", audio:"Kk.mp3"},
+    {letter:"Ll", img:"Ll.png", audio:"Ll.mp3"},
+    {letter:"Mm", img:"Mm.png", audio:"Mm.mp3"},
+    {letter:"Nn", img:"Nn.png", audio:"Nn.mp3"},
+    {letter:"Oo", img:"Oo.png", audio:"Oo.mp3"},
+    {letter:"Pp", img:"Pp.png", audio:"Pp.mp3"},
+    {letter:"Qq", img:"Qq.png", audio:"Qq.mp3"},
+    {letter:"Rr", img:"Rr.png", audio:"Rr.mp3"},
+    {letter:"Ss", img:"Ss.png", audio:"Ss.mp3"},
+    {letter:"Tt", img:"Tt.png", audio:"Tt.mp3"},
+    {letter:"Uu", img:"Uu.png", audio:"Uu.mp3"},
+    {letter:"Vv", img:"Vv.png", audio:"Vv.mp3"},
+    {letter:"Ww", img:"Ww.png", audio:"Ww.mp3"},
+    {letter:"Xx", img:"Xx.png", audio:"Xx.mp3"},
+    {letter:"Yy", img:"Yy.png", audio:"Yy.mp3"},
+    {letter:"Zz", img:"Zz.png", audio:"Zz.mp3"}
 ];
 
 const grid = document.getElementById("alphabetGrid");
@@ -442,8 +433,7 @@ const player = document.getElementById("voicePlayer");
 alphabet.forEach((item, index) => {
     const btn = document.createElement("button");
     btn.className = "letter-btn";
-    // بٹن پر بڑا حرف دکھانے کے لیے صرف پہلا حرف (جیسے A) دکھائیں گے
-    btn.textContent = item.letter.charAt(0);
+    btn.textContent = item.letter.charAt(0); // بٹن پر صرف پہلا بڑا حرف دکھائے گا
     btn.onclick = () => {
         selectLetter(index);
         playCurrentAudio();
@@ -456,14 +446,11 @@ function selectLetter(index) {
     currentIndex = (index + alphabet.length) % alphabet.length;
     const item = alphabet[currentIndex];
 
-    document.getElementById("shownLetter").textContent = item.letter.charAt(0);
-    document.getElementById("letterName").textContent = "Letter " + item.letter;
-    document.getElementById("exampleWord").textContent = item.word;
+    document.getElementById("shownLetter").textContent = item.letter;
     
-    // تصویر کا پاتھ سیٹ کرنا (آپ کے فولڈر کے حساب سے: media/images/)
+    // بڑی تصویر کا پاتھ (media/images/)
     document.getElementById("exampleImgTag").src = "media/images/" + item.img;
     
-    document.getElementById("exampleMeaning").textContent = item.letter.charAt(0) + " is for " + item.word;
     document.getElementById("targetLetter").textContent = item.letter.charAt(0);
     document.getElementById("progress").textContent = `Letter ${currentIndex+1} / ${alphabet.length}`;
 
@@ -474,20 +461,13 @@ function selectLetter(index) {
     clearCanvas();
 }
 
-// آپ کی اپنی ریکارڈ شدہ آڈیو چلانے کا فنکشن
+// آپ کی اپنی ریکارڈ شدہ آڈیو چلانے کا فنکشن (Aa.mp3 سے Zz.mp3 تک)
 function playCurrentAudio() {
     const item = alphabet[currentIndex];
-    // آڈیو کا پاتھ (آپ کے فولڈر کے حساب سے: media/english-audio/)
     player.src = "media/english-audio/" + item.audio;
     player.play().catch(error => {
         console.log("Audio play error:", error);
     });
-}
-
-function playWelcomeAudio() {
-    // اگر آپ کے پاس ویلکم کی کوئی آڈیو ہے تو یہاں دے سکتے ہیں، ورنہ خالی چھوڑ سکتے ہیں
-    player.src = "media/english-audio/welcome.mp3";
-    player.play().catch(e => console.log(e));
 }
 
 function nextLetter() {
