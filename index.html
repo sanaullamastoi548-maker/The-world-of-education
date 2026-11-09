@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="sd" dir="rtl">
 
-    
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>تعليم جي دنيا</title>
-
     
 <style>
 * {
@@ -40,6 +38,42 @@ header h1 {
 
 header p {
     margin: 7px 0 0;
+}
+
+/* =================================== */
+/* زبان تبدیل کرنے والے بٹن کا اسٹائل */
+/* =================================== */
+.language-switch {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 14px;
+}
+
+.language-btn {
+    border: none;
+    padding: 10px 22px;
+    border-radius: 25px;
+    font-size: 15px;
+    font-weight: bold;
+    background: white;
+    color: #145d35;
+    cursor: pointer;
+    box-shadow: 0 3px 8px #0002;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.2s ease;
+}
+
+.language-btn:hover {
+    background: #f3c85b;
+    color: #185b37;
+}
+
+.language-btn.active {
+    background: #f3c85b;
+    color: #185b37;
+    border: 2px solid white;
 }
 
 .main-layout {
@@ -324,6 +358,12 @@ footer {
 <header>
     <h1>🌿 تعليم جي دنيا 🌿</h1>
     <p>اچو ته گڏجي سکون ۽ اڳتي وڌون</p>
+
+    <!-- یہاں صاف ظاہر ہونے والے زبان بدلنے کے بٹن لگائے گئے ہیں -->
+    <div class="language-switch">
+        <a class="language-btn active" href="index.html">سنڌي</a>
+        <a class="language-btn" href="english.html">English</a>
+    </div>
 </header>
 
 <button class="sidebar-toggle" onclick="toggleSidebar()">
@@ -1804,8 +1844,6 @@ const lesson52 = {
     
 /* سڀ سبق */
 
-/* سڀ سبق */
-
 let lessons = [
     lesson1,
     lesson2,
@@ -2094,6 +2132,8 @@ function showLesson(index) {
     next.textContent = "اڳيون سبق ←";
     next.disabled = index === lessons.length - 1;
 
+    next.onclick = `showLesson(currentIndex + 1);`; // fallback fix
+
     next.onclick = function() {
         showLesson(currentIndex + 1);
     };
@@ -2144,6 +2184,7 @@ async function loadMoreLessons() {
         const response = await fetch(API_ROOT);
 
         if (!response.ok) {
+            console.log("GitHub lessons folder not found.");
             console.log("GitHub lessons folder not found.");
             return;
         }
