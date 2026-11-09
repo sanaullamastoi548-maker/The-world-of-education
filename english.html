@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>English Alphabet - Learn and Speak</title>
 
 <style>
@@ -42,20 +41,20 @@ header {
 .language-switch {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 18px;
+    gap: 12px;
+    margin-bottom: 15px;
 }
 
 .language-btn {
     border: none;
     padding: 10px 22px;
-    border-radius: 30px;
+    border-radius: 25px;
     font-size: 15px;
     font-weight: bold;
     background: white;
     color: #07523d;
     cursor: pointer;
-    box-shadow: 0 3px 10px #0001;
+    box-shadow: 0 3px 8px #0002;
     text-decoration: none;
     display: inline-block;
 }
@@ -73,7 +72,7 @@ header {
     padding: 10px 20px;
     border-radius: 25px;
     font-weight: bold;
-    text-decoration: none;
+    cursor: pointer;
     margin: 5px;
 }
 
@@ -304,20 +303,12 @@ footer {
     .app-container {
         grid-template-columns: 1fr;
     }
-
     .alphabet-grid {
         grid-template-columns: repeat(5,1fr);
         max-height: 300px;
     }
-
     .main-title {
         font-size: 23px;
-    }
-}
-
-@media(max-width:360px) {
-    .alphabet-grid {
-        grid-template-columns: repeat(4,1fr);
     }
 }
 </style>
@@ -326,14 +317,8 @@ footer {
 <body>
 
 <header>
-
-    <h1 class="main-title">
-        📚 English Alphabet - Learn and Speak
-    </h1>
-
-    <p class="subtitle">
-        Let's learn English letters, words and pronunciation!
-    </p>
+    <h1 class="main-title">📚 English Alphabet - Learn and Speak</h1>
+    <p class="subtitle">Let's learn English letters, words and pronunciation!</p>
 
     <!-- Language Switcher Buttons -->
     <div class="language-switch">
@@ -341,159 +326,77 @@ footer {
         <a class="language-btn active" href="english.html">English</a>
     </div>
 
-    <button class="back-btn" onclick="welcomeVoice()">
-        🔊 Welcome! Listen
-    </button>
-
-    <button class="back-btn" onclick="playFullABC()" style="background:#087f5b;">
-        🎵 Play Full ABC
-    </button>
-
+    <button class="back-btn" onclick="welcomeVoice()">🔊 Welcome! Listen</button>
 </header>
-
 
 <div class="app-container">
 
     <!-- English letters list -->
-
     <div class="card">
-
-        <h2 class="card-heading">
-            🔤 Choose a Letter
-        </h2>
-
+        <h2 class="card-heading">🔤 Choose a Letter</h2>
         <div class="alphabet-grid" id="alphabetGrid"></div>
-
     </div>
 
-
     <!-- Reading and writing section -->
-
     <div class="card">
-
-        <h2 class="card-heading">
-            👀 Read, Listen and Learn
-        </h2>
+        <h2 class="card-heading">👀 Read, Listen and Learn</h2>
 
         <div class="lesson">
-
-            <div class="lesson-box" onclick="hearLetterOnly()" style="cursor:pointer;" title="Click to hear letter">
-                <div class="label">Today's Letter (Click to hear)</div>
+            <div class="lesson-box">
+                <div class="label">Today's Letter</div>
                 <div class="big-letter" id="shownLetter">A</div>
-                <div class="example-note" id="letterName">
-                    Letter A
-                </div>
+                <div class="example-note" id="letterName">Letter A</div>
             </div>
 
-            <div class="lesson-box" onclick="hearWord()" style="cursor:pointer;" title="Click to hear word">
-                <div class="label">Word Example (Click to hear)</div>
+            <div class="lesson-box">
+                <div class="label">Word Example</div>
                 <div class="example-image" id="exampleImage">🍎</div>
-                <div class="example-word" id="exampleWord">
-                    Apple
-                </div>
-                <div class="example-note" id="exampleMeaning">
-                    A is for Apple
-                </div>
+                <div class="example-word" id="exampleWord">Apple</div>
+                <div class="example-note" id="exampleMeaning">A is for Apple</div>
             </div>
-
         </div>
-
 
         <div class="action-row">
-
-            <button class="action-btn primary"
-                    onclick="hearLetterAndWord()">
-                🔊 A for Apple
-            </button>
-
-            <button class="action-btn"
-                    onclick="hearWord()">
-                🗣️ Say Word
-            </button>
-
-            <button class="action-btn"
-                    onclick="previousLetter()">
-                ◀ Previous
-            </button>
-
-            <button class="action-btn"
-                    onclick="nextLetter()">
-                Next ▶
-            </button>
-
+            <button class="action-btn primary" onclick="hearLetterAndWord()">🔊 Listen A for Apple</button>
+            <button class="action-btn" onclick="hearWord()">🗣️ Say Word</button>
+            <button class="action-btn" onclick="previousLetter()">◀ Previous</button>
+            <button class="action-btn" onclick="nextLetter()">Next ▶</button>
         </div>
-
 
         <div class="instruction">
             ✍️ Look at the light letter below and write it with your finger.
         </div>
 
-
         <!-- Pen colors -->
-
         <div class="toolbar">
-
-            <button class="color-btn active"
-                style="background:#17352c"
-                onclick="setColor('#17352c',this)">
-            </button>
-
-            <button class="color-btn"
-                style="background:#e03131"
-                onclick="setColor('#e03131',this)">
-            </button>
-
-            <button class="color-btn"
-                style="background:#1971c2"
-                onclick="setColor('#1971c2',this)">
-            </button>
-
-            <button class="color-btn"
-                style="background:#2f9e44"
-                onclick="setColor('#2f9e44',this)">
-            </button>
-
-            <button class="clear-btn" onclick="clearCanvas()">
-                🧽 Clear
-            </button>
-
+            <button class="color-btn active" style="background:#17352c" onclick="setColor('#17352c',this)"></button>
+            <button class="color-btn" style="background:#e03131" onclick="setColor('#e03131',this)"></button>
+            <button class="color-btn" style="background:#1971c2" onclick="setColor('#1971c2',this)"></button>
+            <button class="color-btn" style="background:#2f9e44" onclick="setColor('#2f9e44',this)"></button>
+            <button class="clear-btn" onclick="clearCanvas()">🧽 Clear</button>
         </div>
-
 
         <!-- Writing board -->
-
         <div class="canvas-wrapper">
-
-            <div class="target-letter" id="targetLetter">
-                A
-            </div>
-
+            <div class="target-letter" id="targetLetter">A</div>
             <canvas id="drawingCanvas"></canvas>
-
         </div>
 
-        <div class="progress" id="progress">
-            Letter 1 / 26
-        </div>
-
+        <div class="progress" id="progress">Letter 1 / 26</div>
     </div>
 
 </div>
-
 
 <footer>
     Learning English is fun! ❤️
 </footer>
 
-
 <script>
-
 // ===================================
-// English alphabet and example words
+// English alphabet and example words (A to Z)
 // ===================================
 
 const alphabet = [
-
     {letter:"A", word:"Apple", image:"🍎"},
     {letter:"B", word:"Ball", image:"⚽"},
     {letter:"C", word:"Cat", image:"🐱"},
@@ -520,87 +423,48 @@ const alphabet = [
     {letter:"X", word:"Xylophone", image:"🎵"},
     {letter:"Y", word:"Yak", image:"🐂"},
     {letter:"Z", word:"Zebra", image:"🦓"}
-
 ];
 
-
-// ===================================
-// Create alphabet buttons
-// ===================================
-
 const grid = document.getElementById("alphabetGrid");
-
 let currentIndex = 0;
 let penColor = "#17352c";
 let drawing = false;
 
-alphabet.forEach((item,index) => {
-
+// Create alphabet buttons dynamically
+alphabet.forEach((item, index) => {
     const btn = document.createElement("button");
-
     btn.className = "letter-btn";
     btn.textContent = item.letter;
     btn.onclick = () => {
         selectLetter(index);
-        hearLetterOnly(); // جب بھی بچہ کسی حرف پر کلک کرے گا، صرف وہ حرف بولے گا
+        hearLetterAndWord();
     };
-
     grid.appendChild(btn);
-
 });
 
-
-// ===================================
 // Select a letter
-// ===================================
-
 function selectLetter(index) {
-
-    currentIndex =
-        (index + alphabet.length) % alphabet.length;
-
+    currentIndex = (index + alphabet.length) % alphabet.length;
     const item = alphabet[currentIndex];
 
-    document.getElementById("shownLetter").textContent =
-        item.letter;
+    document.getElementById("shownLetter").textContent = item.letter;
+    document.getElementById("letterName").textContent = "Letter " + item.letter;
+    document.getElementById("exampleWord").textContent = item.word;
+    document.getElementById("exampleImage").textContent = item.image;
+    document.getElementById("exampleMeaning").textContent = item.letter + " is for " + item.word;
+    document.getElementById("targetLetter").textContent = item.letter;
+    document.getElementById("progress").textContent = `Letter ${currentIndex+1} / ${alphabet.length}`;
 
-    document.getElementById("letterName").textContent =
-        "Letter " + item.letter;
-
-    document.getElementById("exampleWord").textContent =
-        item.word;
-
-    document.getElementById("exampleImage").textContent =
-        item.image;
-
-    document.getElementById("exampleMeaning").textContent =
-        item.letter + " is for " + item.word;
-
-    document.getElementById("targetLetter").textContent =
-        item.letter;
-
-    document.getElementById("progress").textContent =
-        `Letter ${currentIndex+1} / ${alphabet.length}`;
-
-    document.querySelectorAll(".letter-btn").forEach((btn,i) => {
-
-        btn.classList.toggle("selected",i === currentIndex);
-
+    document.querySelectorAll(".letter-btn").forEach((btn, i) => {
+        btn.classList.toggle("selected", i === currentIndex);
     });
 
     clearCanvas();
-
 }
 
-
-// ===================================
-// Select English voice
-// ===================================
-
+// Speech Synthesis Setup
 function getEnglishVoice() {
-
     const voices = window.speechSynthesis.getVoices();
-
     return (
         voices.find(v => v.lang.toLowerCase() === "en-in") ||
         voices.find(v => v.lang.toLowerCase() === "en-pk") ||
@@ -608,234 +472,134 @@ function getEnglishVoice() {
         voices.find(v => v.lang.toLowerCase().startsWith("en-us")) ||
         voices.find(v => v.lang.toLowerCase().startsWith("en"))
     );
-
 }
 
-
-// ===================================
-// Speak text in English
-// ===================================
-
-function speakEnglish(text, customRate = 0.82) {
-
+function speakEnglish(text) {
     if (!("speechSynthesis" in window)) {
-
         alert("Your browser does not support voice.");
-
         return;
-
     }
-
     window.speechSynthesis.cancel();
-
     const msg = new SpeechSynthesisUtterance(text);
-
     const voice = getEnglishVoice();
-
     if (voice) {
         msg.voice = voice;
     }
-
     msg.lang = voice ? voice.lang : "en-IN";
-    msg.rate = customRate;
+    msg.rate = 0.82;
     msg.pitch = 1;
-
     window.speechSynthesis.speak(msg);
-
 }
-
-
-// ===================================
-// صرف حرف کی آواز (صرف A, B, C...)
-// ===================================
-
-function hearLetterOnly() {
-    const item = alphabet[currentIndex];
-    speakEnglish(item.letter, 0.9);
-}
-
-
-// ===================================
-// صرف لفظ کی آواز (صرف Apple, Ball...)
-// ===================================
-
-function hearWord() {
-
-    const item = alphabet[currentIndex];
-
-    speakEnglish(item.word);
-
-}
-
-
-// ===================================
-// A for Apple کی آواز
-// ===================================
 
 function hearLetterAndWord() {
-
     const item = alphabet[currentIndex];
-
-    speakEnglish(
-        item.letter + " is for " + item.word
-    );
-
+    speakEnglish(item.letter + ". " + item.word + ". " + item.letter + " is for " + item.word);
 }
 
-
-// ===================================
-// مکمل ABC کی آواز (A to Z)
-// ===================================
-
-function playFullABC() {
-    let abcText = alphabet.map(item => item.letter).join(", ");
-    speakEnglish("Alphabet: " + abcText, 0.75);
+function hearWord() {
+    const item = alphabet[currentIndex];
+    speakEnglish(item.word);
 }
-
-
-// ===================================
-// Welcome voice
-// ===================================
 
 function welcomeVoice() {
-
-    speakEnglish(
-        "Welcome children! Let's learn the English alphabet together."
-    );
-
+    speakEnglish("Welcome children! Let's learn the English alphabet together.");
 }
 
-
-// ===================================
-// Next and previous letters
-// ===================================
-
 function nextLetter() {
-
     selectLetter(currentIndex + 1);
-    hearLetterOnly();
-
+    hearLetterAndWord();
 }
 
 function previousLetter() {
-
     selectLetter(currentIndex - 1);
-    hearLetterOnly();
-
+    hearLetterAndWord();
 }
 
-
-// ===================================
-// Writing board
-// ===================================
-
+// Drawing Board Code
 const canvas = document.getElementById("drawingCanvas");
-
 const ctx = canvas.getContext("2d");
 
-
-// Resize writing board
-
 function resizeCanvas() {
-
     const rect = canvas.getBoundingClientRect();
-
     const ratio = window.devicePixelRatio || 1;
-
     const oldCanvas = document.createElement("canvas");
-
     oldCanvas.width = canvas.width;
     oldCanvas.height = canvas.height;
 
     if (oldCanvas.width && oldCanvas.height) {
-
-        oldCanvas.getContext("2d").drawImage(canvas,0,0);
-
+        oldCanvas.getContext("2d").drawImage(canvas, 0, 0);
     }
 
     canvas.width = rect.width * ratio;
     canvas.height = rect.height * ratio;
-
-    ctx.setTransform(ratio,0,0,ratio,0,0);
+    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
 
     if (oldCanvas.width && oldCanvas.height) {
-
-        ctx.drawImage(
-            oldCanvas,
-            0,0,
-            oldCanvas.width,
-            oldCanvas.height,
-            0,0,
-            rect.width,
-            rect.height
-        );
-
+        ctx.drawImage(oldCanvas, 0, 0, oldCanvas.width, oldCanvas.height, 0, 0, rect.width, rect.height);
     }
-
 }
 
-
-// Change pen color
-
-function setColor(color,element) {
-
+function setColor(color, element) {
     penColor = color;
-
-    document.querySelectorAll(".color-btn").forEach(btn => {
-
-        btn.classList.remove("active");
-
-    });
-
+    document.querySelectorAll(".color-btn").forEach(btn => btn.classList.remove("active"));
     element.classList.add("active");
-
 }
-
-
-// Clear writing board
 
 function clearCanvas() {
-
     const rect = canvas.getBoundingClientRect();
-
-    ctx.clearRect(
-        0,
-        0,
-        rect.width,
-        rect.height
-    );
-
+    ctx.clearRect(0, 0, rect.width, rect.height);
 }
 
-
-// Get finger or mouse position
-
 function getPosition(e) {
-
     const rect = canvas.getBoundingClientRect();
-
     return {
         x: e.clientX - rect.left,
         y: e.clientY - rect.top
     };
-
 }
 
-
-// Start writing
-
-canvas.addEventListener("pointerdown",e => {
-
+canvas.addEventListener("pointerdown", e => {
     e.preventDefault();
-
     drawing = true;
-
     canvas.setPointerCapture(e.pointerId);
-
     const pos = getPosition(e);
-
     ctx.beginPath();
+    ctx.moveTo(pos.x, pos.y);
+});
 
-    ctx.moveTo(pos.x,pos.y);
+canvas.addEventListener("pointermove", e => {
+    if (!drawing) return;
+    e.preventDefault();
+    const pos = getPosition(e);
+    ctx.strokeStyle = penColor;
+    ctx.lineWidth = 6;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.lineTo(pos.x, pos.y);
+    ctx.stroke();
+});
 
-...
+function stopDrawing() {
+    drawing = false;
+    ctx.closePath();
+}
+
+canvas.addEventListener("pointerup", stopDrawing);
+canvas.addEventListener("pointercancel", stopDrawing);
+canvas.addEventListener("lostpointercapture", stopDrawing);
+
+window.addEventListener("resize", resizeCanvas);
+
+// Initialize
+resizeCanvas();
+selectLetter(0);
+
+if ("speechSynthesis" in window) {
+    window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.getVoices();
+    };
+}
+</script>
+
+</body>
+</html>
