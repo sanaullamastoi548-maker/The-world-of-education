@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>English Alphabet - Learn and Speak</title>
 
 <style>
@@ -22,11 +23,11 @@ body {
 
 header {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
 }
 
 .main-title {
-    font-size: 28px;
+    font-size: clamp(22px,4vw,32px);
     font-weight: 900;
     color: #07523d;
     margin-bottom: 8px;
@@ -47,7 +48,7 @@ header {
 
 .language-btn {
     border: none;
-    padding: 10px 22px;
+    padding: 11px 24px;
     border-radius: 25px;
     font-size: 15px;
     font-weight: bold;
@@ -56,7 +57,6 @@ header {
     cursor: pointer;
     box-shadow: 0 3px 8px #0002;
     text-decoration: none;
-    display: inline-block;
 }
 
 .language-btn.active {
@@ -65,23 +65,23 @@ header {
 }
 
 .back-btn {
-    display: inline-block;
     background: #e5a000;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 24px;
     border-radius: 25px;
     font-weight: bold;
     cursor: pointer;
     margin: 5px;
+    font-size: 15px;
 }
 
 .app-container {
-    max-width: 1050px;
+    max-width: 1200px;
     margin: auto;
     display: grid;
-    grid-template-columns: 240px 1fr;
-    gap: 18px;
+    grid-template-columns: 250px 1fr;
+    gap: 20px;
     align-items: start;
 }
 
@@ -94,32 +94,34 @@ header {
 }
 
 .card-heading {
-    font-size: 17px;
+    font-size: 19px;
     font-weight: 900;
     color: #07523d;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
     text-align: center;
 }
 
-/* سائیڈ والی چھوٹی اے بی سی لسٹ */
+/* Alphabet Buttons */
+
 .alphabet-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 6px;
-    max-height: 480px;
+    grid-template-columns: repeat(4,1fr);
+    gap: 9px;
+    max-height: 550px;
     overflow-y: auto;
-    padding: 2px;
+    padding: 4px;
 }
 
 .letter-btn {
-    min-height: 45px;
+    min-height: 52px;
     border: 2px solid #dcebe3;
-    border-radius: 10px;
+    border-radius: 12px;
     background: #f6fbf8;
     color: #174b38;
-    font-size: 18px;
+    font-size: 22px;
     font-weight: bold;
     cursor: pointer;
+    transition: .2s;
 }
 
 .letter-btn.selected,
@@ -127,7 +129,10 @@ header {
     background: #087f5b;
     color: white;
     border-color: #087f5b;
+    transform: scale(1.04);
 }
+
+/* Main Lesson */
 
 .lesson {
     display: flex;
@@ -138,10 +143,10 @@ header {
 }
 
 .lesson-box-large {
-    background: #f2faf5;
+    background: linear-gradient(135deg,#f2faf5,#ffffff);
     border: 2px solid #deeee4;
-    border-radius: 20px;
-    padding: 20px;
+    border-radius: 22px;
+    padding: 15px;
     text-align: center;
     width: 100%;
     display: flex;
@@ -150,46 +155,69 @@ header {
     justify-content: center;
 }
 
-/* بڑی اور خوبصورت تصویر جس پر ہاتھ کا نشان آئے گا */
-.big-img-tag {
-    width: 290px;
-    height: 290px;
-    object-fit: contain;
-    display: block;
-    margin: 10px auto;
-    cursor: pointer;
-    border-radius: 15px;
-    transition: transform 0.2s ease;
-}
-
-.big-img-tag:active {
-    transform: scale(0.96);
-}
-
 .big-letter {
-    font-size: 50px;
+    font-size: 55px;
     color: #087f5b;
     font-weight: 900;
     margin-bottom: 5px;
 }
+
+/* BIG IMAGE */
+
+.big-img-tag {
+    display: block;
+    width: 100%;
+    max-width: 520px;
+    max-height: 520px;
+    height: auto;
+    object-fit: contain;
+    margin: 12px auto;
+    cursor: pointer;
+    border-radius: 17px;
+    transition: opacity .2s;
+}
+
+.big-img-tag.loading {
+    opacity: .35;
+}
+
+.image-status {
+    color: #557267;
+    font-size: 14px;
+    margin: 5px 0;
+    min-height: 20px;
+}
+
+.image-hint {
+    font-size: 14px;
+    color: #557267;
+    margin-top: 5px;
+}
+
+/* Action Buttons */
 
 .action-row {
     display: flex;
     gap: 10px;
     justify-content: center;
     flex-wrap: wrap;
-    margin: 15px 0;
+    margin: 18px 0;
 }
 
 .action-btn {
     border: none;
     border-radius: 25px;
-    padding: 12px 25px;
+    padding: 13px 22px;
     font-weight: bold;
     background: #e8f4ed;
     color: #07523d;
     cursor: pointer;
     font-size: 16px;
+    transition: .2s;
+}
+
+.action-btn:active {
+    transform: scale(.96);
 }
 
 .action-btn.primary {
@@ -197,35 +225,34 @@ header {
     color: white;
 }
 
-.action-btn:active,
-.language-btn:active {
-    transform: scale(.96);
-}
+/* Instructions */
 
 .instruction {
     background: #fff6dc;
     border: 1px solid #f5e4ae;
-    padding: 10px;
+    padding: 13px;
     border-radius: 12px;
     text-align: center;
     color: #805a0b;
     font-weight: bold;
-    margin: 12px 0;
+    margin: 15px 0;
     line-height: 1.8;
 }
 
+/* Drawing Toolbar */
+
 .toolbar {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    margin: 12px 0;
+    margin: 15px 0;
 }
 
 .color-btn {
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     border: 3px solid white;
     box-shadow: 0 2px 5px #0003;
@@ -241,25 +268,21 @@ header {
     color: white;
     border: none;
     border-radius: 20px;
-    padding: 8px 15px;
+    padding: 10px 18px;
     font-weight: bold;
     cursor: pointer;
 }
 
+/* Drawing Canvas */
+
 .canvas-wrapper {
     position: relative;
     width: 100%;
-    height: 200px;
+    height: 220px;
     border: 2px dashed #9bbcaf;
     border-radius: 17px;
     overflow: hidden;
-    background: repeating-linear-gradient(
-        to bottom,
-        #fff 0,
-        #fff 71px,
-        #edf4ef 72px,
-        #fff 73px
-    );
+    background: #fff;
 }
 
 .target-letter {
@@ -268,7 +291,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 100px;
+    font-size: 115px;
     font-weight: 900;
     color: #dce9e1;
     pointer-events: none;
@@ -286,29 +309,55 @@ canvas {
 
 .progress {
     text-align: center;
-    font-size: 13px;
-    margin-top: 10px;
+    font-size: 14px;
+    margin-top: 12px;
     color: #658073;
+    font-weight: bold;
 }
 
 footer {
     text-align: center;
-    margin-top: 22px;
+    margin-top: 25px;
     color: #789086;
-    font-size: 13px;
+    font-size: 14px;
 }
 
+/* Mobile Design */
+
 @media(max-width:760px) {
+
     .app-container {
         grid-template-columns: 1fr;
     }
+
     .alphabet-grid {
-        grid-template-columns: repeat(6, 1fr);
-        max-height: 220px;
+        grid-template-columns: repeat(6,1fr);
+        max-height: 230px;
     }
+
+    .letter-btn {
+        min-height: 48px;
+        font-size: 20px;
+    }
+
     .big-img-tag {
-        width: 220px;
-        height: 220px;
+        max-width: 100%;
+        max-height: 65vh;
+    }
+
+    .lesson-box-large {
+        padding: 10px;
+    }
+
+    .action-btn {
+        padding: 12px 17px;
+        font-size: 14px;
+    }
+}
+
+@media(min-width:761px) {
+    .big-img-tag {
+        max-width: 520px;
     }
 }
 </style>
@@ -317,82 +366,183 @@ footer {
 <body>
 
 <header>
-    <h1 class="main-title">📚 English Alphabet - Learn and Speak</h1>
-    <p class="subtitle">Let's learn English letters and pronunciation!</p>
 
-    <!-- Language Switcher Buttons -->
+    <h1 class="main-title">
+        📚 English Alphabet - Learn and Speak
+    </h1>
+
+    <p class="subtitle">
+        Let's learn English letters and pronunciation!
+    </p>
+
     <div class="language-switch">
-        <a class="language-btn" href="index.html">سنڌي</a>
-        <a class="language-btn active" href="english.html">English</a>
+
+        <a class="language-btn" href="index.html">
+            سنڌي
+        </a>
+
+        <a class="language-btn active" href="english.html">
+            English
+        </a>
+
     </div>
 
-    <button class="back-btn" onclick="playCurrentAudio()">🔊 Listen Letter</button>
+    <button class="back-btn" onclick="playCurrentAudio()">
+        🔊 Listen Letter
+    </button>
+
 </header>
+
 
 <div class="app-container">
 
-    <!-- سائیڈ میں چھوٹی اے بی سی لسٹ -->
+    <!-- Alphabet Panel -->
+
     <div class="card">
-        <h2 class="card-heading">🔤 Alphabet</h2>
+
+        <h2 class="card-heading">
+            🔤 Alphabet
+        </h2>
+
         <div class="alphabet-grid" id="alphabetGrid"></div>
+
     </div>
 
-    <!-- مین سیکشن: بڑی تصویر اور لیسن -->
+
+    <!-- Lesson Panel -->
+
     <div class="card">
-        <h2 class="card-heading">👀 Read, Listen and Learn</h2>
+
+        <h2 class="card-heading">
+            👀 Read, Listen and Learn
+        </h2>
 
         <div class="lesson">
+
             <div class="lesson-box-large">
-                <div class="big-letter" id="shownLetter">Aa</div>
-                <!-- تصویر پر کلک کرنے سے آڈیو چلے گی -->
-                <img id="exampleImgTag" src="" alt="Alphabet" class="big-img-tag" onclick="playCurrentAudio()" title="Click to hear voice!">
-                <div style="font-size: 13px; color: #557267; margin-top: 5px;">👆 تصویر پر ٹچ کریں یا نیچے بٹن دبائیں</div>
+
+                <div class="big-letter" id="shownLetter">
+                    Aa
+                </div>
+
+                <img
+                    id="exampleImgTag"
+                    src=""
+                    alt="Alphabet Lesson"
+                    class="big-img-tag"
+                    onclick="playCurrentAudio()"
+                    title="Click to hear voice!"
+                >
+
+                <div class="image-status" id="imageStatus"></div>
+
+                <div class="image-hint">
+                    👆 تصویر پر ٹچ کریں یا نیچے بٹن دبائیں
+                </div>
+
             </div>
+
         </div>
 
+
+        <!-- Action Buttons -->
+
         <div class="action-row">
-            <button class="action-btn primary" onclick="playCurrentAudio()">🔊 Play Sound</button>
-            <button class="action-btn" onclick="previousLetter()">◀ Previous</button>
-            <button class="action-btn" onclick="nextLetter()">Next ▶</button>
+
+            <button class="action-btn primary"
+                    onclick="playCurrentAudio()">
+                🔊 Play Sound
+            </button>
+
+            <button class="action-btn"
+                    onclick="previousLetter()">
+                ◀ Previous
+            </button>
+
+            <button class="action-btn"
+                    onclick="nextLetter()">
+                Next ▶
+            </button>
+
         </div>
+
+
+        <!-- Writing Instructions -->
 
         <div class="instruction">
             ✍️ Look at the light letter below and write it with your finger.
         </div>
 
-        <!-- Pen colors -->
+
+        <!-- Drawing Toolbar -->
+
         <div class="toolbar">
-            <button class="color-btn active" style="background:#17352c" onclick="setColor('#17352c',this)"></button>
-            <button class="color-btn" style="background:#e03131" onclick="setColor('#e03131',this)"></button>
-            <button class="color-btn" style="background:#1971c2" onclick="setColor('#1971c2',this)"></button>
-            <button class="color-btn" style="background:#2f9e44" onclick="setColor('#2f9e44',this)"></button>
-            <button class="clear-btn" onclick="clearCanvas()">🧽 Clear</button>
+
+            <button class="color-btn active"
+                    style="background:#17352c"
+                    onclick="setColor('#17352c',this)">
+            </button>
+
+            <button class="color-btn"
+                    style="background:#e03131"
+                    onclick="setColor('#e03131',this)">
+            </button>
+
+            <button class="color-btn"
+                    style="background:#1971c2"
+                    onclick="setColor('#1971c2',this)">
+            </button>
+
+            <button class="color-btn"
+                    style="background:#2f9e44"
+                    onclick="setColor('#2f9e44',this)">
+            </button>
+
+            <button class="clear-btn" onclick="clearCanvas()">
+                🧽 Clear
+            </button>
+
         </div>
 
-        <!-- Writing board -->
+
+        <!-- Drawing Board -->
+
         <div class="canvas-wrapper">
-            <div class="target-letter" id="targetLetter">A</div>
+
+            <div class="target-letter" id="targetLetter">
+                A
+            </div>
+
             <canvas id="drawingCanvas"></canvas>
+
         </div>
 
-        <div class="progress" id="progress">Letter 1 / 26</div>
+
+        <div class="progress" id="progress">
+            Letter 1 / 26
+        </div>
+
     </div>
 
 </div>
+
 
 <footer>
     Learning English is fun! ❤️
 </footer>
 
-<!-- آڈیو چلانے کے لیے پلئیر -->
-<audio id="voicePlayer"></audio>
+
+<audio id="voicePlayer" preload="none"></audio>
+
 
 <script>
-// ===================================
-// A to Z Images (Aa.jpg to Zz.jpg) and Audios (Aa.mp3 to Zz.mp3)
-// ===================================
+
+// ======================================
+// 1. ALPHABET DATA
+// ======================================
 
 const alphabet = [
+
     {letter:"Aa", img:"media/images/Aa.jpg", audio:"Aa.mp3"},
     {letter:"Bb", img:"media/images/Bb.jpg", audio:"Bb.mp3"},
     {letter:"Cc", img:"media/images/Cc.jpg", audio:"Cc.mp3"},
@@ -401,7 +551,7 @@ const alphabet = [
     {letter:"Ff", img:"media/images/Ff.jpg", audio:"Ff.mp3"},
     {letter:"Gg", img:"media/images/Gg.jpg", audio:"Gg.mp3"},
     {letter:"Hh", img:"media/images/Hh.jpg", audio:"Hh.mp3"},
-    {letter:"Ii", img:"media/images/Ii.jpg", audio:"Ii.jpg"},
+    {letter:"Ii", img:"media/images/Ii.jpg", audio:"Ii.mp3"},
     {letter:"Jj", img:"media/images/Jj.jpg", audio:"Jj.mp3"},
     {letter:"Kk", img:"media/images/Kk.jpg", audio:"Kk.mp3"},
     {letter:"Ll", img:"media/images/Ll.jpg", audio:"Ll.mp3"},
@@ -419,146 +569,359 @@ const alphabet = [
     {letter:"Xx", img:"media/images/Xx.jpg", audio:"Xx.mp3"},
     {letter:"Yy", img:"media/images/Yy.jpg", audio:"Yy.mp3"},
     {letter:"Zz", img:"media/images/Zz.jpg", audio:"Zz.mp3"}
+
 ];
 
+
+// ======================================
+// 2. ELEMENTS
+// ======================================
+
 const grid = document.getElementById("alphabetGrid");
-let currentIndex = 0;
-let penColor = "#17352c";
-let drawing = false;
 
 const player = document.getElementById("voicePlayer");
 
-// Create alphabet buttons dynamically (Small buttons on sidebar)
-alphabet.forEach((item, index) => {
+const imageElement = document.getElementById("exampleImgTag");
+
+const imageStatus = document.getElementById("imageStatus");
+
+let currentIndex = 0;
+
+
+// ======================================
+// 3. CREATE ALPHABET BUTTONS
+// ======================================
+
+alphabet.forEach((item,index) => {
+
     const btn = document.createElement("button");
+
     btn.className = "letter-btn";
+
     btn.textContent = item.letter.charAt(0);
+
+    btn.type = "button";
+
     btn.onclick = () => {
+
         selectLetter(index);
+
         playCurrentAudio();
+
     };
+
     grid.appendChild(btn);
+
 });
 
-// Select a letter
+
+// ======================================
+// 4. SELECT LETTER AND CHANGE IMAGE
+// ======================================
+
 function selectLetter(index) {
+
     currentIndex = (index + alphabet.length) % alphabet.length;
+
     const item = alphabet[currentIndex];
 
-    document.getElementById("shownLetter").textContent = item.letter;
-    
-    // بڑی تصویر سیٹ کرنا
-    document.getElementById("exampleImgTag").src = item.img;
-    
-    document.getElementById("targetLetter").textContent = item.letter.charAt(0);
-    document.getElementById("progress").textContent = `Letter ${currentIndex+1} / ${alphabet.length}`;
+    // Change text
 
-    document.querySelectorAll(".letter-btn").forEach((btn, i) => {
+    document.getElementById("shownLetter").textContent =
+        item.letter;
+
+
+    // Clear previous image while loading
+
+    imageElement.classList.add("loading");
+
+    imageStatus.textContent = "Loading image...";
+
+    imageElement.removeAttribute("src");
+
+
+    // Load correct image
+
+    const imageURL = new URL(item.img, document.baseURI);
+
+    // Cache version to help refresh old images
+
+    imageURL.searchParams.set("v", "2");
+
+    imageElement.src = imageURL.href;
+
+
+    // Show image when loaded
+
+    imageElement.onload = function() {
+
+        imageElement.classList.remove("loading");
+
+        imageStatus.textContent = "";
+
+    };
+
+
+    // Image error handling
+
+    imageElement.onerror = function() {
+
+        imageElement.classList.remove("loading");
+
+        imageStatus.textContent =
+            "Image not found: " + item.img;
+
+        console.error("Image loading failed:", imageElement.src);
+
+    };
+
+
+    // Change writing letter
+
+    document.getElementById("targetLetter").textContent =
+        item.letter.charAt(0);
+
+
+    // Update progress
+
+    document.getElementById("progress").textContent =
+        `Letter ${currentIndex+1} / ${alphabet.length}`;
+
+
+    // Highlight selected button
+
+    document.querySelectorAll(".letter-btn").forEach((btn,i) => {
+
         btn.classList.toggle("selected", i === currentIndex);
+
     });
+
+
+    // Clear drawing board
 
     clearCanvas();
+
 }
 
-// آڈیو چلانے کا فنکشن (media/english-audio/ سے آڈیو اٹھائے گا)
+
+// ======================================
+// 5. AUDIO SYSTEM
+// ======================================
+
 function playCurrentAudio() {
+
     const item = alphabet[currentIndex];
-    player.src = "media/english-audio/" + item.audio;
+
+    const audioURL =
+        "media/english-audio/" + item.audio;
+
+    player.pause();
+
+    player.currentTime = 0;
+
+    player.src = audioURL;
+
     player.play().catch(error => {
+
         console.log("Audio play error:", error);
+
     });
+
 }
+
+
+// ======================================
+// 6. NEXT LETTER
+// ======================================
 
 function nextLetter() {
+
     selectLetter(currentIndex + 1);
+
     playCurrentAudio();
+
 }
+
+
+// ======================================
+// 7. PREVIOUS LETTER
+// ======================================
 
 function previousLetter() {
+
     selectLetter(currentIndex - 1);
+
     playCurrentAudio();
+
 }
 
-// Drawing Board Code
+
+// ======================================
+// 8. DRAWING BOARD
+// ======================================
+
 const canvas = document.getElementById("drawingCanvas");
+
 const ctx = canvas.getContext("2d");
 
+let penColor = "#17352c";
+
+let drawing = false;
+
+
+// Resize canvas with high resolution
+
 function resizeCanvas() {
-    const rect = canvas.getBoundingClientRect();
-    const ratio = window.devicePixelRatio || 1;
-    const oldCanvas = document.createElement("canvas");
-    oldCanvas.width = canvas.width;
-    oldCanvas.height = canvas.height;
 
-    if (oldCanvas.width && oldCanvas.height) {
-        oldCanvas.getContext("2d").drawImage(canvas, 0, 0);
-    }
+    const rect = canvas.parentElement.getBoundingClientRect();
 
-    canvas.width = rect.width * ratio;
-    canvas.height = rect.height * ratio;
-    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    const dpr = window.devicePixelRatio || 1;
 
-    if (oldCanvas.width && oldCanvas.height) {
-        ctx.drawImage(oldCanvas, 0, 0, oldCanvas.width, oldCanvas.height, 0, 0, rect.width, rect.height);
-    }
+    canvas.width = rect.width * dpr;
+
+    canvas.height = rect.height * dpr;
+
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+
+    clearCanvas();
+
 }
 
-function setColor(color, element) {
+
+// ======================================
+// 9. CHANGE PEN COLOR
+// ======================================
+
+function setColor(color,element) {
+
     penColor = color;
-    document.querySelectorAll(".color-btn").forEach(btn => btn.classList.remove("active"));
+
+    document.querySelectorAll(".color-btn").forEach(btn => {
+
+        btn.classList.remove("active");
+
+    });
+
     element.classList.add("active");
+
 }
+
+
+// ======================================
+// 10. CLEAR CANVAS
+// ======================================
 
 function clearCanvas() {
+
     const rect = canvas.getBoundingClientRect();
-    ctx.clearRect(0, 0, rect.width, rect.height);
+
+    ctx.clearRect(0,0,rect.width,rect.height);
+
 }
+
+
+// ======================================
+// 11. GET TOUCH / MOUSE POSITION
+// ======================================
 
 function getPosition(e) {
+
     const rect = canvas.getBoundingClientRect();
+
     return {
+
         x: e.clientX - rect.left,
+
         y: e.clientY - rect.top
+
     };
+
 }
 
-canvas.addEventListener("pointerdown", e => {
+
+// ======================================
+// 12. START DRAWING
+// ======================================
+
+canvas.addEventListener("pointerdown",e => {
+
     e.preventDefault();
+
     drawing = true;
+
     canvas.setPointerCapture(e.pointerId);
+
     const pos = getPosition(e);
+
     ctx.beginPath();
-    ctx.moveTo(pos.x, pos.y);
+
+    ctx.moveTo(pos.x,pos.y);
+
 });
 
-canvas.addEventListener("pointermove", e => {
-    if (!drawing) return;
+
+// ======================================
+// 13. DRAWING MOVEMENT
+// ======================================
+
+canvas.addEventListener("pointermove",e => {
+
+    if(!drawing) return;
+
     e.preventDefault();
+
     const pos = getPosition(e);
+
     ctx.strokeStyle = penColor;
+
     ctx.lineWidth = 6;
+
     ctx.lineCap = "round";
+
     ctx.lineJoin = "round";
-    ctx.lineTo(pos.x, pos.y);
+
+    ctx.lineTo(pos.x,pos.y);
+
     ctx.stroke();
+
 });
+
+
+// ======================================
+// 14. STOP DRAWING
+// ======================================
 
 function stopDrawing() {
+
     drawing = false;
+
     ctx.closePath();
+
 }
 
-canvas.addEventListener("pointerup", stopDrawing);
-canvas.addEventListener("pointercancel", stopDrawing);
-canvas.addEventListener("lostpointercapture", stopDrawing);
+canvas.addEventListener("pointerup",stopDrawing);
 
-window.addEventListener("resize", resizeCanvas);
+canvas.addEventListener("pointercancel",stopDrawing);
 
-// Initialize
+canvas.addEventListener("lostpointercapture",stopDrawing);
+
+
+// ======================================
+// 15. WINDOW RESIZE
+// ======================================
+
+window.addEventListener("resize",resizeCanvas);
+
+
+// ======================================
+// 16. START APPLICATION
+// ======================================
+
 resizeCanvas();
+
 selectLetter(0);
+
 </script>
 
 </body>
 </html>
-j
