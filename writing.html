@@ -15,7 +15,6 @@
     box-sizing: border-box;
     font-family: 'Noto Sans Arabic', Tahoma, sans-serif;
 }
-    
 
 body {
     min-height: 100vh;
@@ -311,10 +310,9 @@ footer {
 
 </header>
 
-
 <div class="app-container">
 
-    <!-- حروف کی فہرست -->
+    <!-- سنڌي اکرن جي فهرست -->
 
     <div class="card">
 
@@ -326,8 +324,7 @@ footer {
 
     </div>
 
-
-    <!-- پڑھنے اور لکھنے کا حصہ -->
+    <!-- پڙهڻ ۽ لکڻ وارو حصو -->
 
     <div class="card">
 
@@ -349,7 +346,6 @@ footer {
 
             </div>
 
-
             <div class="lesson-box">
 
                 <div class="label">لفظ جي مثال</div>
@@ -365,7 +361,6 @@ footer {
             </div>
 
         </div>
-
 
         <div class="action-row">
 
@@ -385,13 +380,11 @@ footer {
 
         </div>
 
-
         <div class="instruction">
             ✍️ هيٺ ڏنل هلڪي اکر کي ڏسي، آڱر يا مائوس سان لکو.
         </div>
 
-
-        <!-- قلم کے رنگ -->
+        <!-- قلم جا رنگ -->
 
         <div class="toolbar">
 
@@ -421,8 +414,7 @@ footer {
 
         </div>
 
-
-        <!-- لکھنے کا بورڈ -->
+        <!-- لکڻ جو تختو -->
 
         <div class="canvas-wrapper">
 
@@ -442,23 +434,16 @@ footer {
 
 </div>
 
-
 <footer>
     سنڌي سکيا لاءِ هڪ سادي ۽ وڻندڙ مشق گاهه ❤️
 </footer>
 
-
 <script>
 
 // ===================================
-// آپ کے دیے ہوئے اصل سندھی حروف اور الفاظ
+// سنڌي اکرن ۽ لفظن جي فهرست
 // ===================================
 
-const urduAlphabets = [
-
-    
-
-    
 const urduAlphabets = [
 
     {letter:"ا", name:"الف", word:"اک", audio:"media/media/audio/alif-ak.mp3"},
@@ -566,17 +551,16 @@ const urduAlphabets = [
     {letter:"ي", name:"يي", word:"يڪتارو", audio:"media/media/audio/y-yaktaro.mp3"}
 
 ];
-    
+
+
 // ===================================
-// حروف کی فہرست بنانا
+// سنڌي اکرن جا بٽڻ ٺاهڻ
 // ===================================
 
 const grid = document.getElementById("alphabetGrid");
 
 let currentIndex = 0;
-
 let penColor = "#17352c";
-
 let drawing = false;
 
 urduAlphabets.forEach((item,index) => {
@@ -584,9 +568,7 @@ urduAlphabets.forEach((item,index) => {
     const btn = document.createElement("button");
 
     btn.className = "letter-btn";
-
     btn.textContent = item.letter;
-
     btn.onclick = () => selectLetter(index);
 
     grid.appendChild(btn);
@@ -595,7 +577,7 @@ urduAlphabets.forEach((item,index) => {
 
 
 // ===================================
-// حرف منتخب کرنا
+// چونڊيل اکر ڏيکارڻ
 // ===================================
 
 function selectLetter(index) {
@@ -639,7 +621,7 @@ function selectLetter(index) {
 
 
 // ===================================
-// اصل MP3 آواز چلانا
+// MP3 آواز هلائڻ
 // ===================================
 
 function hearWord() {
@@ -659,7 +641,8 @@ function hearWord() {
 }
 
 
-// خوش آمدیدی آواز
+// ===================================
+// ڀليڪار جو آواز
 // ===================================
 
 function welcomeVoice() {
@@ -679,7 +662,6 @@ function welcomeVoice() {
     );
 
     msg.lang = "sd-PK";
-
     msg.rate = 0.8;
 
     window.speechSynthesis.speak(msg);
@@ -688,7 +670,7 @@ function welcomeVoice() {
 
 
 // ===================================
-// اگلا اور پچھلا حرف
+// اڳيون ۽ پويون اکر
 // ===================================
 
 function nextLetter() {
@@ -705,13 +687,15 @@ function previousLetter() {
 
 
 // ===================================
-// لکھنے کا بورڈ
+// لکڻ وارو تختو
 // ===================================
 
 const canvas = document.getElementById("drawingCanvas");
 
 const ctx = canvas.getContext("2d");
 
+
+// تختي جي ماپ درست رکڻ
 
 function resizeCanvas() {
 
@@ -722,7 +706,6 @@ function resizeCanvas() {
     const oldCanvas = document.createElement("canvas");
 
     oldCanvas.width = canvas.width;
-
     oldCanvas.height = canvas.height;
 
     if (oldCanvas.width && oldCanvas.height) {
@@ -732,7 +715,6 @@ function resizeCanvas() {
     }
 
     canvas.width = rect.width * ratio;
-
     canvas.height = rect.height * ratio;
 
     ctx.setTransform(ratio,0,0,ratio,0,0);
@@ -754,7 +736,7 @@ function resizeCanvas() {
 }
 
 
-// قلم کا رنگ تبدیل کرنا
+// قلم جو رنگ تبديل ڪرڻ
 
 function setColor(color,element) {
 
@@ -771,7 +753,7 @@ function setColor(color,element) {
 }
 
 
-// لکھائی صاف کرنا
+// لکيل اکر صاف ڪرڻ
 
 function clearCanvas() {
 
@@ -787,24 +769,21 @@ function clearCanvas() {
 }
 
 
-// انگلی یا ماؤس کی جگہ معلوم کرنا
+// آڱر يا مائوس جي جاءِ معلوم ڪرڻ
 
 function getPosition(e) {
 
     const rect = canvas.getBoundingClientRect();
 
     return {
-
         x: e.clientX - rect.left,
-
         y: e.clientY - rect.top
-
     };
 
 }
 
 
-// لکھنا شروع
+// لکڻ شروع ڪرڻ
 
 canvas.addEventListener("pointerdown",e => {
 
@@ -823,7 +802,7 @@ canvas.addEventListener("pointerdown",e => {
 });
 
 
-// لکھائی جاری
+// لکڻ جاري رکڻ
 
 canvas.addEventListener("pointermove",e => {
 
@@ -834,11 +813,8 @@ canvas.addEventListener("pointermove",e => {
     const pos = getPosition(e);
 
     ctx.strokeStyle = penColor;
-
     ctx.lineWidth = 6;
-
     ctx.lineCap = "round";
-
     ctx.lineJoin = "round";
 
     ctx.lineTo(pos.x,pos.y);
@@ -848,7 +824,7 @@ canvas.addEventListener("pointermove",e => {
 });
 
 
-// لکھائی بند
+// لکڻ بند ڪرڻ
 
 function stopDrawing() {
 
@@ -859,19 +835,17 @@ function stopDrawing() {
 }
 
 canvas.addEventListener("pointerup",stopDrawing);
-
 canvas.addEventListener("pointercancel",stopDrawing);
-
 canvas.addEventListener("lostpointercapture",stopDrawing);
 
 
-// اسکرین کا سائز تبدیل ہونے پر بورڈ درست رکھنا
+// اسڪرين جي ماپ بدلجڻ تي تختي درست ڪرڻ
 
 window.addEventListener("resize",resizeCanvas);
 
 
 // ===================================
-// آغاز
+// ويب سائيٽ شروع ڪرڻ
 // ===================================
 
 resizeCanvas();
