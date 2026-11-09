@@ -48,14 +48,16 @@ header {
 
 .language-btn {
     border: none;
-    padding: 12px 24px;
+    padding: 10px 22px;
     border-radius: 30px;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
     background: white;
     color: #07523d;
     cursor: pointer;
     box-shadow: 0 3px 10px #0001;
+    text-decoration: none;
+    display: inline-block;
 }
 
 .language-btn.active {
@@ -72,6 +74,7 @@ header {
     border-radius: 25px;
     font-weight: bold;
     text-decoration: none;
+    margin: 5px;
 }
 
 .app-container {
@@ -332,20 +335,18 @@ footer {
         Let's learn English letters, words and pronunciation!
     </p>
 
+    <!-- Language Switcher Buttons -->
     <div class="language-switch">
-
-        <a class="language-btn" href="index.html">
-            سنڌي
-        </a>
-
-        <button class="language-btn active">
-            English
-        </button>
-
+        <a class="language-btn" href="index.html">سنڌي</a>
+        <a class="language-btn active" href="english.html">English</a>
     </div>
 
     <button class="back-btn" onclick="welcomeVoice()">
         🔊 Welcome! Listen
+    </button>
+
+    <button class="back-btn" onclick="playFullABC()" style="background:#087f5b;">
+        🎵 Play Full ABC
     </button>
 
 </header>
@@ -376,32 +377,23 @@ footer {
 
         <div class="lesson">
 
-            <div class="lesson-box">
-
-                <div class="label">Today's Letter</div>
-
+            <div class="lesson-box" onclick="hearLetterOnly()" style="cursor:pointer;" title="Click to hear letter">
+                <div class="label">Today's Letter (Click to hear)</div>
                 <div class="big-letter" id="shownLetter">A</div>
-
                 <div class="example-note" id="letterName">
                     Letter A
                 </div>
-
             </div>
 
-            <div class="lesson-box">
-
-                <div class="label">Word Example</div>
-
+            <div class="lesson-box" onclick="hearWord()" style="cursor:pointer;" title="Click to hear word">
+                <div class="label">Word Example (Click to hear)</div>
                 <div class="example-image" id="exampleImage">🍎</div>
-
                 <div class="example-word" id="exampleWord">
                     Apple
                 </div>
-
                 <div class="example-note" id="exampleMeaning">
                     A is for Apple
                 </div>
-
             </div>
 
         </div>
@@ -411,7 +403,7 @@ footer {
 
             <button class="action-btn primary"
                     onclick="hearLetterAndWord()">
-                🔊 Listen
+                🔊 A for Apple
             </button>
 
             <button class="action-btn"
@@ -548,7 +540,10 @@ alphabet.forEach((item,index) => {
 
     btn.className = "letter-btn";
     btn.textContent = item.letter;
-    btn.onclick = () => selectLetter(index);
+    btn.onclick = () => {
+        selectLetter(index);
+        hearLetterOnly(); // جب بھی بچہ کسی حرف پر کلک کرے گا، صرف وہ حرف بولے گا
+    };
 
     grid.appendChild(btn);
 
@@ -621,7 +616,7 @@ function getEnglishVoice() {
 // Speak text in English
 // ===================================
 
-function speakEnglish(text) {
+function speakEnglish(text, customRate = 0.82) {
 
     if (!("speechSynthesis" in window)) {
 
@@ -642,7 +637,7 @@ function speakEnglish(text) {
     }
 
     msg.lang = voice ? voice.lang : "en-IN";
-    msg.rate = 0.82;
+    msg.rate = customRate;
     msg.pitch = 1;
 
     window.speechSynthesis.speak(msg);
@@ -651,22 +646,17 @@ function speakEnglish(text) {
 
 
 // ===================================
-// Listen to letter and word
+// صرف حرف کی آواز (صرف A, B, C...)
 // ===================================
 
-function hearLetterAndWord() {
-
+function hearLetterOnly() {
     const item = alphabet[currentIndex];
-
-    speakEnglish(
-        item.letter + ". " + item.word
-    );
-
+    speakEnglish(item.letter, 0.9);
 }
 
 
 // ===================================
-// Listen to word only
+// صرف لفظ کی آواز (صرف Apple, Ball...)
 // ===================================
 
 function hearWord() {
@@ -675,6 +665,31 @@ function hearWord() {
 
     speakEnglish(item.word);
 
+}
+
+
+// ===================================
+// A for Apple کی آواز
+// ===================================
+
+function hearLetterAndWord() {
+
+    const item = alphabet[currentIndex];
+
+    speakEnglish(
+        item.letter + " is for " + item.word
+    );
+
+}
+
+
+// ===================================
+// مکمل ABC کی آواز (A to Z)
+// ===================================
+
+function playFullABC() {
+    let abcText = alphabet.map(item => item.letter).join(", ");
+    speakEnglish("Alphabet: " + abcText, 0.75);
 }
 
 
@@ -698,12 +713,14 @@ function welcomeVoice() {
 function nextLetter() {
 
     selectLetter(currentIndex + 1);
+    hearLetterOnly();
 
 }
 
 function previousLetter() {
 
     selectLetter(currentIndex - 1);
+    hearLetterOnly();
 
 }
 
@@ -821,69 +838,4 @@ canvas.addEventListener("pointerdown",e => {
 
     ctx.moveTo(pos.x,pos.y);
 
-});
-
-
-// Continue writing
-
-canvas.addEventListener("pointermove",e => {
-
-    if (!drawing) return;
-
-    e.preventDefault();
-
-    const pos = getPosition(e);
-
-    ctx.strokeStyle = penColor;
-    ctx.lineWidth = 6;
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
-
-    ctx.lineTo(pos.x,pos.y);
-
-    ctx.stroke();
-
-});
-
-
-// Stop writing
-
-function stopDrawing() {
-
-    drawing = false;
-
-    ctx.closePath();
-
-}
-
-canvas.addEventListener("pointerup",stopDrawing);
-canvas.addEventListener("pointercancel",stopDrawing);
-canvas.addEventListener("lostpointercapture",stopDrawing);
-
-
-// Resize screen
-
-window.addEventListener("resize",resizeCanvas);
-
-
-// ===================================
-// Start English lesson
-// ===================================
-
-resizeCanvas();
-
-selectLetter(0);
-
-
-// Load available voices
-
-if ("speechSynthesis" in window) {
-    window.speechSynthesis.onvoiceschanged = () => {
-        window.speechSynthesis.getVoices();
-    };
-}
-
-</script>
-
-</body>
-</html>
+...
