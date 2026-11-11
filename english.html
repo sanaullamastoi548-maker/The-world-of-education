@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -322,6 +323,42 @@ footer {
     font-size: 14px;
 }
 
+/* NEW NEXT BUTTON */
+
+.next-lesson-section {
+    max-width: 1200px;
+    margin: 30px auto 10px;
+    padding: 22px 15px;
+    text-align: center;
+    background: white;
+    border: 1px solid #d9e9e1;
+    border-radius: 20px;
+    box-shadow: 0 8px 22px #174c3610;
+}
+
+.next-lesson-section p {
+    color: #557267;
+    margin-bottom: 15px;
+    line-height: 1.7;
+}
+
+.next-lesson-btn {
+    display: inline-block;
+    background: #087f5b;
+    color: white;
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 17px;
+    transition: .2s;
+}
+
+.next-lesson-btn:hover {
+    background: #07523d;
+    transform: scale(1.03);
+}
+
 /* Mobile Design */
 
 @media(max-width:760px) {
@@ -527,6 +564,23 @@ footer {
 </div>
 
 
+<!-- NEW NEXT LESSON BUTTON -->
+
+<div class="next-lesson-section">
+
+    <p>
+        🎓 You have completed the English Alphabet!
+        <br>
+        Now let's learn words with pictures and voice.
+    </p>
+
+    <a class="next-lesson-btn" href="english-words.html">
+        Next: A for Apple 🍎
+    </a>
+
+</div>
+
+
 <footer>
     Learning English is fun! ❤️
 </footer>
@@ -625,13 +679,9 @@ function selectLetter(index) {
 
     const item = alphabet[currentIndex];
 
-    // Change text
-
     document.getElementById("shownLetter").textContent =
         item.letter;
 
-
-    // Clear previous image while loading
 
     imageElement.classList.add("loading");
 
@@ -640,18 +690,12 @@ function selectLetter(index) {
     imageElement.removeAttribute("src");
 
 
-    // Load correct image
-
     const imageURL = new URL(item.img, document.baseURI);
-
-    // Cache version to help refresh old images
 
     imageURL.searchParams.set("v", "2");
 
     imageElement.src = imageURL.href;
 
-
-    // Show image when loaded
 
     imageElement.onload = function() {
 
@@ -661,8 +705,6 @@ function selectLetter(index) {
 
     };
 
-
-    // Image error handling
 
     imageElement.onerror = function() {
 
@@ -676,19 +718,13 @@ function selectLetter(index) {
     };
 
 
-    // Change writing letter
-
     document.getElementById("targetLetter").textContent =
         item.letter.charAt(0);
 
 
-    // Update progress
-
     document.getElementById("progress").textContent =
         `Letter ${currentIndex+1} / ${alphabet.length}`;
 
-
-    // Highlight selected button
 
     document.querySelectorAll(".letter-btn").forEach((btn,i) => {
 
@@ -696,8 +732,6 @@ function selectLetter(index) {
 
     });
 
-
-    // Clear drawing board
 
     clearCanvas();
 
@@ -768,8 +802,6 @@ let penColor = "#17352c";
 
 let drawing = false;
 
-
-// Resize canvas with high resolution
 
 function resizeCanvas() {
 
