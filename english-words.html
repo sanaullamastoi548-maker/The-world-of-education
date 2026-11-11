@@ -1,1 +1,190 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Words - A for Apple</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{background:linear-gradient(135deg,#e8fff3,#fff7df);color:#17352c;padding:18px 12px}
+header{text-align:center;margin-bottom:20px}
+h1{color:#07523d;font-size:clamp(23px,4vw,32px);margin-bottom:10px}
+.subtitle{color:#557267;line-height:1.8}
+.container{max-width:900px;margin:auto}
+.card{background:white;padding:20px;border-radius:22px;box-shadow:0 8px 25px #174c3610;text-align:center;border:1px solid #d9e9e1}
+.letter{font-size:55px;font-weight:900;color:#087f5b;margin:10px}
+.word{font-size:30px;font-weight:bold;color:#07523d;margin:10px}
+.lesson-image{width:100%;max-width:450px;height:350px;object-fit:contain;margin:12px auto;display:block;border-radius:15px}
+.status{color:#b45309;min-height:22px;font-size:14px}
+.buttons{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:18px 0}
+button,a{border:0;border-radius:25px;padding:12px 20px;font-weight:bold;font-size:15px;cursor:pointer;text-decoration:none}
+.primary{background:#087f5b;color:white}
+.secondary{background:#e8f4ed;color:#07523d}
+.back{background:#e5a000;color:white}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:20px}
+.grid button{background:#f1f8f3;color:#07523d;border:1px solid #dcebe3;padding:12px 5px}
+.grid button.active{background:#087f5b;color:white}
+footer{text-align:center;color:#789086;margin:25px}
+@media(max-width:600px){
+.lesson-image{height:260px}
+.grid{grid-template-columns:repeat(4,1fr)}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>📚 A for Apple - English Words</h1>
+<p class="subtitle">Learn English words with pictures and voice!</p>
+</header>
+
+<div class="container">
+<div class="card">
+
+<div class="letter" id="letter">A a</div>
+<div class="word" id="word">A for Apple</div>
+
+<img id="lessonImage" class="lesson-image"
+     src="media/images/A for  A .jpg"
+     alt="Apple">
+
+<div class="status" id="status"></div>
+
+<div class="buttons">
+<button class="primary" onclick="playAudio()">🔊 Listen</button>
+<button class="secondary" onclick="previousWord()">◀ Previous</button>
+<button class="primary" onclick="nextWord()">Next ▶</button>
+</div>
+
+<div class="grid" id="wordGrid"></div>
+
+<div class="buttons">
+<a class="back" href="english.html">↩ Back to ABC</a>
+</div>
+
+</div>
+</div>
+
+<footer>Learning English is fun! ❤️</footer>
+
+<audio id="audioPlayer" preload="none"></audio>
+
+<script>
+
+// =====================================
+// WORD DATA
+// یہاں الفاظ، تصاویر اور آڈیو کے راستے بدلیں
+// =====================================
+
+const words = [
+{letter:"A a",word:"Apple",image:"media/images/A for  A .jpg",audio:"media/english-audio/A for Apple .mp3"},
+{letter:"B b",word:"Ball",image:"media/images/B for  B .jpg",audio:"media/english-audio/B for Ball .mp3"},
+{letter:"C c",word:"Cat",image:"media/images/C for  C .jpg",audio:"media/english-audio/C for Cat .mp3"},
+{letter:"D d",word:"Dog",image:"media/images/D for  D .jpg",audio:"media/english-audio/D for Dog .mp3"},
+{letter:"E e",word:"Elephant",image:"media/images/E for  E .jpg",audio:"media/english-audio/E for Elephant .mp3"},
+{letter:"F f",word:"Fish",image:"media/images/F for  F .jpg",audio:"media/english-audio/F for Fish .mp3"},
+{letter:"G g",word:"Grapes",image:"media/images/G for  G .jpg",audio:"media/english-audio/G for Grapes .mp3"},
+{letter:"H h",word:"House",image:"media/images/H for  H .jpg",audio:"media/english-audio/H for House .mp3"},
+{letter:"I i",word:"Ice Cream",image:"media/images/I for  I .jpg",audio:"media/english-audio/I for Ice Cream .mp3"},
+{letter:"J j",word:"Jug",image:"media/images/J for  J .jpg",audio:"media/english-audio/J for Jug .mp3"},
+{letter:"K k",word:"Kite",image:"media/images/K for  K .jpg",audio:"media/english-audio/K for Kite .mp3"},
+{letter:"L l",word:"Lion",image:"media/images/L for  L .jpg",audio:"media/english-audio/L for Lion .mp3"},
+{letter:"M m",word:"Mango",image:"media/images/M for  M .jpg",audio:"media/english-audio/M for Mango .mp3"},
+{letter:"N n",word:"Nest",image:"media/images/N for  N .jpg",audio:"media/english-audio/N for Nest .mp3"},
+{letter:"O o",word:"Orange",image:"media/images/O for  O .jpg",audio:"media/english-audio/O for Orange .mp3"},
+{letter:"P p",word:"Parrot",image:"media/images/P for  P .jpg",audio:"media/english-audio/P for Parrot .mp3"},
+{letter:"Q q",word:"Queen",image:"media/images/Q for  Q .jpg",audio:"media/english-audio/Q for Queen .mp3"},
+{letter:"R r",word:"Rabbit",image:"media/images/R for  R .jpg",audio:"media/english-audio/R for Rabbit .mp3"},
+{letter:"S s",word:"Sun",image:"media/images/S for  S .jpg",audio:"media/english-audio/S for Sun .mp3"},
+{letter:"T t",word:"Tiger",image:"media/images/T for  T .jpg",audio:"media/english-audio/T for Tiger .mp3"},
+{letter:"U u",word:"Umbrella",image:"media/images/U for  U .jpg",audio:"media/english-audio/U for Umbrella .mp3"},
+{letter:"V v",word:"Van",image:"media/images/V for  V .jpg",audio:"media/english-audio/V for Van .mp3"},
+{letter:"W w",word:"Watch",image:"media/images/W for  W .jpg",audio:"media/english-audio/W for Watch .mp3"},
+{letter:"X x",word:"Xylophone",image:"media/images/X for  X .jpg",audio:"media/english-audio/X for Xylophone .mp3"},
+{letter:"Y y",word:"Yak",image:"media/images/Y for  Y .jpg",audio:"media/english-audio/Y for Yak .mp3"},
+{letter:"Z z",word:"Zebra",image:"media/images/Z for  Z .jpg",audio:"media/english-audio/Z for Zebra .mp3"}
+];
+
+let currentIndex = 0;
+
+const letterBox = document.getElementById("letter");
+const wordBox = document.getElementById("word");
+const image = document.getElementById("lessonImage");
+const statusBox = document.getElementById("status");
+const player = document.getElementById("audioPlayer");
+const grid = document.getElementById("wordGrid");
+
+// Alphabet buttons
+words.forEach((item,index)=>{
+    const button = document.createElement("button");
+    button.textContent = item.letter.charAt(0);
+    button.onclick = ()=>showWord(index);
+    grid.appendChild(button);
+});
+
+// Show selected word
+function showWord(index){
+    currentIndex = (index + words.length) % words.length;
+
+    const item = words[currentIndex];
+
+    letterBox.textContent = item.letter;
+    wordBox.textContent = item.letter.charAt(0) + " for " + item.word;
+
+    image.style.opacity = "0.4";
+    statusBox.textContent = "Loading image...";
+
+    image.onload = ()=>{
+        image.style.opacity = "1";
+        statusBox.textContent = "";
+    };
+
+    image.onerror = ()=>{
+        image.style.opacity = "1";
+        statusBox.textContent = "Image not found: " + item.image;
+    };
+
+    image.src = item.image;
+
+    document.querySelectorAll(".grid button").forEach((btn,i)=>{
+        btn.classList.toggle("active",i===currentIndex);
+    });
+
+    player.pause();
+    player.currentTime = 0;
+}
+
+// Play MP3
+function playAudio(){
+    const item = words[currentIndex];
+
+    player.pause();
+    player.currentTime = 0;
+    player.src = item.audio;
+
+    player.play().catch(()=>{
+        statusBox.textContent = "Audio not found: " + item.audio;
+    });
+}
+
+// Next
+function nextWord(){
+    showWord(currentIndex+1);
+    playAudio();
+}
+
+// Previous
+function previousWord(){
+    showWord(currentIndex-1);
+    playAudio();
+}
+
+// Start
+showWord(0);
+
+</script>
+</body>
+</html>
