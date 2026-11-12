@@ -7,60 +7,85 @@
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
-body{background:linear-gradient(135deg,#e8fff3,#fff7df);color:#17352c;padding:18px 12px}
+body{background:linear-gradient(135deg,#e8fff3,#fff7df);color:#17352c;padding:15px 10px}
 header{text-align:center;margin-bottom:15px}
-h1{color:#07523d;font-size:clamp(23px,4vw,30px);margin-bottom:8px}
-.subtitle{color:#557267;line-height:1.6}
-.container{max-width:900px;margin:auto}
+h1{color:#07523d;font-size:clamp(22px,4vw,30px);margin-bottom:6px}
+.subtitle{color:#557267;line-height:1.6;font-size:15px}
+.container{max-width:950px;margin:auto}
 .card{background:white;padding:15px;border-radius:22px;box-shadow:0 8px 25px #174c3610;text-align:center;border:1px solid #d9e9e1}
 
-/* تصویر اور اس کے اوپر کلک کرنے والے حصوں کے لیے کنٹینر */
+/* تصویر کو بڑا اور واضح دکھانے کے لیے کنٹینر */
 .image-container {
     position: relative;
     display: inline-block;
-    max-width: 450px;
+    max-width: 600px; /* تصویر کا سائز بڑا کر دیا گیا ہے */
     width: 100%;
     margin: 10px auto;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
 }
 
 .lesson-image{
     width: 100%;
     height: auto;
     display: block;
-    border-radius: 15px;
 }
 
-/* تصویر کے اوپر تین حصوں پر کلک کرنے کے invisible بٹن (ٹچ زونز) */
+/* تصویر کے تینوں خانوں کے عین مطابق ٹچ زونز */
 .touch-zone {
     position: absolute;
-    left: 5%;
-    width: 90%;
-    height: 30%;
+    left: 4%;
+    width: 92%;
+    height: 23.5%; /* ہر خانے کی بالکل درست اونچائی */
     cursor: pointer;
-    background: rgba(0, 255, 0, 0); /* ٹیسٹ کرنے کے لیے رنگ دیکھ سکتے ہیں، بعد میں شفاف رہے گا */
-    border-radius: 12px;
+    border-radius: 14px;
+    transition: background-color 0.2s, transform 0.1s;
+    -webkit-tap-highlight-color: transparent;
 }
-/* پہلا حصہ (اوپر والا - Apple/Ball وغیرہ) */
-.zone-1 { top: 28%; }
-/* دوسرا حصہ (بیچ والا - Ant/Banana وغیرہ) */
-.zone-2 { top: 60%; }
-/* تیسرا حصہ (نیچے والا - Aeroplane/Butterfly وغیرہ) */
-.zone-3 { top: 92%; height: 26%; } /* اگر تصویر کے حساب سے نیچے والا حصہ ایڈجسٹ کرنا ہو تو یہاں کر سکتے ہیں */
 
-.status{color:#b45309;min-height:20px;font-size:14px;margin-top:5px}
-.buttons{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:12px 0}
-button,a{border:0;border-radius:25px;padding:10px 18px;font-weight:bold;font-size:14px;cursor:pointer;text-decoration:none}
+/* ٹچ کرنے پر ہلکا سا چمکنے والا ایفیکٹ */
+.touch-zone:active {
+    background-color: rgba(255, 255, 255, 0.28);
+    transform: scale(0.98);
+}
+
+/* پہلا خانہ (Apple, Ball, Cat...) */
+.zone-1 { top: 25%; }
+
+/* دوسرا خانہ (Ant, Banana, Cow...) */
+.zone-2 { top: 50%; }
+
+/* تیسرا خانہ (Aeroplane, Butterfly, Cake...) */
+.zone-3 { top: 75%; }
+
+.status{
+    color:#b45309;
+    background:#fff9db;
+    border:1px solid #ffe066;
+    display:inline-block;
+    padding:6px 16px;
+    border-radius:20px;
+    font-weight:bold;
+    min-height:32px;
+    font-size:15px;
+    margin-bottom:8px;
+}
+
+.buttons{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:14px 0}
+button,a{border:0;border-radius:25px;padding:12px 22px;font-weight:bold;font-size:15px;cursor:pointer;text-decoration:none}
 .primary{background:#087f5b;color:white}
 .secondary{background:#e8f4ed;color:#07523d}
 .back{background:#e5a000;color:white}
 
-.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:15px}
-.grid button{background:#f1f8f3;color:#07523d;border:1px solid #dcebe3;padding:10px 5px;font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:15px}
+.grid button{background:#f1f8f3;color:#07523d;border:1px solid #dcebe3;padding:12px 5px;font-size:17px}
 .grid button.active{background:#087f5b;color:white}
-footer{text-align:center;color:#789086;margin:15px}
+footer{text-align:center;color:#789086;margin:18px;font-size:14px}
 
 @media(max-width:600px){
-.grid{grid-template-columns:repeat(4,1fr)}
+    .grid{grid-template-columns:repeat(5,1fr)}
+    .card{padding:10px}
 }
 </style>
 </head>
@@ -69,22 +94,24 @@ footer{text-align:center;color:#789086;margin:15px}
 
 <header>
 <h1>📚 English Alphabet - Learn and Speak</h1>
-<p class="subtitle">تصویر کے جس حصے پر چاہیں ٹچ کریں اور آواز سنیں!</p>
+<p class="subtitle">تصویر کے جس خانے پر چاہیں ٹچ کریں اور آواز سنیں!</p>
 </header>
 
 <div class="container">
 <div class="card">
 
-<div class="status" id="status">تصویر کے الگ الگ حصوں پر کلک کریں!</div>
+<div>
+    <div class="status" id="status">تصویر کے کسی بھی خانے پر ٹچ کریں!</div>
+</div>
 
-<!-- بڑی تصویر اور اس کے اندر کلک کرنے والے 3 زونز -->
+<!-- بڑی تصویر اور اس کے تینوں خانوں کے بالکل اوپر فٹ کیے گئے ٹچ بٹن -->
 <div class="image-container">
     <img id="lessonImage" class="lesson-image" src="" alt="Alphabet Image">
     
-    <!-- تینوں حصوں کے ٹچ بٹن -->
-    <div class="touch-zone zone-1" onclick="playPartAudio(0)" title="پہلا حصہ سنیں"></div>
-    <div class="touch-zone zone-2" onclick="playPartAudio(1)" title="دوسرا حصہ سنیں"></div>
-    <div class="touch-zone zone-3" onclick="playPartAudio(2)" title="تیسرا حصہ سنیں"></div>
+    <!-- تینوں خانوں کے ٹچ بٹن -->
+    <div class="touch-zone zone-1" onclick="playPartAudio(0)" title="پہلا لفظ سنیں"></div>
+    <div class="touch-zone zone-2" onclick="playPartAudio(1)" title="دوسرا لفظ سنیں"></div>
+    <div class="touch-zone zone-3" onclick="playPartAudio(2)" title="تیسرا لفظ سنیں"></div>
 </div>
 
 <div class="buttons">
@@ -106,10 +133,8 @@ footer{text-align:center;color:#789086;margin:15px}
 <audio id="audioPlayer" preload="none"></audio>
 
 <script>
-    
-
 // =====================================
-// تمام حروف، ان کی تصاویر اور تینوں حصوں کی الگ الگ آڈیو فائلیں
+// آپ کے دیے گئے بالکل درست فائل نام (Images اور Audios)
 // =====================================
 
 const alphabetData = [
@@ -213,9 +238,7 @@ const alphabetData = [
         ],
         names: ["J for Jug", "J for Juice", "J for Juggler"]
     }
-    // اسی طرح آپ K سے Z تک کے باقی حروف بھی آگے بڑھا سکتے ہیں
 ];
-    
 
 let currentIndex = 0;
 
@@ -224,7 +247,7 @@ const statusBox = document.getElementById("status");
 const player = document.getElementById("audioPlayer");
 const grid = document.getElementById("wordGrid");
 
-// سائیڈ یا نیچے کے لیے حروف کے بٹن بنانا
+// حروف کے بٹن بنانا
 alphabetData.forEach((item, index) => {
     const button = document.createElement("button");
     button.textContent = item.letter;
@@ -237,12 +260,12 @@ function showLetter(index) {
     currentIndex = (index + alphabetData.length) % alphabetData.length;
     const item = alphabetData[currentIndex];
 
-    image.style.opacity = "0.4";
+    image.style.opacity = "0.5";
     statusBox.textContent = "تصویر لوڈ ہو رہی ہے...";
 
     image.onload = () => {
         image.style.opacity = "1";
-        statusBox.textContent = "حرف " + item.letter + " - تصویر کے کسی بھی حصے پر ٹچ کریں!";
+        statusBox.textContent = "حرف " + item.letter + " - کسی بھی خانے پر ٹچ کریں!";
     };
 
     image.onerror = () => {
@@ -252,7 +275,6 @@ function showLetter(index) {
 
     image.src = item.image;
 
-    // کون سا بٹن سلیکٹڈ ہے اسے ہائیলাইট کرنا
     document.querySelectorAll(".grid button").forEach((btn, i) => {
         btn.classList.toggle("active", i === currentIndex);
     });
@@ -261,13 +283,13 @@ function showLetter(index) {
     player.currentTime = 0;
 }
 
-// تصویر کے مخصوص حصے پر کلک کرنے سے صرف اسی کی آڈیو چلے گی
+// تصویر کے مخصوص خانے پر کلک کرنے سے صرف اسی کی آڈیو چلے گی
 function playPartAudio(partIndex) {
     const item = alphabetData[currentIndex];
     const audioPath = item.audios[partIndex];
     const partName = item.names[partIndex];
 
-    statusBox.textContent = "🔊 بول رہا ہے: " + partName;
+    statusBox.textContent = "🔊 " + partName;
 
     player.pause();
     player.currentTime = 0;
@@ -278,19 +300,16 @@ function playPartAudio(partIndex) {
     });
 }
 
-// اگلا حرف
 function nextWord() {
     showLetter(currentIndex + 1);
 }
 
-// پچھلا حرف
 function previousWord() {
     showLetter(currentIndex - 1);
 }
 
 // شروع کرتے وقت پہلا حرف دکھائیں
 showLetter(0);
-
 </script>
 </body>
 </html>
