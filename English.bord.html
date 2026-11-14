@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>English Writing Practice Board</title>
+<title>Kids Graphic Design & Cartoon Tracing Board</title>
 <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
 
 <style>
@@ -39,12 +39,12 @@ h1 {
 .nav-row {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
     margin-bottom: 10px;
     flex-wrap: wrap;
 }
 
-.back-link, .nav-btn {
+.back-link, .nav-btn, .mode-btn {
     background: #ffb300;
     color: #fff;
     border: none;
@@ -60,9 +60,45 @@ h1 {
     background: #1976d2;
 }
 
+.mode-btn {
+    background: #2e7d32;
+}
+
+.mode-btn.active-mode {
+    background: #c62828 !important;
+}
+
+/* ڈیزائن سلیکٹر بار (20+ آپشنز کے لیے اسکرول ایبل) */
+.design-selector {
+    display: none;
+    justify-content: flex-start;
+    gap: 6px;
+    margin-bottom: 12px;
+    overflow-x: auto;
+    max-width: 780px;
+    padding-bottom: 5px;
+}
+
+.design-tab {
+    background: #ffffff;
+    border: 2px solid #1976d2;
+    color: #1976d2;
+    padding: 6px 14px;
+    border-radius: 15px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.design-tab.active {
+    background: #1976d2;
+    color: white;
+}
+
 .board-container {
     width: 100%;
-    max-width: 650px;
+    max-width: 780px;
     background: white;
     padding: 15px;
     border-radius: 22px;
@@ -135,20 +171,78 @@ h1 {
     font-size: 13px;
 }
 
+.download-btn {
+    background: #388e3c;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 14px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+/* ورک اسپیس لے آؤٹ */
+.workspace-area {
+    display: flex;
+    gap: 15px;
+    align-items: stretch;
+}
+
+.reference-panel {
+    display: none;
+    width: 170px;
+    min-width: 170px;
+    background: #fff8e1;
+    border: 2px solid #ffca28;
+    border-radius: 17px;
+    padding: 12px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.reference-label {
+    font-size: 13px;
+    color: #e65100;
+    font-weight: bold;
+    margin-bottom: 8px;
+    background: #ffe082;
+    padding: 4px 10px;
+    border-radius: 10px;
+}
+
+.reference-emoji {
+    font-size: 85px;
+    line-height: 1.1;
+    margin: 10px 0;
+}
+
+.reference-hint {
+    font-size: 12px;
+    color: #6d4c41;
+    line-height: 1.4;
+}
+
 .canvas-wrapper {
     position: relative;
-    width: 100%;
-    height: 320px;
+    flex: 1;
+    height: 360px;
     border: 2px solid #ffb300;
     border-radius: 17px;
     overflow: hidden;
     background-color: #ffffff;
-    /* انگلش فور لائن کاپی جیسی لکیریں */
     background-image: 
         linear-gradient(to bottom, transparent 39px, #90caf9 40px),
         linear-gradient(to bottom, transparent 79px, #e3f2fd 80px),
         linear-gradient(to bottom, transparent 119px, #90caf9 120px);
     background-size: 100% 120px;
+}
+
+.canvas-wrapper.design-mode {
+    background-image: none !important;
+    background-color: #ffffff;
 }
 
 .target-letter {
@@ -157,11 +251,26 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 130px;
+    font-size: 135px;
     font-weight: 700;
-    color: #e8f5e9;
+    color: #e2f0d9;
     pointer-events: none;
     user-select: none;
+}
+
+.blueprint-layer {
+    position: absolute;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    user-select: none;
+}
+
+.blueprint-layer svg {
+    width: 250px;
+    height: 250px;
 }
 
 canvas {
@@ -182,6 +291,22 @@ canvas {
     font-weight: bold;
     color: #37474f;
 }
+
+@media(max-width: 650px) {
+    .workspace-area {
+        flex-direction: column;
+    }
+    .reference-panel {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 8px;
+    }
+    .reference-emoji {
+        font-size: 55px;
+        margin: 0;
+    }
+}
 </style>
 </head>
 
@@ -189,17 +314,42 @@ canvas {
 
 <header>
     <div class="nav-row">
-        <a href="english.html" class="back-link">↩ Back to English Menu</a>
+        <a href="english.html" class="back-link">↩ Back to Menu</a>
+        <button class="mode-btn" id="modeToggleBtn" onclick="toggleDesignMode()">🎨 Graphic Design & Cartoon Mode</button>
     </div>
-    <h1>✍️ English Alphabet Writing Board</h1>
+    <h1 id="pageTitle">✍️ English Alphabet Writing Board</h1>
 </header>
 
 <div class="board-container">
     
-    <div class="nav-row" style="margin-bottom: 12px;">
+    <div class="nav-row" id="letterNavRow" style="margin-bottom: 8px;">
         <button class="nav-btn" onclick="previousLetter()">◀ Previous</button>
         <span id="currentLetterDisplay" style="font-size: 22px; font-weight: 700; color: #1976d2; padding: 0 15px;">A</span>
         <button class="nav-btn" onclick="nextLetter()">Next ▶</button>
+    </div>
+
+    <!-- 20+ مختلف ڈیزائنز اور کارٹونز کی سلیکٹر بار -->
+    <div class="design-selector" id="designSelector">
+        <button class="design-tab active" onclick="selectDesign('circle', this)">⭕ Circle</button>
+        <button class="design-tab" onclick="selectDesign('star', this)">⭐ Star</button>
+        <button class="design-tab" onclick="selectDesign('sun', this)">☀️ Sun</button>
+        <button class="design-tab" onclick="selectDesign('flower', this)">🌸 Flower</button>
+        <button class="design-tab" onclick="selectDesign('ball', this)">⚽ Football</button>
+        <button class="design-tab" onclick="selectDesign('house', this)">🏠 House</button>
+        <button class="design-tab" onclick="selectDesign('car', this)">🚗 Car</button>
+        <button class="design-tab" onclick="selectDesign('tree', this)">🌳 Tree</button>
+        <button class="design-tab" onclick="selectDesign('boy', this)">👦 Boy</button>
+        <button class="design-tab" onclick="selectDesign('girl', this)">👧 Girl</button>
+        <button class="design-tab" onclick="selectDesign('cat', this)">🐱 Cat</button>
+        <button class="design-tab" onclick="selectDesign('dog', this)">🐶 Dog</button>
+        <button class="design-tab" onclick="selectDesign('fish', this)">🐠 Fish</button>
+        <button class="design-tab" onclick="selectDesign('apple', this)">🍎 Apple</button>
+        <button class="design-tab" onclick="selectDesign('banana', this)">🍌 Banana</button>
+        <button class="design-tab" onclick="selectDesign('heart', this)">❤️ Heart</button>
+        <button class="design-tab" onclick="selectDesign('teddy', this)">🧸 Teddy</button>
+        <button class="design-tab" onclick="selectDesign('rocket', this)">🚀 Rocket</button>
+        <button class="design-tab" onclick="selectDesign('umbrella', this)">☂️ Umbrella</button>
+        <button class="design-tab" onclick="selectDesign('moon', this)">🌙 Moon</button>
     </div>
 
     <div class="board-toolbar">
@@ -208,28 +358,42 @@ canvas {
             <button class="color-btn active" style="background:#0d47a1" onclick="setColor('#0d47a1',this)"></button>
             <button class="color-btn" style="background:#c62828" onclick="setColor('#c62828',this)"></button>
             <button class="color-btn" style="background:#2e7d32" onclick="setColor('#2e7d32',this)"></button>
-            <button class="color-btn" style="background:#424242" onclick="setColor('#424242',this)"></button>
+            <button class="color-btn" style="background:#ff8f00" onclick="setColor('#ff8f00',this)"></button>
         </div>
 
         <div class="tool-group">
             <span style="font-size:12px; font-weight:bold;">Size:</span>
             <button class="btn-size" onclick="setSize(3, this)">Thin</button>
             <button class="btn-size active" onclick="setSize(6, this)">Normal</button>
-            <button class="btn-size" onclick="setSize(10, this)">Thick</button>
+            <button class="btn-size" onclick="setSize(12, this)">Thick</button>
         </div>
 
         <div class="tool-group">
             <button class="btn-size btn-eraser" id="eraserBtn" onclick="toggleEraser()">🧽 Eraser</button>
             <button class="clear-btn" onclick="clearCanvas()">Clear</button>
+            <button class="download-btn" onclick="downloadCanvas()">📥 Download</button>
         </div>
     </div>
 
-    <div class="canvas-wrapper" id="canvasWrapper">
-        <div class="target-letter" id="targetLetter">A</div>
-        <canvas id="writingBoard"></canvas>
+    <div class="workspace-area">
+        <div class="reference-panel" id="referencePanel">
+            <div>
+                <div class="reference-label">👀 Look & Draw</div>
+                <div class="reference-emoji" id="refEmoji">⭕</div>
+            </div>
+            <div class="reference-hint">
+                Draw inside the dotted outline!
+            </div>
+        </div>
+
+        <div class="canvas-wrapper" id="canvasWrapper">
+            <div class="target-letter" id="targetLetter">A</div>
+            <div class="blueprint-layer" id="blueprintLayer"></div>
+            <canvas id="writingBoard"></canvas>
+        </div>
     </div>
 
-    <div class="info-bar">
+    <div class="info-bar" id="infoBar">
         <span id="letterName">A - Apple</span>
         <span id="progress">Letter 1 / 26</span>
     </div>
@@ -237,7 +401,6 @@ canvas {
 </div>
 
 <script>
-// انگلش اے بی سی کی فہرست
 const englishAlphabets = [
     {letter:"A", name:"A - Apple"}, {letter:"B", name:"B - Ball"}, {letter:"C", name:"C - Cat"},
     {letter:"D", name:"D - Dog"}, {letter:"E", name:"E - Elephant"}, {letter:"F", name:"F - Fish"},
@@ -250,7 +413,34 @@ const englishAlphabets = [
     {letter:"Y", name:"Y - Yak"}, {letter:"Z", name:"Z - Zebra"}
 ];
 
+// 20 سے زائد مختلف کارٹون اور ڈیزائنز کے نقطوں والے نقشے (Blueprints)
+const designTemplates = {
+    circle: { emoji: "⭕", svg: `<svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="75" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="8,6"/><circle cx="100" cy="100" r="35" fill="none" stroke="#b0bec5" stroke-width="3" stroke-dasharray="5,5"/></svg>` },
+    star: { emoji: "⭐", svg: `<svg viewBox="0 0 200 200"><polygon points="100,20 124,76 185,82 139,122 153,182 100,148 47,182 61,122 15,82 76,76" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="8,6" stroke-linejoin="round"/></svg>` },
+    sun: { emoji: "☀️", svg: `<svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="42" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="8,6"/><line x1="100" y1="10" x2="100" y2="42" stroke="#78909c" stroke-width="4" stroke-dasharray="6,4"/><line x1="100" y1="158" x2="100" y2="190" stroke="#78909c" stroke-width="4" stroke-dasharray="6,4"/><line x1="10" y1="100" x2="42" y2="100" stroke="#78909c" stroke-width="4" stroke-dasharray="6,4"/><line x1="158" y1="100" x2="190" y2="100" stroke="#78909c" stroke-width="4" stroke-dasharray="6,4"/></svg>` },
+    flower: { emoji: "🌸", svg: `<svg viewBox="0 0 200 200"><circle cx="100" cy="65" r="25" fill="none" stroke="#78909c" stroke-width="3" stroke-dasharray="6,5"/><circle cx="100" cy="135" r="25" fill="none" stroke="#78909c" stroke-width="3" stroke-dasharray="6,5"/><circle cx="65" cy="100" r="25" fill="none" stroke="#78909c" stroke-width="3" stroke-dasharray="6,5"/><circle cx="135" cy="100" r="25" fill="none" stroke="#78909c" stroke-width="3" stroke-dasharray="6,5"/><circle cx="100" cy="100" r="15" fill="none" stroke="#e65100" stroke-width="3" stroke-dasharray="4,3"/></svg>` },
+    ball: { emoji: "⚽", svg: `<svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="75" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="8,6"/><polygon points="100,70 120,85 112,110 88,110 80,85" fill="none" stroke="#78909c" stroke-width="3" stroke-dasharray="5,4"/></svg>` },
+    house: { emoji: "🏠", svg: `<svg viewBox="0 0 200 200"><polygon points="100,30 30,90 170,90" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="8,6" stroke-linejoin="round"/><rect x="45" y="90" width="110" height="80" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="8,6"/><rect x="85" y="125" width="30" height="45" fill="none" stroke="#78909c" stroke-width="3" stroke-dasharray="5,4"/></svg>` },
+    car: { emoji: "🚗", svg: `<svg viewBox="0 0 200 200"><rect x="35" y="90" width="130" height="45" rx="10" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="8,6"/><path d="M 60 90 L 80 55 L 120 55 L 140 90 Z" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="8,6"/><circle cx="65" cy="135" r="15" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="6,4"/><circle cx="135" cy="135" r="15" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="6,4"/></svg>` },
+    tree: { emoji: "🌳", svg: `<svg viewBox="0 0 200 200"><rect x="88" y="115" width="24" height="60" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="8,6"/><circle cx="100" cy="75" r="45" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="8,6"/></svg>` },
+    boy: { emoji: "👦", svg: `<svg viewBox="0 0 200 200"><circle cx="100" cy="80" r="45" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="8,6"/><path d="M 55 135 Q 100 110 145 135 L 155 180 L 45 180 Z" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="8,6"/></svg>` },
+    girl: { emoji: "👧", svg: `<svg viewBox="0 0 200 200"><circle cx="100" cy="80" r="45" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="8,6"/><path d="M 45 135 Q 100 100 155 135 L 165 180 L 35 180 Z" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="8,6"/></svg>` },
+    cat: { emoji: "🐱", svg: `<svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="50" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="8,6"/><polygon points="60,65 50,30 80,50" fill="none" stroke="#78909c" stroke-width="3" stroke-dasharray="5,4"/><polygon points="140,65 150,30 120,50" fill="none" stroke="#78909c" stroke-width="3" stroke-dasharray="5,4"/></svg>` },
+    dog: { emoji: "🐶", svg: `<svg viewBox="0 0 200 200"><circle cx="100" cy="105" r="50" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="8,6"/><path d="M 55 75 Q 35 100 55 125" fill="none" stroke="#78909c" stroke-width="3" stroke-dasharray="5,4"/><path d="M 145 75 Q 165 100 145 125" fill="none" stroke="#78909c" stroke-width="3" stroke-dasharray="5,4"/></svg>` },
+    fish: { emoji: "🐠", svg: `<svg viewBox="0 0 200 200"><ellipse cx="90" cy="100" rx="55" ry="35" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="8,6"/><polygon points="145,100 175,70 175,130" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="8,6"/></svg>` },
+    apple: { emoji: "🍎", svg: `<svg viewBox="0 0 200 200"><circle cx="100" cy="105" r="50" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="8,6"/><path d="M 100 55 Q 115 35 130 45" fill="none" stroke="#78909c" stroke-width="3" stroke-dasharray="5,4"/></svg>` },
+    banana: { emoji: "🍌", svg: `<svg viewBox="0 0 200 200"><path d="M 50 140 Q 120 160 150 70 Q 130 110 50 140 Z" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="8,6"/></svg>` },
+    heart: { emoji: "❤️", svg: `<svg viewBox="0 0 200 200"><path d="M 100 155 C 40 110 30 70 55 50 C 75 35 95 55 100 70 C 105 55 125 35 145 50 C 170 70 160 110 100 155 Z" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="8,6" stroke-linejoin="round"/></svg>` },
+    teddy: { emoji: "🧸", svg: `<svg viewBox="0 0 200 200"><circle cx="100" cy="90" r="40" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="8,6"/><circle cx="70" cy="55" r="15" fill="none" stroke="#78909c" stroke-width="3" stroke-dasharray="5,4"/><circle cx="130" cy="55" r="15" fill="none" stroke="#78909c" stroke-width="3" stroke-dasharray="5,4"/><circle cx="100" cy="140" r="35" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="8,6"/></svg>` },
+    rocket: { emoji: "🚀", svg: `<svg viewBox="0 0 200 200"><path d="M 100 30 Q 130 80 130 140 L 70 140 Q 70 80 100 30 Z" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="8,6"/><polygon points="70,120 45,140 70,140" fill="none" stroke="#78909c" stroke-width="3" stroke-dasharray="5,4"/><polygon points="130,120 155,140 130,140" fill="none" stroke="#78909c" stroke-width="3" stroke-dasharray="5,4"/></svg>` },
+    umbrella: { emoji: "☂️", svg: `<svg viewBox="0 0 200 200"><path d="M 40 100 Q 100 40 160 100 Q 130 85 100 100 Q 70 85 40 100 Z" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="8,6"/><path d="M 100 100 L 100 150 Q 100 165 85 165" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="6,4"/></svg>` },
+    moon: { emoji: "🌙", svg: `<svg viewBox="0 0 200 200"><path d="M 110 40 A 60 60 0 1 0 160 140 A 75 75 0 1 1 110 40 Z" fill="none" stroke="#78909c" stroke-width="4" stroke-dasharray="8,6"/></svg>` }
+};
+
 let currentIndex = 0;
+let isDesignMode = false;
+let currentDesignKey = 'circle';
+
 const canvas = document.getElementById('writingBoard');
 const ctx = canvas.getContext('2d');
 const wrapper = document.getElementById('canvasWrapper');
@@ -262,6 +452,7 @@ let isEraser = false;
 let points = [];
 
 function updateBoardLetter() {
+    if (isDesignMode) return;
     const item = englishAlphabets[currentIndex];
     document.getElementById("targetLetter").textContent = item.letter;
     document.getElementById("currentLetterDisplay").textContent = item.letter;
@@ -271,13 +462,77 @@ function updateBoardLetter() {
 }
 
 function nextLetter() {
+    if (isDesignMode) return;
     currentIndex = (currentIndex + 1) % englishAlphabets.length;
     updateBoardLetter();
 }
 
 function previousLetter() {
+    if (isDesignMode) return;
     currentIndex = (currentIndex - 1 + englishAlphabets.length) % englishAlphabets.length;
     updateBoardLetter();
+}
+
+function toggleDesignMode() {
+    isDesignMode = !isDesignMode;
+    const btn = document.getElementById("modeToggleBtn");
+    const letterNav = document.getElementById("letterNavRow");
+    const designSel = document.getElementById("designSelector");
+    const targetLtr = document.getElementById("targetLetter");
+    const refPanel = document.getElementById("referencePanel");
+    const bpLayer = document.getElementById("blueprintLayer");
+    const infoB = document.getElementById("infoBar");
+    const pageTtl = document.getElementById("pageTitle");
+
+    if (isDesignMode) {
+        btn.textContent = "✍️ Back to Alphabet Board";
+        btn.classList.add("active-mode");
+        wrapper.classList.add("design-mode");
+        letterNav.style.display = "none";
+        targetLtr.style.display = "none";
+        infoB.style.display = "none";
+        designSel.style.display = "flex";
+        refPanel.style.display = "flex";
+        bpLayer.style.display = "flex";
+        pageTtl.textContent = "🎨 Graphic Design & Cartoon Tracing";
+        renderBlueprint();
+    } else {
+        btn.textContent = "🎨 Graphic Design & Cartoon Mode";
+        btn.classList.remove("active-mode");
+        wrapper.classList.remove("design-mode");
+        letterNav.style.display = "flex";
+        targetLtr.style.display = "flex";
+        infoB.style.display = "flex";
+        designSel.style.display = "none";
+        refPanel.style.display = "none";
+        bpLayer.style.display = "none";
+        pageTtl.textContent = "✍️ English Alphabet Writing Board";
+        updateBoardLetter();
+    }
+    setTimeout(resizeCanvas, 20);
+    clearCanvas();
+}
+
+function selectDesign(key, tabBtn) {
+    currentDesignKey = key;
+    document.querySelectorAll(".design-tab").forEach(t => t.classList.remove("active"));
+    if (tabBtn) tabBtn.classList.add("active");
+    renderBlueprint();
+    clearCanvas();
+}
+
+function renderBlueprint() {
+    const template = designTemplates[currentDesignKey];
+    document.getElementById("refEmoji").textContent = template.emoji;
+    document.getElementById("blueprintLayer").innerHTML = template.svg;
+}
+
+// ڈرائنگ کو ڈاؤن لوڈ کرنے کا فنکشن
+function downloadCanvas() {
+    const link = document.createElement('a');
+    link.download = 'my-drawing.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
 }
 
 function resizeCanvas() {
