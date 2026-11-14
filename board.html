@@ -229,7 +229,7 @@ canvas {
     </div>
 
     <div class="info-bar">
-        <span id="letterName">الف (اک)</span>
+        <span id="letterName">الف - اک</span>
         <span id="progress">اکر 1 / 51</span>
     </div>
 
@@ -269,7 +269,6 @@ let currentSize = 6;
 let isEraser = false;
 let points = [];
 
-// حرف تبدیل کرنے اور بورڈ پر دکھانے کا فنکشن
 function updateBoardLetter() {
     const item = sindhiAlphabets[currentIndex];
     document.getElementById("targetLetter").textContent = item.letter;
@@ -401,7 +400,6 @@ canvas.addEventListener('pointerup', endPosition);
 canvas.addEventListener('pointercancel', endPosition);
 canvas.addEventListener('lostpointercapture', endPosition);
 
-// شروع میں پہلا حرف لوڈ کرنا
 updateBoardLetter();
 </script>
 
