@@ -1,1 +1,409 @@
+<!DOCTYPE html>
+<html lang="sd" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سنڌي لکڻ جي مشق - Writing Board</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;700;900&display=swap" rel="stylesheet">
 
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans Arabic', Tahoma, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    padding: 15px 10px;
+    background: linear-gradient(135deg,#e8fff3,#fff7df);
+    color: #17352c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+h1 {
+    color: #07523d;
+    font-size: 24px;
+    font-weight: 900;
+    margin-bottom: 8px;
+}
+
+.nav-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.back-link, .nav-btn {
+    background: #e5a000;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.nav-btn {
+    background: #087f5b;
+}
+
+.board-container {
+    width: 100%;
+    max-width: 650px;
+    background: white;
+    padding: 15px;
+    border-radius: 22px;
+    box-shadow: 0 10px 28px #174c3610;
+    border: 1px solid #d9e9e1;
+}
+
+.board-toolbar {
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+}
+
+.tool-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.color-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 2px 5px #0003;
+    cursor: pointer;
+}
+
+.color-btn.active {
+    outline: 2px solid #087f5b;
+}
+
+.btn-size {
+    padding: 6px 10px;
+    font-size: 12px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    background: #fff;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-size.active {
+    background: #087f5b;
+    color: #fff;
+    border-color: #087f5b;
+}
+
+.btn-eraser.active {
+    background: #f59f00 !important;
+    color: #fff !important;
+}
+
+.clear-btn {
+    background: #d94848;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 14px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.canvas-wrapper {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    border: 2px solid #fcc419;
+    border-radius: 17px;
+    overflow: hidden;
+    background-color: #ffffff;
+    background-image: linear-gradient(to bottom, transparent 49px, #74c0fc 50px);
+    background-size: 100% 50px;
+}
+
+.target-letter {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 140px;
+    font-weight: 900;
+    color: #e5efe9;
+    pointer-events: none;
+    user-select: none;
+}
+
+canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+    cursor: crosshair;
+}
+
+.info-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #557267;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <!-- مین مینو پر واپس جانے کا لنک -->
+    <div class="nav-row">
+        <a href="index.html" class="back-link">↩ واپس مين مینو</a>
+    </div>
+    <h1>✍️ سنڌي لکڻ جي مشق جو بورڊ</h1>
+</header>
+
+<div class="board-container">
+    
+    <!-- حرف تبدیل کرنے کے لیے اگلا اور پچھلا بٹن -->
+    <div class="nav-row" style="margin-bottom: 12px;">
+        <button class="nav-btn" onclick="previousLetter()">◀ پچھلا اکر</button>
+        <span id="currentLetterDisplay" style="font-size: 20px; font-weight: 900; color: #087f5b; padding: 0 15px;">ا</span>
+        <button class="nav-btn" onclick="nextLetter()">اڳيون اکر ▶</button>
+    </div>
+
+    <div class="board-toolbar">
+        <div class="tool-group">
+            <span style="font-size:12px; font-weight:bold;">رنگ:</span>
+            <button class="color-btn active" style="background:#17352c" onclick="setColor('#17352c',this)"></button>
+            <button class="color-btn" style="background:#e03131" onclick="setColor('#e03131',this)"></button>
+            <button class="color-btn" style="background:#1971c2" onclick="setColor('#1971c2',this)"></button>
+            <button class="color-btn" style="background:#2f9e44" onclick="setColor('#2f9e44',this)"></button>
+        </div>
+
+        <div class="tool-group">
+            <span style="font-size:12px; font-weight:bold;">نوڪ:</span>
+            <button class="btn-size" onclick="setSize(3, this)">باریک</button>
+            <button class="btn-size active" onclick="setSize(6, this)">عام</button>
+            <button class="btn-size" onclick="setSize(10, this)">موٽو</button>
+        </div>
+
+        <div class="tool-group">
+            <button class="btn-size btn-eraser" id="eraserBtn" onclick="toggleEraser()">🧽 رٻڙ</button>
+            <button class="clear-btn" onclick="clearCanvas()">صاف ڪريو</button>
+        </div>
+    </div>
+
+    <!-- لکھنے والا کینوس اور پیچھے ہلکا حرف -->
+    <div class="canvas-wrapper" id="canvasWrapper">
+        <div class="target-letter" id="targetLetter">ا</div>
+        <canvas id="writingBoard"></canvas>
+    </div>
+
+    <div class="info-bar">
+        <span id="letterName">الف (اک)</span>
+        <span id="progress">اکر 1 / 51</span>
+    </div>
+
+</div>
+
+<script>
+// سنڌي اکرن کی مکمل فہرست
+const sindhiAlphabets = [
+    {letter:"ا", name:"الف - اک"}, {letter:"ب", name:"بي - بدڪ"}, {letter:"ٻ", name:"ٻ - ٻڪري"}, 
+    {letter:"ڀ", name:"ڀ - ڀٿ"}, {letter:"ت", name:"تي - تارو"}, {letter:"ٿ", name:"ٿ - ٿمڀو"}, 
+    {letter:"ٽ", name:"ٽ - ٽوپي"}, {letter:"ٺ", name:"ٺ - ٺوٺ"}, {letter:"ث", name:"ثي - ثمر"}, 
+    {letter:"پ", name:"پي - پڳ"}, {letter:"ج", name:"جيم - جتي"}, {letter:"ڄ", name:"ڄ - ڄڀ"}, 
+    {letter:"جھ", name:"جھ - جھرڪي"}, {letter:"ڃ", name:"ڃ - مڃ"}, {letter:"چ", name:"چي - چنڊ"}, 
+    {letter:"ڇ", name:"ڇي - ڇٽي"}, {letter:"ح", name:"حي - حجم"}, {letter:"خ", name:"خي - خچر"}, 
+    {letter:"د", name:"دال - در"}, {letter:"ڌ", name:"ڌ - ڌوٻي"}, {letter:"ڏ", name:"ڏ - ڏيڏر"}, 
+    {letter:"ڊ", name:"ڊ - ڊريل"}, {letter:"ڍ", name:"ڍ - ڍڳو"}, {letter:"ذ", name:"ذال - ذرو"}, 
+    {letter:"ر", name:"ري - ريل"}, {letter:"ڙ", name:"ڙ - ماڙي"}, {letter:"ز", name:"زي - زنجير"}, 
+    {letter:"س", name:"سين - سيٽي"}, {letter:"ش", name:"شين - شينھن"}, {letter:"ص", name:"صاد - صوف"}, 
+    {letter:"ض", name:"ضاد - ضعيف"}, {letter:"ط", name:"طا - طوطو"}, {letter:"ظ", name:"ظا - ظالم"}, 
+    {letter:"ع", name:"عين - عينک"}, {letter:"غ", name:"غين - غاليچو"}, {letter:"ف", name:"في - فانوس"}, 
+    {letter:"ڦ", name:"ڦ - ڦيٿو"}, {letter:"ق", name:"قاف - قلم"}, {letter:"ڪ", name:"ڪاف - ڪتو"}, 
+    {letter:"ک", name:"ک - کٽ"}, {letter:"گ", name:"گ - گڏھ"}, {letter:"ڳ", name:"ڳ - ڳئون"}, 
+    {letter:"گھہ", name:"گھہ - گھوڙو"}, {letter:"ڱ", name:"ڱ - سڱ"}, {letter:"ل", name:"لام - لڪڻ"}, 
+    {letter:"م", name:"ميم - مس"}, {letter:"ن", name:"نون - نٿ"}, {letter:"ڻ", name:"ڻ - وڻ"}, 
+    {letter:"و", name:"واو - وا"}, {letter:"ھ", name:"ھي - ھاٿي"}, {letter:"ء", name:"همزو - ائٽ"}, 
+    {letter:"ي", name:"يي - يڪتارو"}
+];
+
+let currentIndex = 0;
+const canvas = document.getElementById('writingBoard');
+const ctx = canvas.getContext('2d');
+const wrapper = document.getElementById('canvasWrapper');
+
+let isDrawing = false;
+let currentColor = '#17352c';
+let currentSize = 6;
+let isEraser = false;
+let points = [];
+
+// حرف تبدیل کرنے اور بورڈ پر دکھانے کا فنکشن
+function updateBoardLetter() {
+    const item = sindhiAlphabets[currentIndex];
+    document.getElementById("targetLetter").textContent = item.letter;
+    document.getElementById("currentLetterDisplay").textContent = item.letter;
+    document.getElementById("letterName").textContent = item.name;
+    document.getElementById("progress").textContent = `اکر ${currentIndex + 1} / ${sindhiAlphabets.length}`;
+    clearCanvas();
+}
+
+function nextLetter() {
+    currentIndex = (currentIndex + 1) % sindhiAlphabets.length;
+    updateBoardLetter();
+}
+
+function previousLetter() {
+    currentIndex = (currentIndex - 1 + sindhiAlphabets.length) % sindhiAlphabets.length;
+    updateBoardLetter();
+}
+
+function resizeCanvas() {
+    const rect = wrapper.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = canvas.width;
+    tempCanvas.height = canvas.height;
+    if (canvas.width && canvas.height) {
+        tempCanvas.getContext('2d').drawImage(canvas, 0, 0);
+    }
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if (tempCanvas.width && tempCanvas.height) {
+        ctx.drawImage(tempCanvas, 0, 0, tempCanvas.width / dpr, tempCanvas.height / dpr);
+    }
+}
+
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+function setColor(color, btn) {
+    isEraser = false;
+    document.getElementById('eraserBtn').classList.remove('active');
+    currentColor = color;
+    document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+    if(btn) btn.classList.add('active');
+}
+
+function setSize(size, btn) {
+    currentSize = size;
+    document.querySelectorAll('.btn-size:not(.btn-eraser)').forEach(b => b.classList.remove('active'));
+    if(btn) btn.classList.add('active');
+}
+
+function toggleEraser() {
+    isEraser = !isEraser;
+    const eraserBtn = document.getElementById('eraserBtn');
+    if (isEraser) {
+        eraserBtn.classList.add('active');
+        document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+    } else {
+        eraserBtn.classList.remove('active');
+    }
+}
+
+function clearCanvas() {
+    const rect = wrapper.getBoundingClientRect();
+    ctx.clearRect(0, 0, rect.width, rect.height);
+}
+
+function getCoordinates(e) {
+    const rect = canvas.getBoundingClientRect();
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+}
+
+canvas.addEventListener('pointerdown', e => {
+    e.preventDefault();
+    isDrawing = true;
+    canvas.setPointerCapture(e.pointerId);
+    const pos = getCoordinates(e);
+    points = [pos];
+    ctx.beginPath();
+    ctx.moveTo(pos.x, pos.y);
+});
+
+canvas.addEventListener('pointermove', e => {
+    if (!isDrawing) return;
+    e.preventDefault();
+    const pos = getCoordinates(e);
+    points.push(pos);
+
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    if (isEraser) {
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.lineWidth = 25;
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+        return;
+    }
+
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.strokeStyle = currentColor;
+    ctx.lineWidth = currentSize;
+
+    if (points.length >= 3) {
+        ctx.beginPath();
+        ctx.moveTo(points[0].x, points[0].y);
+        for (let i = 1; i < points.length - 1; i++) {
+            const xc = (points[i].x + points[i + 1].x) / 2;
+            const yc = (points[i].y + points[i + 1].y) / 2;
+            ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
+        }
+        ctx.stroke();
+    } else {
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+    }
+});
+
+function endPosition() {
+    if (!isDrawing) return;
+    isDrawing = false;
+    points = [];
+    ctx.closePath();
+}
+
+canvas.addEventListener('pointerup', endPosition);
+canvas.addEventListener('pointercancel', endPosition);
+canvas.addEventListener('lostpointercapture', endPosition);
+
+// شروع میں پہلا حرف لوڈ کرنا
+updateBoardLetter();
+</script>
+
+</body>
+</html>
