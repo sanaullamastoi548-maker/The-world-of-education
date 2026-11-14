@@ -184,6 +184,7 @@ canvas {
 <body>
 
 <header>
+    <!-- مین مینو پر واپس جانے کا لنک -->
     <div class="nav-row">
         <a href="index.html" class="back-link">↩ واپس مين مینو</a>
     </div>
@@ -192,7 +193,7 @@ canvas {
 
 <div class="board-container">
     
-    <!-- یہاں نیکسٹ (اگلا) اور پچھلا بٹن موجود ہے -->
+    <!-- حرف تبدیل کرنے کے لیے اگلا اور پچھلا بٹن -->
     <div class="nav-row" style="margin-bottom: 12px;">
         <button class="nav-btn" onclick="previousLetter()">◀ پچھلا اکر</button>
         <span id="currentLetterDisplay" style="font-size: 20px; font-weight: 900; color: #087f5b; padding: 0 15px;">ا</span>
@@ -221,6 +222,7 @@ canvas {
         </div>
     </div>
 
+    <!-- لکھنے والا کینوس اور پیچھے ہلکا حرف -->
     <div class="canvas-wrapper" id="canvasWrapper">
         <div class="target-letter" id="targetLetter">ا</div>
         <canvas id="writingBoard"></canvas>
@@ -234,6 +236,7 @@ canvas {
 </div>
 
 <script>
+// سنڌي اکرن کی مکمل فہرست
 const sindhiAlphabets = [
     {letter:"ا", name:"الف - اک"}, {letter:"ب", name:"بي - بدڪ"}, {letter:"ٻ", name:"ٻ - ٻڪري"}, 
     {letter:"ڀ", name:"ڀ - ڀٿ"}, {letter:"ت", name:"تي - تارو"}, {letter:"ٿ", name:"ٿ - ٿمڀو"}, 
