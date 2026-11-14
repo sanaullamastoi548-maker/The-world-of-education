@@ -2140,27 +2140,27 @@ function showLesson(index) {
     controls.appendChild(next);
 
     container.appendChild(controls);
-    
 
     // ==========================================
-// سنڌي بورڊ (Writing Board) کا بٹن
-// ==========================================
-const boardLinkContainer = document.createElement("div");
+    // سنڌي بورڊ (Writing Board) کا بٹن
+    // ==========================================
+    const boardLinkContainer = document.createElement("div");
+    boardLinkContainer.style.textAlign = "center";
+    boardLinkContainer.style.marginTop = "20px";
+    boardLinkContainer.innerHTML = `
+        <a href="Sindhi.bord.html"
+           style="background: #087f5b; color: white; padding: 12px 25px;
+           border-radius: 30px; text-decoration: none; font-weight: bold;
+           font-size: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+           display: inline-block;">
+            ✍️ لکڻ جي مشق جو بورڊ کوليو
+        </a>
+    `;
+    container.appendChild(boardLinkContainer);
 
-boardLinkContainer.style.textAlign = "center";
-boardLinkContainer.style.marginTop = "20px";
+    renderSidebar();
+}
 
-boardLinkContainer.innerHTML = `
-    <a href="Sindhi.bord.html"
-       style="background: #087f5b; color: white; padding: 12px 25px;
-       border-radius: 30px; text-decoration: none; font-weight: bold;
-       font-size: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-       display: inline-block;">
-        ✍️ لکڻ جي مشق جو بورڊ کوليو
-    </a>
-</div>
-`;
-document.body.appendChild(boardLinkContainer);
 
 /* وڊيو */
 
