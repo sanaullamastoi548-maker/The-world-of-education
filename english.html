@@ -8,118 +8,62 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
 body{background:linear-gradient(135deg,#e8fff3,#fff7df);color:#17352c;padding:15px 10px}
-header{text-align:center;margin-bottom:15px}
-h1{color:#07523d;font-size:clamp(22px,4vw,30px);margin-bottom:6px}
-.subtitle{color:#557267;line-height:1.6;font-size:15px}
-.container{max-width:950px;margin:auto}
-.card{background:white;padding:15px;border-radius:22px;box-shadow:0 8px 25px #174c3610;text-align:center;border:1px solid #d9e9e1}
+header{text-align:center;margin-bottom:20px}
+h1{color:#07523d;font-size:clamp(22px,4vw,32px);margin-bottom:8px}
+.subtitle{color:#557267;line-height:1.8;margin-bottom:15px}
 
-/* تصویر کو بڑا اور واضح دکھانے کے لیے کنٹینر */
-.image-container {
-    position: relative;
-    display: inline-block;
-    max-width: 600px;
-    width: 100%;
-    margin: 10px auto;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-}
+.language-switch{display:flex;justify-content:center;gap:12px;margin-bottom:15px}
+.language-btn{border:none;padding:11px 24px;border-radius:25px;font-size:15px;font-weight:bold;background:white;color:#07523d;cursor:pointer;box-shadow:0 3px 8px #0002;text-decoration:none}
+.language-btn.active{background:#087f5b;color:white}
+.back-btn{background:#e5a000;color:white;border:none;padding:12px 24px;border-radius:25px;font-weight:bold;cursor:pointer;margin:5px;font-size:15px}
 
-.lesson-image{
-    width: 100%;
-    height: auto;
-    display: block;
-}
+.app-container{max-width:1200px;margin:auto;display:grid;grid-template-columns:250px 1fr;gap:20px;align-items:start}
+.card{background:white;padding:20px;border-radius:22px;box-shadow:0 10px 28px #174c3610;border:1px solid #d9e9e1}
+.card-heading{font-size:19px;font-weight:900;color:#07523d;margin-bottom:18px;text-align:center}
 
-/* تصویر کے تینوں خانوں کے عین مطابق ٹچ زونز */
-.touch-zone {
-    position: absolute;
-    left: 4%;
-    width: 92%;
-    height: 23.5%;
-    cursor: pointer;
-    border-radius: 14px;
-    transition: background-color 0.2s, transform 0.1s;
-    -webkit-tap-highlight-color: transparent;
-}
+.alphabet-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;max-height:550px;overflow-y:auto;padding:4px}
+.letter-btn{min-height:52px;border:2px solid #dcebe3;border-radius:12px;background:#f6fbf8;color:#174b38;font-size:22px;font-weight:bold;cursor:pointer;transition:.2s}
+.letter-btn.selected,.letter-btn:hover{background:#087f5b;color:white;border-color:#087f5b;transform:scale(1.04)}
 
-.touch-zone:active {
-    background-color: rgba(255, 255, 255, 0.28);
-    transform: scale(0.98);
-}
+.lesson{display:flex;flex-direction:column;align-items:center;gap:15px;margin-bottom:15px}
+.lesson-box-large{background:linear-gradient(135deg,#f2faf5,#ffffff);border:2px solid #deeee4;border-radius:22px;padding:15px;text-align:center;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.big-letter{font-size:55px;color:#087f5b;font-weight:900;margin-bottom:5px}
 
-/* پہلا خانہ (اوپر والا) */
-.zone-1 { top: 25%; }
-/* دوسرا خانہ (درمیان والا) */
-.zone-2 { top: 50%; }
-/* تیسرا خانہ (نیچے والا) */
-.zone-3 { top: 75%; }
+.big-img-tag{display:block;width:100%;max-width:520px;max-height:520px;height:auto;object-fit:contain;margin:12px auto;cursor:pointer;border-radius:17px;transition:opacity .2s}
+.big-img-tag.loading{opacity:.35}
+.image-status{color:#557267;font-size:14px;margin:5px 0;min-height:20px}
+.image-hint{font-size:14px;color:#557267;margin-top:5px}
 
-.status{
-    color:#b45309;
-    background:#fff9db;
-    border:1px solid #ffe066;
-    display:inline-block;
-    padding:6px 16px;
-    border-radius:20px;
-    font-weight:bold;
-    min-height:32px;
-    font-size:15px;
-    margin-bottom:8px;
-}
+.action-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:18px 0}
+.action-btn{border:none;border-radius:25px;padding:13px 22px;font-weight:bold;background:#e8f4ed;color:#07523d;cursor:pointer;font-size:16px;transition:.2s}
+.action-btn:active{transform:scale(.96)}
+.action-btn.primary{background:#087f5b;color:white}
 
-.buttons{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:14px 0}
-button,a{border:0;border-radius:25px;padding:12px 22px;font-weight:bold;font-size:15px;cursor:pointer;text-decoration:none}
-.primary{background:#087f5b;color:white}
-.secondary{background:#e8f4ed;color:#07523d}
-.back{background:#e5a000;color:white}
+.instruction{background:#fff6dc;border:1px solid #f5e4ae;padding:13px;border-radius:12px;text-align:center;color:#805a0b;font-weight:bold;margin:15px 0;line-height:1.8}
 
-.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:15px}
-.grid button{background:#f1f8f3;color:#07523d;border:1px solid #dcebe3;padding:12px 5px;font-size:17px}
-.grid button.active{background:#087f5b;color:white}
+.toolbar{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;margin:15px 0}
+.color-btn{width:35px;height:35px;border-radius:50%;border:3px solid white;box-shadow:0 2px 5px #0003;cursor:pointer}
+.color-btn.active{outline:2px solid #087f5b}
+.clear-btn{background:#d94848;color:white;border:none;border-radius:20px;padding:10px 18px;font-weight:bold;cursor:pointer}
 
-/* نیا اگلا سبق (Next Lesson) سیکشن */
-.next-lesson-section {
-    max-width: 950px;
-    margin: 25px auto 10px;
-    padding: 20px 15px;
-    text-align: center;
-    background: white;
-    border: 1px solid #d9e9e1;
-    border-radius: 20px;
-    box-shadow: 0 8px 22px #174c3610;
-}
+.canvas-wrapper{position:relative;width:100%;height:220px;border:2px dashed #9bbcaf;border-radius:17px;overflow:hidden;background:#fff}
+.target-letter{position:absolute;inset:0;display:flex;justify-content:center;align-items:center;font-size:115px;font-weight:900;color:#dce9e1;pointer-events:none;user-select:none}
+canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair}
+.progress{text-align:center;font-size:14px;margin-top:12px;color:#658073;font-weight:bold}
 
-.next-lesson-section p {
-    color: #557267;
-    margin-bottom: 12px;
-    line-height: 1.6;
-    font-size: 15px;
-}
+/* اگلے اسباق کے لنکس والے سیکشنز */
+.next-lesson-section{max-width:1200px;margin:30px auto 10px;padding:22px 15px;text-align:center;background:white;border:1px solid #d9e9e1;border-radius:20px;box-shadow:0 8px 22px #174c3610}
+.next-lesson-section p{color:#557267;margin-bottom:15px;line-height:1.7}
+.next-lesson-btn{display:inline-block;background:#087f5b;color:white;text-decoration:none;padding:14px 28px;border-radius:25px;font-weight:bold;font-size:17px;transition:.2s}
+.next-lesson-btn:hover{background:#07523d;transform:scale(1.03)}
 
-.next-lesson-btn {
-    display: inline-block;
-    background: #087f5b;
-    color: white;
-    text-decoration: none;
-    padding: 13px 26px;
-    border-radius: 25px;
-    font-weight: bold;
-    font-size: 16px;
-    transition: .2s;
-}
+footer{text-align:center;margin-top:25px;color:#789086;font-size:14px}
 
-.next-lesson-btn:hover {
-    background: #07523d;
-    transform: scale(1.03);
-}
-
-footer{text-align:center;color:#789086;margin:18px;font-size:14px}
-
-@media(max-width:600px){
-    .grid{grid-template-columns:repeat(5,1fr)}
-    .card{padding:10px}
+@media(max-width:760px){
+    .app-container{grid-template-columns:1fr}
+    .alphabet-grid{grid-template-columns:repeat(6,1fr);max-height:230px}
+    .letter-btn{min-height:48px;font-size:20px}
+    .big-img-tag{max-width:100%;max-height:65vh}
 }
 </style>
 </head>
@@ -127,399 +71,252 @@ footer{text-align:center;color:#789086;margin:18px;font-size:14px}
 <body>
 
 <header>
-<h1>📚 English Alphabet - Learn and Speak</h1>
-<p class="subtitle">تصویر کے جس خانے پر چاہیں ٹچ کریں اور آواز سنیں!</p>
+    <h1 class="main-title">📚 English Alphabet - Learn and Speak</h1>
+    <p class="subtitle">Let's learn English letters and pronunciation!</p>
+    <div class="language-switch">
+        <a class="language-btn" href="index.html">سنڌي</a>
+        <a class="language-btn active" href="english.html">English</a>
+    </div>
+    <button class="back-btn" onclick="playCurrentAudio()">🔊 Listen Letter</button>
 </header>
 
-<div class="container">
-<div class="card">
+<div class="app-container">
+    <!-- Alphabet Panel -->
+    <div class="card">
+        <h2 class="card-heading">🔤 Alphabet</h2>
+        <div class="alphabet-grid" id="alphabetGrid"></div>
+    </div>
 
-<div>
-    <div class="status" id="status">تصویر کے کسی بھی خانے پر ٹچ کریں!</div>
+    <!-- Lesson Panel -->
+    <div class="card">
+        <h2 class="card-heading">👀 Read, Listen and Learn</h2>
+        <div class="lesson">
+            <div class="lesson-box-large">
+                <div class="big-letter" id="shownLetter">Aa</div>
+                <img id="exampleImgTag" src="" alt="Alphabet Lesson" class="big-img-tag" onclick="playCurrentAudio()" title="Click to hear voice!">
+                <div class="image-status" id="imageStatus"></div>
+                <div class="image-hint">👆 تصویر پر ٹچ کریں یا نیچے بٹن دبائیں</div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-row">
+            <button class="action-btn primary" onclick="playCurrentAudio()">🔊 Play Sound</button>
+            <button class="action-btn" onclick="previousLetter()">◀ Previous</button>
+            <button class="action-btn" onclick="nextLetter()">Next ▶</button>
+        </div>
+
+        <!-- Writing Instructions -->
+        <div class="instruction">✍️ Look at the light letter below and write it with your finger.</div>
+
+        <!-- Drawing Toolbar -->
+        <div class="toolbar">
+            <button class="color-btn active" style="background:#17352c" onclick="setColor('#17352c',this)"></button>
+            <button class="color-btn" style="background:#e03131" onclick="setColor('#e03131',this)"></button>
+            <button class="color-btn" style="background:#1971c2" onclick="setColor('#1971c2',this)"></button>
+            <button class="color-btn" style="background:#2f9e44" onclick="setColor('#2f9e44',this)"></button>
+            <button class="clear-btn" onclick="clearCanvas()">🧽 Clear</button>
+        </div>
+
+        <!-- Drawing Board -->
+        <div class="canvas-wrapper">
+            <div class="target-letter" id="targetLetter">A</div>
+            <canvas id="drawingCanvas"></canvas>
+        </div>
+
+        <div class="progress" id="progress">Letter 1 / 26</div>
+    </div>
 </div>
 
-<!-- بڑی تصویر اور اس کے تینوں خانوں کے بالکل اوپر فٹ کیے گئے ٹچ بٹن -->
-<div class="image-container">
-    <img id="lessonImage" class="lesson-image" src="" alt="Alphabet Image">
-    
-    <!-- تینوں خانوں کے ٹچ بٹن -->
-    <div class="touch-zone zone-1" onclick="playPartAudio(0)" title="پہلا لفظ سنیں"></div>
-    <div class="touch-zone zone-2" onclick="playPartAudio(1)" title="دوسرا لفظ سنیں"></div>
-    <div class="touch-zone zone-3" onclick="playPartAudio(2)" title="تیسرا لفظ سنیں"></div>
-</div>
-
-<div class="buttons">
-<button class="secondary" onclick="previousWord()">◀ پچھلا حرف</button>
-<button class="primary" onclick="nextWord()">اگلا حرف ▶</button>
-</div>
-
-<div class="grid" id="wordGrid"></div>
-
-</div>
-</div>
-
-<!-- اگلے صفحے (A for Apple Words) پر جانے کا خوبصورت بٹن -->
+<!-- NEXT LESSON BUTTON -->
 <div class="next-lesson-section">
     <p>
-        🎓 آپ نے انگلش حروف مکمل کر لیے ہیں!
+        🎓 You have completed the English Alphabet!
         <br>
-        اب آئیے مزید الفاظ اور تصاویر کے ساتھ پڑھتے ہیں۔
+        Now let's learn words with pictures and voice (A for Apple).
     </p>
     <a class="next-lesson-btn" href="english-words.html">
         Next: A for Apple 🍎
     </a>
 </div>
 
-<!-- رائٹنگ بورڈ پر جانے کا بٹن -->
+<!-- WRITING & DESIGN BOARD LINK -->
 <div class="next-lesson-section" style="margin-top: 15px;">
-    <p>✍️ بچوں کے لیے لکھنے اور گرافک ڈیزائن کی مشق کا بورڈ:</p>
+    <p>✍️ بچوں کے لیے گرافک ڈیزائن، کارٹون ٹریسنگ اور ڈرائنگ بورڈ:</p>
     <a class="next-lesson-btn" style="background:#e5a000;" href="English.bord.html">
-        Open Writing & Design Board 🎨
+        Open Graphic Design & Drawing Board 🎨
     </a>
 </div>
 
 <footer>Learning English is fun! ❤️</footer>
 
-<audio id="audioPlayer" preload="none"></audio>
+<audio id="voicePlayer" preload="none"></audio>
 
 <script>
-// =====================================
-// مکمل A سے Z تک حروف، تصاویر اور تینوں حصوں کی آڈیو فائلیں
-// =====================================
-
-const alphabetData = [
-    {
-        letter: "A",
-        image: "media/images/A for A.jpg",
-        audios: [
-            "media/english-audio/A for Apple .mp3",
-            "media/english-audio/A for Ant.mp3",
-            "media/english-audio/A for  Aeroplane .mp3"
-        ],
-        names: ["A for Apple", "A for Ant", "A for Aeroplane"]
-    },
-    {
-        letter: "B",
-        image: "media/images/B for B.jpg",
-        audios: [
-            "media/english-audio/B for Ball.mp3",
-            "media/english-audio/B for Banana.mp3",
-            "media/english-audio/B for Butterfly.mp3"
-        ],
-        names: ["B for Ball", "B for Banana", "B for Butterfly"]
-    },
-    {
-        letter: "C",
-        image: "media/images/C for c.jpg",
-        audios: [
-            "media/english-audio/C for Cat.mp3",
-            "media/english-audio/C for Cow.mp3",
-            "media/english-audio/C for cake.mp3"
-        ],
-        names: ["C for Cat", "C for Cow", "C for Cake"]
-    },
-    {
-        letter: "D",
-        image: "media/images/D for D.jpg",
-        audios: [
-            "media/english-audio/D for Dog.mp3",
-            "media/english-audio/D for Duck.mp3",
-            "media/english-audio/D for Doll.mp3"
-        ],
-        names: ["D for Dog", "D for Duck", "D for Doll"]
-    },
-    {
-        letter: "E",
-        image: "media/images/E for E.jpg",
-        audios: [
-            "media/english-audio/E for Elephant.mp3",
-            "media/english-audio/E for Egg.mp3",
-            "media/english-audio/E for Eagle.mp3"
-        ],
-        names: ["E for Elephant", "E for Egg", "E for Eagle"]
-    },
-    {
-        letter: "F",
-        image: "media/images/F for F.jpg",
-        audios: [
-            "media/english-audio/F for Fish.mp3",
-            "media/english-audio/F for frog.mp3",
-            "media/english-audio/F for fan.mp3"
-        ],
-        names: ["F for Fish", "F for Frog", "F for Fan"]
-    },
-    {
-        letter: "G",
-        image: "media/images/G for G.jpg",
-        audios: [
-            "media/english-audio/G for Grapes.mp3",
-            "media/english-audio/G for Goat.mp3",
-            "media/english-audio/G for Giraffe.mp3"
-        ],
-        names: ["G for Grapes", "G for Goat", "G for Giraffe"]
-    },
-    {
-        letter: "H",
-        image: "media/images/H for H.jpg",
-        audios: [
-            "media/english-audio/H for  Hen .mp3",
-            "media/english-audio/H for horse .mp3",
-            "media/english-audio/H for house.mp3",
-        ],
-        names: ["H for Hen", "H for Horse", "H for House"]
-    },
-    {
-        letter: "I",
-        image: "media/images/I for I.jpg",
-        audios: [
-            "media/english-audio/I for Ice cream.mp3",
-            "media/english-audio/I for inkpot.mp3",
-            "media/english-audio/I for insect.mp3"
-        ],
-        names: ["I for Ice Cream", "I for Inkpot", "I for Insect"]
-    },
-    {
-        letter: "J",
-        image: "media/images/J for J.jpg",
-        audios: [
-            "media/english-audio/J for jug.mp3",
-            "media/english-audio/J for juice.mp3",
-            "media/english-audio/J for  juggler .mp3",
-        ],
-        names: ["J for Jug", "J for Juice", "J for Juggler"]
-    },
-    {
-        letter: "K",
-        image: "media/images/K for K.jpg",
-        audios: [
-            "media/english-audio/K for kite.mp3",
-            "media/english-audio/K for King.mp3",
-            "media/english-audio/K for Kettle .mp3",
-        ],
-        names: ["K for Kite", "K for King", "K for Kettle"]
-    },
-    {
-        letter: "L",
-        image: "media/images/L for L.jpg",
-        audios: [
-            "media/english-audio/L for Loin.mp3",
-            "media/english-audio/L for Lamp.mp3",
-            "media/english-audio/L for Lemon .mp3",
-        ],
-        names: ["L for Lion", "L for Lamp", "L for Lemon"]
-    },
-    {
-        letter: "M",
-        image: "media/images/M for M.jpg",
-        audios: [
-            "media/english-audio/M for Mango.mp3",
-            "media/english-audio/M for Monkey.mp3",
-            "media/english-audio/M for Moon.mp3",
-        ],
-        names: ["M for Mango", "M for Monkey", "M for Moon"]
-    },
-    {
-        letter: "N",
-        image: "media/images/N for N.jpg",
-        audios: [
-            "media/english-audio/N for Nest .mp3",
-            "media/english-audio/N for Nose.mp3",
-            "media/english-audio/N for Nut.mp3",
-        ],
-        names: ["N for Nest", "N for Nose", "N for Nut"]
-    },
-    {
-        letter: "O",
-        image: "media/images/O for O.jpg",
-        audios: [
-            "media/english-audio/O for Orange.mp3",
-            "media/english-audio/O for Owl.mp3",
-            "media/english-audio/O for Ox.mp3",
-        ],
-        names: ["O for Orange", "O for Owl", "O for Ox"]
-    },
-    {
-        letter: "P",
-        image: "media/images/P for P.jpg",
-        audios: [
-            "media/english-audio/P for parrot.mp3",
-            "media/english-audio/P for Pen.mp3",
-            "media/english-audio/P for pencil.mp3",
-        ],
-        names: ["P for Parrot", "P for Pen", "P for Pencil"]
-    },
-    {
-        letter: "Q",
-        image: "media/images/Q for Q.jpg",
-        audios: [
-            "media/english-audio/Q for Quuen.mp3",
-            "media/english-audio/Q for Quilt.mp3",
-            "media/english-audio/Q for Question.mp3",
-        ],
-        names: ["Q for Queen", "Q for Quilt", "Q for Question"]
-    },
-    {
-        letter: "R",
-        image: "media/images/R for R.jpg",
-        audios: [
-            "media/english-audio/R Rabbit.mp3",
-            "media/english-audio/R for Rose.mp3",
-            "media/english-audio/R for Rainbow.mp3",
-        ],
-        names: ["R for Rabbit", "R for Rose", "R for Rainbow"]
-    },
-    {
-        letter: "S",
-        image: "media/images/S for S.jpg",
-        audios: [
-            "media/english-audio/S for Sun .mp3",
-            "media/english-audio/S for Star.mp3",
-            "media/english-audio/S for Snake .mp3",
-        ],
-        names: ["S for Sun", "S for Star", "S for Snake"]
-    },
-    {
-        letter: "T",
-        image: "media/images/T for T.jpg",
-        audios: [
-            "media/english-audio/T for Tiger .mp3",
-            "media/english-audio/T for Train.mp3",
-            "media/english-audio/T for Tree.mp3",
-        ],
-        names: ["T for Tiger", "T for Train", "T for Tree"]
-    },
-    {
-        letter: "U",
-        image: "media/images/U for U.jpg",
-        audios: [
-            "media/english-audio/U for Umbrella.mp3",
-            "media/english-audio/U Unicorn.mp3",
-            "media/english-audio/U for Up.mp3",
-        ],
-        names: ["U for Umbrella", "U for Unicorn", "U for Up"]
-    },
-    {
-        letter: "V",
-        image: "media/images/V for V.jpg",
-        audios: [
-            "media/english-audio/V for Van.mp3",
-            "media/english-audio/V for violin.mp3",
-            "media/english-audio/V for Vegetable.mp3",
-        ],
-        names: ["V for Van", "V for Violin", "V for Vegetable"]
-    },
-    {
-        letter: "W",
-        image: "media/images/W for W.jpg",
-        audios: [
-            "media/english-audio/W for Whale.mp3",
-            "media/english-audio/W for Watch.mp3",
-            "media/english-audio/W for Watermelon.mp3",
-        ],
-        names: ["W for Whale", "W for Watch", "W for Watermelon"]
-    },
-    {
-        letter: "X",
-        image: "media/images/X for X.jpg",
-        audios: [
-            "media/english-audio/X for Xray.mp3",
-            "media/english-audio/X for Box.mp3",
-            "media/english-audio/X for Fox.mp3",
-        ],
-        names: ["X for X-ray", "X for Box", "X for Fox"]
-    },
-    {
-        letter: "Y",
-        image: "media/images/Y for Y.jpg",
-        audios: [
-            "media/english-audio/Y for Yak.mp3",
-            "media/english-audio/Y for Yoyo.mp3",
-            "media/english-audio/Y for Yellow.mp3",
-        ],
-        names: ["Y for Yak","Y for Yoyo",  "Y for Yellow"]
-    },
-    {
-        letter: "Z",
-        image: "media/images/Z for Z.jpg",
-        audios: [
-            "media/english-audio/Z for Zebra.mp3",
-            "media/english-audio/Z for Zoo.mp3",
-            "media/english-audio/Z for Zip.mp3",
-        ],
-        names: ["Z for Zebra", "Z for Zoo", "Z for Zip"]
-    }
+const alphabet = [
+    {letter:"Aa", img:"media/images/Aa.jpg", audio:"Aa.mp3"},
+    {letter:"Bb", img:"media/images/Bb.jpg", audio:"Bb.mp3"},
+    {letter:"Cc", img:"media/images/Cc.jpg", audio:"Cc.mp3"},
+    {letter:"Dd", img:"media/images/Dd.jpg", audio:"Dd.mp3"},
+    {letter:"Ee", img:"media/images/Ee.jpg", audio:"Ee.mp3"},
+    {letter:"Ff", img:"media/images/Ff.jpg", audio:"Ff.mp3"},
+    {letter:"Gg", img:"media/images/Gg.jpg", audio:"Gg.mp3"},
+    {letter:"Hh", img:"media/images/Hh.jpg", audio:"Hh.mp3"},
+    {letter:"Ii", img:"media/images/Ii.jpg", audio:"Ii.mp3"},
+    {letter:"Jj", img:"media/images/Jj.jpg", audio:"Jj.mp3"},
+    {letter:"Kk", img:"media/images/Kk.jpg", audio:"Kk.mp3"},
+    {letter:"Ll", img:"media/images/Ll.jpg", audio:"Ll.mp3"},
+    {letter:"Mm", img:"media/images/Mm.jpg", audio:"Mm.mp3"},
+    {letter:"Nn", img:"media/images/Nn.jpg", audio:"Nn.mp3"},
+    {letter:"Oo", img:"media/images/Oo.jpg", audio:"Oo.mp3"},
+    {letter:"Pp", img:"media/images/Pp.jpg", audio:"Pp.mp3"},
+    {letter:"Qq", img:"media/images/Qq.jpg", audio:"Qq.mp3"},
+    {letter:"Rr", img:"media/images/Rr.jpg", audio:"Rr.mp3"},
+    {letter:"Ss", img:"media/images/Ss.jpg", audio:"Ss.mp3"},
+    {letter:"Tt", img:"media/images/Tt.jpg", audio:"Tt.mp3"},
+    {letter:"Uu", img:"media/images/Uu.jpg", audio:"Uu.mp3"},
+    {letter:"Vv", img:"media/images/Vv.jpg", audio:"Vv.mp3"},
+    {letter:"Ww", img:"media/images/Ww.jpg", audio:"Ww.mp3"},
+    {letter:"Xx", img:"media/images/Xx.jpg", audio:"Xx.mp3"},
+    {letter:"Yy", img:"media/images/Yy.jpg", audio:"Yy.mp3"},
+    {letter:"Zz", img:"media/images/Zz.jpg", audio:"Zz.mp3"}
 ];
 
+const grid = document.getElementById("alphabetGrid");
+const player = document.getElementById("voicePlayer");
+const imageElement = document.getElementById("exampleImgTag");
+const imageStatus = document.getElementById("imageStatus");
 let currentIndex = 0;
 
-const image = document.getElementById("lessonImage");
-const statusBox = document.getElementById("status");
-const player = document.getElementById("audioPlayer");
-const grid = document.getElementById("wordGrid");
-
-// حروف کے بٹن بنانا
-alphabetData.forEach((item, index) => {
-    const button = document.createElement("button");
-    button.textContent = item.letter;
-    button.onclick = () => showLetter(index);
-    grid.appendChild(button);
+alphabet.forEach((item,index) => {
+    const btn = document.createElement("button");
+    btn.className = "letter-btn";
+    btn.textContent = item.letter.charAt(0);
+    btn.type = "button";
+    btn.onclick = () => {
+        selectLetter(index);
+        playCurrentAudio();
+    };
+    grid.appendChild(btn);
 });
 
-// حرف تبدیل کرنے کا فنکشن
-function showLetter(index) {
-    currentIndex = (index + alphabetData.length) % alphabetData.length;
-    const item = alphabetData[currentIndex];
+function selectLetter(index) {
+    currentIndex = (index + alphabet.length) % alphabet.length;
+    const item = alphabet[currentIndex];
+    document.getElementById("shownLetter").textContent = item.letter;
 
-    image.style.opacity = "0.5";
-    statusBox.textContent = "تصویر لوڈ ہو رہی ہے...";
+    imageElement.classList.add("loading");
+    imageStatus.textContent = "Loading image...";
+    imageElement.removeAttribute("src");
 
-    image.onload = () => {
-        image.style.opacity = "1";
-        statusBox.textContent = "حرف " + item.letter + " - کسی بھی خانے پر ٹچ کریں!";
+    const imageURL = new URL(item.img, document.baseURI);
+    imageURL.searchParams.set("v", "2");
+    imageElement.src = imageURL.href;
+
+    imageElement.onload = function() {
+        imageElement.classList.remove("loading");
+        imageStatus.textContent = "";
     };
 
-    image.onerror = () => {
-        image.style.opacity = "1";
-        statusBox.textContent = "تصویر نہیں ملی: " + item.image;
+    imageElement.onerror = function() {
+        imageElement.classList.remove("loading");
+        imageStatus.textContent = "Image not found: " + item.img;
     };
 
-    image.src = item.image;
+    document.getElementById("targetLetter").textContent = item.letter.charAt(0);
+    document.getElementById("progress").textContent = `Letter ${currentIndex+1} / ${alphabet.length}`;
 
-    document.querySelectorAll(".grid button").forEach((btn, i) => {
-        btn.classList.toggle("active", i === currentIndex);
+    document.querySelectorAll(".letter-btn").forEach((btn,i) => {
+        btn.classList.toggle("selected", i === currentIndex);
     });
 
+    clearCanvas();
+}
+
+function playCurrentAudio() {
+    const item = alphabet[currentIndex];
+    const audioURL = "media/english-audio/" + item.audio;
     player.pause();
     player.currentTime = 0;
+    player.src = audioURL;
+    player.play().catch(error => { console.log("Audio play error:", error); });
 }
 
-// تصویر کے مخصوص خانے پر کلک کرنے سے صرف اسی کی آڈیو چلے گی
-function playPartAudio(partIndex) {
-    const item = alphabetData[currentIndex];
-    const audioPath = item.audios[partIndex];
-    const partName = item.names[partIndex];
-
-    statusBox.textContent = "🔊 " + partName;
-
-    player.pause();
-    player.currentTime = 0;
-    player.src = audioPath;
-
-    player.play().catch(() => {
-        statusBox.textContent = "آڈیو فائل نہیں ملی: " + audioPath;
-    });
+function nextLetter() {
+    selectLetter(currentIndex + 1);
+    playCurrentAudio();
 }
 
-function nextWord() {
-    showLetter(currentIndex + 1);
+function previousLetter() {
+    selectLetter(currentIndex - 1);
+    playCurrentAudio();
 }
 
-function previousWord() {
-    showLetter(currentIndex - 1);
+const canvas = document.getElementById("drawingCanvas");
+const ctx = canvas.getContext("2d");
+let penColor = "#17352c";
+let drawing = false;
+
+function resizeCanvas() {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    clearCanvas();
 }
 
-// شروع کرتے وقت پہلا حرف دکھائیں
-showLetter(0);
+function setColor(color,element) {
+    penColor = color;
+    document.querySelectorAll(".color-btn").forEach(btn => { btn.classList.remove("active"); });
+    element.classList.add("active");
+}
+
+function clearCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    ctx.clearRect(0,0,rect.width,rect.height);
+}
+
+function getPosition(e) {
+    const rect = canvas.getBoundingClientRect();
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+}
+
+canvas.addEventListener("pointerdown",e => {
+    e.preventDefault();
+    drawing = true;
+    canvas.setPointerCapture(e.pointerId);
+    const pos = getPosition(e);
+    ctx.beginPath();
+    ctx.moveTo(pos.x,pos.y);
+});
+
+canvas.addEventListener("pointermove",e => {
+    if(!drawing) return;
+    e.preventDefault();
+    const pos = getPosition(e);
+    ctx.strokeStyle = penColor;
+    ctx.lineWidth = 6;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.lineTo(pos.x,pos.y);
+    ctx.stroke();
+});
+
+function stopDrawing() {
+    drawing = false;
+    ctx.closePath();
+}
+
+canvas.addEventListener("pointerup",stopDrawing);
+canvas.addEventListener("pointercancel",stopDrawing);
+canvas.addEventListener("lostpointercapture",stopDrawing);
+
+window.addEventListener("resize",resizeCanvas);
+
+resizeCanvas();
+selectLetter(0);
 </script>
+
 </body>
 </html>
