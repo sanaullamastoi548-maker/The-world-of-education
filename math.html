@@ -69,83 +69,115 @@ header p {
 }
 
 .main-layout {
-    max-width: 900px;
+    max-width: 750px;
     margin: 30px auto;
     padding: 0 15px;
 }
 
 .book {
     background: #fffdf5;
-    min-height: 500px;
+    min-height: 480px;
     border-radius: 12px;
     border: 1px solid #e4d9b9;
     box-shadow: 0 7px 22px #0002;
     padding: 25px;
+    text-align: center;
 }
 
 .page-heading {
-    text-align: center;
     color: #216a3b;
     font-size: 26px;
-    margin: 5px 0 20px;
+    margin: 5px 0 5px;
 }
 
-.numbers-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 20px;
-    margin-bottom: 30px;
+.page-number {
+    color: #9b7831;
+    font-size: 16px;
+    margin-bottom: 20px;
+    font-weight: bold;
 }
 
-.num-card {
+.single-card {
     background: white;
     border: 4px solid #d9b95f;
-    border-radius: 12px;
-    padding: 15px;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border-radius: 15px;
+    padding: 20px;
+    max-width: 400px;
+    margin: 0 auto 20px auto;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 
 .num-img {
     width: 100%;
-    max-width: 160px;
-    height: 160px;
+    max-width: 220px;
+    height: 220px;
     object-fit: contain;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     border: 2px dashed #145d35;
-    border-radius: 8px;
-    padding: 5px;
+    border-radius: 10px;
+    padding: 8px;
     background: #f9fbf7;
 }
 
 .digit-display {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: bold;
     color: #145d35;
     margin-bottom: 5px;
 }
 
 .word-display {
-    font-size: 18px;
+    font-size: 22px;
     font-weight: bold;
     color: #9b7831;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
 }
 
 .voice-btn {
     background: #185b37;
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-size: 15px;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 16px;
     font-weight: bold;
-    margin: 5px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
 }
 
 .voice-btn:hover {
     background: #f3c85b;
     color: #185b37;
+}
+
+.page-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #e6dfc8;
+}
+
+.page-button {
+    background: #247a43;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.page-button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.current-page {
+    color: #9b7831;
+    font-weight: bold;
+    font-size: 18px;
 }
 
 footer {
@@ -182,12 +214,8 @@ footer {
 </header>
 
 <div class="main-layout">
-    <div class="book">
-        <h2 class="page-heading">سنڌي گنتي جا انگ ۽ آواز</h2>
-        
-        <div class="numbers-grid" id="mathGrid">
-            <!-- جاوا اسکریپٹ کے ذریعے کارڈ یہاں لوڈ ہوں گے -->
-        </div>
+    <div class="book" id="bookContainer">
+        <!-- جاوا اسکریپٹ کے ذریعے ایک وقت میں ایک صفحہ یہاں آئے گا -->
     </div>
 </div>
 
@@ -205,7 +233,7 @@ const REPOSITORY = "The-world-of-education";
 const BRANCH = "main";
 const RAW_ROOT = `https://raw.githubusercontent.com/${USERNAME}/${REPOSITORY}/${BRANCH}/`;
 
-// آپ کے دیے ہوئے ناموں کے مطابق 1 سے 10 تک خالص سندھی ڈیٹا
+// 1 سے 10 تک کا خالص سندھی ڈیٹا اور آپ کی فائلیں
 const mathData = [
     { num: 1, sdWord: "هڪ", img: "media/images/Hik Eko hik.jpg", audio: "media/media/audio/Hik Eko hik.mp3" },
     { num: 2, sdWord: "ٻه", img: "media/images/Ba Eko Ba .jpg", audio: "media/media/audio/Ba Eko Ba .mp3" },
@@ -219,6 +247,7 @@ const mathData = [
     { num: 10, sdWord: "ڏهه", img: "media/images/Day Eko Dah.jpg", audio: "media/media/audio/Dah Eko Dah.mp3" }
 ];
 
+let currentIndex = 0;
 const player = document.getElementById("voicePlayer");
 
 function getFileURL(path) {
@@ -233,27 +262,69 @@ function playSound(path) {
     player.play().catch(err => console.log("Audio error:", err));
 }
 
-function renderMath() {
-    const grid = document.getElementById("mathGrid");
-    grid.replaceChildren();
+function showPage(index) {
+    if (index < 0 || index >= mathData.length) return;
+    currentIndex = index;
+    const item = mathData[index];
+    const container = document.getElementById("bookContainer");
+    container.replaceChildren();
 
-    mathData.forEach(item => {
-        const card = document.createElement("div");
-        card.className = "num-card";
+    // ہیڈنگ
+    const title = document.createElement("h2");
+    title.className = "page-heading";
+    title.textContent = "سنڌي گنتي سيکاريو";
+    container.appendChild(title);
 
-        card.innerHTML = `
-            <img src="${getFileURL(item.img)}" alt="${item.num}" class="num-img" onerror="this.src='https://via.placeholder.com/160?text=Number+${item.num}'">
-            <div class="digit-display">${item.num}</div>
-            <div class="word-display">${item.sdWord}</div>
-            <div>
-                <button class="voice-btn" onclick="playSound('${item.audio}')">🔊 آواز ٻڌو</button>
-            </div>
-        `;
-        grid.appendChild(card);
-    });
+    // صفحہ نمبر
+    const pageNum = document.createElement("div");
+    pageNum.className = "page-number";
+    pageNum.textContent = "صفحو " + (index + 1) + " / " + mathData.length;
+    container.appendChild(pageNum);
+
+    // تصویر اور کارڈ والا حصہ
+    const card = document.createElement("div");
+    card.className = "single-card";
+    card.innerHTML = `
+        <img src="${getFileURL(item.img)}" alt="${item.num}" class="num-img" onerror="this.src='https://via.placeholder.com/220?text=Number+${item.num}'">
+        <div class="digit-display">${item.num}</div>
+        <div class="word-display">${item.sdWord}</div>
+        <button class="voice-btn" onclick="playSound('${item.audio}')">🔊 آواز ٻڌو</button>
+    `;
+    container.appendChild(card);
+
+    // آگے پیچھے جانے والے بٹن (Controls)
+    const controls = document.createElement("div");
+    controls.className = "page-controls";
+
+    const prevBtn = document.createElement("button");
+    prevBtn.className = "page-button";
+    prevBtn.textContent = "← پويون";
+    prevBtn.disabled = index === 0;
+    prevBtn.onclick = function() {
+        showPage(currentIndex - 1);
+    };
+
+    const pageIndicator = document.createElement("span");
+    pageIndicator.className = "current-page";
+    pageIndicator.textContent = (index + 1) + " منجهان " + mathData.length;
+
+    const nextBtn = document.createElement("button");
+    nextBtn.className = "page-button";
+    nextBtn.textContent = "اڳيون →";
+    nextBtn.disabled = index === mathData.length - 1;
+    nextBtn.onclick = function() {
+        showPage(currentIndex + 1);
+    };
+
+    controls.appendChild(prevBtn);
+    controls.appendChild(pageIndicator);
+    controls.appendChild(nextBtn);
+
+    container.appendChild(controls);
 }
 
-renderMath();
+// پہلی دفعہ پہلا صفحہ دکھائیں
+showPage(0);
 </script>
 
 </body>
