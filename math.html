@@ -69,18 +69,18 @@ header p {
 }
 
 .main-layout {
-    max-width: 750px;
-    margin: 30px auto;
+    max-width: 800px;
+    margin: 25px auto;
     padding: 0 15px;
 }
 
 .book {
     background: #fffdf5;
-    min-height: 480px;
-    border-radius: 12px;
+    min-height: 520px;
+    border-radius: 15px;
     border: 1px solid #e4d9b9;
     box-shadow: 0 7px 22px #0002;
-    padding: 25px;
+    padding: 20px;
     text-align: center;
 }
 
@@ -93,7 +93,7 @@ header p {
 .page-number {
     color: #9b7831;
     font-size: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     font-weight: bold;
 }
 
@@ -101,52 +101,58 @@ header p {
     background: white;
     border: 4px solid #d9b95f;
     border-radius: 15px;
-    padding: 20px;
-    max-width: 400px;
-    margin: 0 auto 20px auto;
+    padding: 15px;
+    max-width: 550px; /* کارڈ کو بڑا کیا گیا ہے */
+    margin: 0 auto 15px auto;
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 
+/* تصویر کو بڑا اور واضح کرنے کا اسٹائل */
 .num-img {
     width: 100%;
-    max-width: 220px;
-    height: 220px;
+    max-height: 360px;
     object-fit: contain;
-    margin-bottom: 15px;
-    border: 2px dashed #145d35;
-    border-radius: 10px;
-    padding: 8px;
+    margin-bottom: 10px;
+    border: 3px solid #145d35;
+    border-radius: 12px;
+    padding: 5px;
     background: #f9fbf7;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.num-img:hover {
+    transform: scale(1.01);
+    box-shadow: 0 0 15px rgba(243, 200, 91, 0.8);
+}
+
+.num-img.playing {
+    border-color: #ff9800;
+    box-shadow: 0 0 20px #ff9800;
 }
 
 .digit-display {
-    font-size: 32px;
+    font-size: 30px;
     font-weight: bold;
     color: #145d35;
-    margin-bottom: 5px;
+    margin-bottom: 2px;
 }
 
 .word-display {
     font-size: 22px;
     font-weight: bold;
     color: #9b7831;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 
-.voice-btn {
-    background: #185b37;
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 25px;
-    font-size: 16px;
-    font-weight: bold;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-}
-
-.voice-btn:hover {
-    background: #f3c85b;
-    color: #185b37;
+.hint-text {
+    font-size: 14px;
+    color: #555;
+    background: #fff9db;
+    padding: 6px;
+    border-radius: 8px;
+    display: inline-block;
+    margin-top: 5px;
 }
 
 .page-controls {
@@ -154,7 +160,7 @@ header p {
     justify-content: space-between;
     align-items: center;
     gap: 12px;
-    margin-top: 25px;
+    margin-top: 20px;
     padding-top: 15px;
     border-top: 1px solid #e6dfc8;
 }
@@ -215,7 +221,7 @@ footer {
 
 <div class="main-layout">
     <div class="book" id="bookContainer">
-        <!-- جاوا اسکریپٹ کے ذریعے ایک وقت میں ایک صفحہ یہاں آئے گا -->
+        <!-- جاوا اسکریپٹ کے ذریعے مواد یہاں آئے گا -->
     </div>
 </div>
 
@@ -233,7 +239,6 @@ const REPOSITORY = "The-world-of-education";
 const BRANCH = "main";
 const RAW_ROOT = `https://raw.githubusercontent.com/${USERNAME}/${REPOSITORY}/${BRANCH}/`;
 
-// 1 سے 10 تک کا خالص سندھی ڈیٹا اور آپ کی فائلیں
 const mathData = [
     { num: 1, sdWord: "هڪ", img: "media/images/Hik Eko hik.jpg", audio: "media/media/audio/Hik Eko hik.mp3" },
     { num: 2, sdWord: "ٻه", img: "media/images/Ba Eko Ba .jpg", audio: "media/media/audio/Ba Eko Ba .mp3" },
@@ -249,6 +254,7 @@ const mathData = [
 
 let currentIndex = 0;
 const player = document.getElementById("voicePlayer");
+let activeImgElement = null;
 
 function getFileURL(path) {
     if (!path) return "";
@@ -256,11 +262,28 @@ function getFileURL(path) {
     return RAW_ROOT + path.split("/").map(part => encodeURIComponent(part)).join("/");
 }
 
-function playSound(path) {
+function playSound(path, imgElement) {
+    if (activeImgElement) {
+        activeImgElement.classList.remove("playing");
+    }
+    
     player.pause();
     player.src = getFileURL(path);
+    
+    activeImgElement = imgElement;
+    if (activeImgElement) {
+        activeImgElement.classList.add("playing");
+    }
+
     player.play().catch(err => console.log("Audio error:", err));
 }
+
+player.addEventListener("ended", function() {
+    if (activeImgElement) {
+        activeImgElement.classList.remove("playing");
+        activeImgElement = null;
+    }
+});
 
 function showPage(index) {
     if (index < 0 || index >= mathData.length) return;
@@ -269,30 +292,50 @@ function showPage(index) {
     const container = document.getElementById("bookContainer");
     container.replaceChildren();
 
-    // ہیڈنگ
     const title = document.createElement("h2");
     title.className = "page-heading";
     title.textContent = "سنڌي گنتي سيکاريو";
     container.appendChild(title);
 
-    // صفحہ نمبر
     const pageNum = document.createElement("div");
     pageNum.className = "page-number";
     pageNum.textContent = "صفحو " + (index + 1) + " / " + mathData.length;
     container.appendChild(pageNum);
 
-    // تصویر اور کارڈ والا حصہ
     const card = document.createElement("div");
     card.className = "single-card";
-    card.innerHTML = `
-        <img src="${getFileURL(item.img)}" alt="${item.num}" class="num-img" onerror="this.src='https://via.placeholder.com/220?text=Number+${item.num}'">
-        <div class="digit-display">${item.num}</div>
-        <div class="word-display">${item.sdWord}</div>
-        <button class="voice-btn" onclick="playSound('${item.audio}')">🔊 آواز ٻڌو</button>
-    `;
+
+    // تصویر جس پر کلک کرنے سے آواز چلے گی
+    const imgElement = document.createElement("img");
+    imgElement.src = getFileURL(item.img);
+    imgElement.alt = item.num;
+    imgElement.className = "num-img";
+    imgElement.onerror = function() {
+        this.src = 'https://via.placeholder.com/400?text=Number+' + item.num;
+    };
+    imgElement.onclick = function() {
+        playSound(item.audio, imgElement);
+    };
+    card.appendChild(imgElement);
+
+    const digitDisplay = document.createElement("div");
+    digitDisplay.className = "digit-display";
+    digitDisplay.textContent = item.num;
+    card.appendChild(digitDisplay);
+
+    const wordDisplay = document.createElement("div");
+    wordDisplay.className = "word-display";
+    wordDisplay.textContent = item.sdWord;
+    card.appendChild(wordDisplay);
+
+    const hint = document.createElement("div");
+    hint.className = "hint-text";
+    hint.textContent = "👆 آواز ٻڌڻ لاءِ تصوير تي ڪلڪ ڪريو";
+    card.appendChild(hint);
+
     container.appendChild(card);
 
-    // آگے پیچھے جانے والے بٹن (Controls)
+    // کنٹرولز (اگلا / پچھلا بٹن)
     const controls = document.createElement("div");
     controls.className = "page-controls";
 
@@ -323,7 +366,6 @@ function showPage(index) {
     container.appendChild(controls);
 }
 
-// پہلی دفعہ پہلا صفحہ دکھائیں
 showPage(0);
 </script>
 
