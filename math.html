@@ -239,66 +239,66 @@ const REPOSITORY = "The-world-of-education";
 const BRANCH = "main";
 const RAW_ROOT = `https://raw.githubusercontent.com/${USERNAME}/${REPOSITORY}/${BRANCH}/`;
 
-// 1 سے 60 تک مکمل گنتی کا ڈیٹا (بالکل درست پاتھ کے ساتھ)
 const mathData = [
-    { title: "هڪ", file: "Hik Eko hik", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ٻه", file: "Ba Eko Ba .jpg", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ٽي", file: "thri Eko thri .jpg", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "چار", file: "Char Eko char .jpg", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "پنج", file: "Panj Eko panj", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ڇهه", file: "Cha Eko Cha", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ست", file: "Sat Eko sat", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "اٺھ", file: "Atah Eko Atah", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "نون", file: "Nawon Eko Nawon", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ڏهه", file: "Day Eko Dah.jpg", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "يارهن", file: "Hik Eko Hik d11.jpg", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ٻارھڻ", file: "Ba Eka Hik d12", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "تيرھڻ", file: "Tre Eka Hek d13", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "چوڏھن", file: "Char Eka Hik d14", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "پندرهن", file: "Panj Eka Hik d15", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "سورهن", file: "Cha Eka Hik d16", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "سترھن", file: "sat Eka Hik d17", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ارڙھن", file: "Ath Eka Hike d18", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "اڻويھ ", file: "Nawon Eko Hik d19", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ويهه", file: "buri Eko ba d20", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ايڪويهه", file: "Hik Eko ba d21", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ٻاويهه", file: "ba Eka ba d22", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ٽرويهه", file: "Tre Eka ba d23", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "چوويهه", file: "char Eka ba D24", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "پنجويهه", file: "pang Eka ba d25", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ڇويهه", file: "Cha Eka ba d26", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ساتويهه", file: "Sat Eka ba d27", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "اٺھاويهه", file: "Ath Eka ba d28", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "אُاڻٽريهه", file: "Nown Eka ba d29", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ٽريهه", file: "buri Eko Tre D30", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ايڪٽريهه", file: "Hik Eko Tre D31", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ٻٽريھ", file: "ba Eka Tre D32", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ٽريٽريھ", file: "Tre Eka Tre D33", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "چوٽريھ", file: "panj Eka Tre D35", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "پنجٽريه", file: "cah Eka Tre D36", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ڇھٽريھ", file: "sat Eka Tre D37", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ستريھ", file: "Ath Eka Tre D38", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "اٺھٽيريه", file: "Nawon Eka Tre D39", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "אُنٽاليهه", file: "buri Eko char d40", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "چاليهه", file: "Hik Eko char d41", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ايڪطاليهه", file: "ba Eka cahe D42", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "بيطاليهه", file: "Tre Eka Char d43", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ترطاليهه", file: "panj Eko cahr d45", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "چوٽاليهه", file: "chah Eka Char d46", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "پنجطاليهه", file: "sat Eka Char d47", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ڇهطاليهه", file: "Ath Eka cahr d48", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ستطاليهه", file: "Nawon Eka cahr d49", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "اٺطاليهه", file: "buri Eko panj D50", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "אُنونجاهه", file: "Hik Eko panj d51", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "پنجاهه", file: "Ba Eka panj d52", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ايڪونجاهه", file: "Tre Eko panj d53", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "باونجاهه", file: "cahr Eko panj d54", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ٽيرونجاهه", file: "panj Eko panj d55", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "چوونجاهه", file: "chaa Eko pang d56", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "پنجونجاهه", file: "sat Eko panj d57", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ڇهاونجاهه", file: "Ath Eko panj d58", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "ستونجاهه", file: "Nawon Eka panj d59", imgFolder: "media/images/", audioFolder: "media/media/audio/" },
-    { title: "اٺھونجاهه", file: "Buri Eko cah d60", imgFolder: "media/images/", audioFolder: "media/media/audio/" }
+    { title: "هڪ", img: "media/images/Hik Eko hik.jpg", audio: "media/media/audio/Hik Eko hik.mp3" },
+    { title: "ٻه", img: "media/images/Ba Eko Ba .jpg", audio: "media/media/audio/Ba Eko Ba .mp3" },
+    { title: "ٽي", img: "media/images/thri Eko thri .jpg", audio: "media/media/audio/tre Eko tre .mp3" },
+    { title: "چار", img: "media/images/Char Eko char .jpg", audio: "media/media/audio/Char Eko char .mp3" },
+    { title: "پنج", img: "media/images/Panj Eko panj.jpg", audio: "media/media/audio/Panj Eko panj.mp3" },
+    { title: "ڇهه", img: "media/images/Cha Eko Cha.jpg", audio: "media/media/audio/Cha Eko Cha.mp3" },
+    { title: "ست", img: "media/images/Sat Eko sat.jpg", audio: "media/media/audio/Sat Eko sat.mp3" },
+    { title: "اٺ", img: "media/images/Atah Eko Atah.jpg", audio: "media/media/audio/Atah Eko Atah.mp3" },
+    { title: "نون", img: "media/images/Nawon Eko Nawon.jpg", audio: "media/media/audio/Nawon Eko Nawon.mp3" },
+    { title: "ڏهه", img: "media/images/Day Eko Dah.jpg", audio: "media/media/audio/Dah Eko Dah.mp3" },
+    { title: "يارنهن", img: "media/images/Hik Eko Hik d11.jpg", audio: "media/media/audio/Hik Eko Hik d11.mp3" },
+    { title: "ٻارنهن", img: "media/images/Ba Eka Hik d12.jpg", audio: "media/media/audio/Ba Eka Hik d12.mp3" },
+    { title: "تيرنهن", img: "media/images/Tre Eka Hek d13.jpg", audio: "media/media/audio/Tre Eka Hek d13.mp3" },
+    { title: "چوڏهن", img: "media/images/Char Eka Hik d14.jpg", audio: "media/media/audio/Char Eka Hik d14.mp3" },
+    { title: "پندرنهن", img: "media/images/Panj Eka Hik d15.jpg", audio: "media/media/audio/Panj Eka Hik d15.mp3" },
+    { title: "سورنهن", img: "media/images/Cha Eka Hik d16.jpg", audio: "media/media/audio/Cha Eka Hik d16.mp3" },
+    { title: "سترنهن", img: "media/images/sat Eka Hik d17.jpg", audio: "media/media/audio/sat Eka Hik d17.mp3" },
+    { title: "ارڙهن", img: "media/images/Ath Eka Hike d18.jpg", audio: "media/media/audio/Ath Eka Hike d18.mp3" },
+    { title: "اُڻويهه", img: "media/images/Nawon Eko Hik d19.jpg", audio: "media/media/audio/Nawon Eko Hik d19.mp3" },
+    { title: "ويهه", img: "media/images/buri Eko ba d20.jpg", audio: "media/media/audio/buri Eko ba d20.mp3" },
+    { title: "ايڪويهه", img: "media/images/Hik Eko ba d21.jpg", audio: "media/media/audio/Hik Eko ba d21.mp3" },
+    { title: "ٻاويهه", img: "media/images/ba Eka ba d22.jpg", audio: "media/media/audio/ba Eka ba d22.mp3" },
+    { title: "ٽريويهه", img: "media/images/Tre Eka ba d23.jpg", audio: "media/media/audio/Tre Eka ba d23.mp3" },
+    { title: "چوويهه", img: "media/images/char Eka ba D24.jpg", audio: "media/media/audio/char Eka ba D24.mp3" },
+    { title: "پنجويهه", img: "media/images/pang Eka ba d25.jpg", audio: "media/media/audio/pang Eka ba d25.mp3" },
+    { title: "ڇويهه", img: "media/images/Cha Eka ba d26.jpg", audio: "media/media/audio/Cha Eka ba d26.mp3" },
+    { title: "ستاويهه", img: "media/images/Sat Eka ba d27.jpg", audio: "media/media/audio/Sat Eka ba d27.mp3" },
+    { title: "اٺاويهه", img: "media/images/Ath Eka ba d28.jpg", audio: "media/media/audio/Ath Eka ba d28.mp3" },
+    { title: "اُڻٽريهه", img: "media/images/Nown Eka ba d29.jpg", audio: "media/media/audio/Nown Eka ba d29.mp3" },
+    { title: "ٽيرهه", img: "media/images/buri Eko Tre D30.jpg", audio: "media/media/audio/buri Eko Tre D30.mp3" },
+    { title: "ايڪٽريهه", img: "media/images/Hik Eko Tre D31.jpg", audio: "media/media/audio/Hik Eko Tre D31.mp3" },
+    { title: "ٻٽريهه", img: "media/images/ba Eka Tre D32.jpg", audio: "media/media/audio/ba Eka Tre D32.mp3" },
+    { title: "ٽريٽريهه", img: "media/images/Tre Eka Tre D33.jpg", audio: "media/media/audio/Tre Eka Tre D33.mp3" },
+    { title: "چوٽريهه", img: "media/images/Cahe Eka Tre D34.jpg", audio: "media/media/audio/Cahe Eka Tre D34.mp3" },
+    { title: "پنجٽريهه", img: "media/images/panj Eka Tre D35.jpg", audio: "media/media/audio/panj Eka Tre D35.mp3" },
+    { title: "ڇٽريهه", img: "media/images/cah Eka Tre D36.jpg", audio: "media/media/audio/cah Eka Tre D36.mp3" },
+    { title: "ستٽريهه", img: "media/images/sat Eka Tre D37.jpg", audio: "media/media/audio/sat Eka Tre D37.mp3" },
+    { title: "اٺٽريهه", img: "media/images/Ath Eka Tre D38.jpg", audio: "media/media/audio/Ath Eka Tre D38.mp3" },
+    { title: "اُڻتاليهه", img: "media/images/Nawon Eka Tre D39.jpg", audio: "media/media/audio/Nawon Eka Tre D39.mp3" },
+    { title: "چاليهه", img: "media/images/buri Eko char d40.jpg", audio: "media/media/audio/buri Eko char d40.mp3" },
+    { title: "ايڪتاليهه", img: "media/images/Hik Eko char d41.jpg", audio: "media/media/audio/Hik Eko char d41.mp3" },
+    { title: "ٻائيتاليهه", img: "media/images/ba Eka cahe D42.jpg", audio: "media/media/audio/ba Eka cahe D42.mp3" },
+    { title: "ٽريتاليهه", img: "media/images/Tre Eka Char d43.jpg", audio: "media/media/audio/Tre Eka Char d43.mp3" },
+    { title: "پنجتاليهه", img: "media/images/panj Eko cahr d45.jpg", audio: "media/media/audio/panj Eko cahr d45.mp3" },
+    { title: "ڇائيتاليهه", img: "media/images/chah Eka Char d46.jpg", audio: "media/media/audio/chah Eka Char d46.mp3" },
+    { title: "ستتاليهه", img: "media/images/sat Eka Char d47.jpg", audio: "media/media/audio/sat Eka Char d47.mp3" },
+    { title: "اٺتاليهه", img: "media/images/Ath Eka cahr d48.jpg", audio: "media/media/audio/Ath Eka cahr d48.mp3" },
+    { title: "اُڻونجاهه", img: "media/images/Nawon Eka cahr d49.jpg", audio: "media/media/audio/Nawon Eka cahr d49.mp3" },
+    { title: "پنجاهه", img: "media/images/buri Eko panj D50.jpg", audio: "media/media/audio/buri Eko panj D50.mp3" },
+    { title: "ايڪونجاهه", img: "media/images/Hik Eko panj d51.jpg", audio: "media/media/audio/Hik Eko panj d51.mp3" },
+    { title: "ٻاونجاهه", img: "media/images/Ba Eka panj d52.jpg", audio: "media/media/audio/Ba Eka panj d52.mp3" },
+    { title: "ٽيونجاهه", img: "media/images/Tre Eko panj d53.jpg", audio: "media/media/audio/Tre Eko panj d53.mp3" },
+    { title: "چوونجاهه", img: "media/images/cahr Eko panj d54.jpg", audio: "media/media/audio/cahr Eko panj d54.mp3" },
+    { title: "پنجونجاهه", img: "media/images/panj Eko panj d55.jpg", audio: "media/media/audio/panj Eko panj d55.mp3" },
+    { title: "ڇاونجاهه", img: "media/images/chaa Eko pang d56.jpg", audio: "media/media/audio/chaa Eko pang d56.mp3" },
+    { title: "ستونجاهه", img: "media/images/sat Eko panj d57.jpg", audio: "media/media/audio/sat Eko panj d57.mp3" },
+    { title: "اٺونجاهه", img: "media/images/Ath Eko panj d58.jpg", audio: "media/media/audio/Ath Eko panj d58.mp3" },
+    { title: "اُڻهٺ", img: "media/images/Nawon Eka panj d59.jpg", audio: "media/media/audio/Nawon Eka panj d59.mp3" },
+    { title: "سٺ", img: "media/images/Buri Eko cah d60.jpg", audio: "media/media/audio/Buri Eko cah d60.mp3" }
 ];
 
 let currentIndex = 0;
@@ -343,7 +343,7 @@ function showPage(index) {
 
     const title = document.createElement("h2");
     title.className = "page-heading";
-    title.textContent = "سنڌي گنتي سکو";
+    title.textContent = "سنڌ ۾ ڳڙڻپ سکو";
     container.appendChild(title);
 
     const pageNum = document.createElement("div");
@@ -354,19 +354,15 @@ function showPage(index) {
     const card = document.createElement("div");
     card.className = "single-card";
 
-    let cleanName = item.file.trim();
-    let imgPath = item.imgFolder + cleanName + ".jpg";
-    let audioPath = item.audioFolder + cleanName + ".mp3";
-
     const imgElement = document.createElement("img");
-    imgElement.src = getFileURL(imgPath);
+    imgElement.src = getFileURL(item.img);
     imgElement.alt = item.title;
     imgElement.className = "num-img";
     imgElement.onerror = function() {
         this.src = 'https://via.placeholder.com/400?text=Counting+' + (index + 1);
     };
     imgElement.onclick = function() {
-        playSound(audioPath, imgElement);
+        playSound(item.audio, imgElement);
     };
     card.appendChild(imgElement);
 
