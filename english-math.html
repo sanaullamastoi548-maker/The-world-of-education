@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="sd" dir="rtl">
 
 <head>
     <!-- Google tag (gtag.js) -->
@@ -14,7 +14,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>World of Education - English Counting (1 to 50)</title>
+<title>تعليم جي دنيا - Mathematics (Sindhi & English)</title>
 
 <style>
 * {
@@ -60,7 +60,7 @@ header p {
 
 .language-btn {
     border: none;
-    padding: 9px 18px;
+    padding: 10px 20px;
     border-radius: 25px;
     font-size: 14px;
     font-weight: bold;
@@ -78,9 +78,36 @@ header p {
     border: 2px solid white;
 }
 
+.math-mode-bar {
+    max-width: 980px;
+    margin: 18px auto 0;
+    padding: 0 12px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.mode-btn {
+    border: 2px solid #145d35;
+    background: white;
+    color: #145d35;
+    padding: 11px 22px;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: bold;
+    box-shadow: 0 3px 8px #0001;
+    transition: 0.2s ease;
+}
+
+.mode-btn.active {
+    background: #145d35;
+    color: #f3c85b;
+}
+
 .main-layout {
     max-width: 980px;
-    margin: 25px auto;
+    margin: 20px auto;
     padding: 0 12px;
     display: flex;
     gap: 16px;
@@ -88,14 +115,14 @@ header p {
 }
 
 .number-sidebar {
-    width: 78px;
+    width: 82px;
     flex-shrink: 0;
     background: #fffdf5;
     border: 1px solid #e4d9b9;
     border-radius: 15px;
     box-shadow: 0 7px 22px #0002;
     padding: 10px 6px;
-    max-height: 600px;
+    max-height: 620px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -140,7 +167,7 @@ header p {
     flex: 1;
     min-width: 0;
     background: #fffdf5;
-    min-height: 500px;
+    min-height: 520px;
     border-radius: 15px;
     border: 1px solid #e4d9b9;
     box-shadow: 0 7px 22px #0002;
@@ -150,7 +177,7 @@ header p {
 
 .page-heading {
     color: #216a3b;
-    font-size: 24px;
+    font-size: 26px;
     margin: 5px 0;
 }
 
@@ -167,7 +194,7 @@ header p {
     border: 2px solid #d9b95f;
     padding: 8px 16px;
     border-radius: 20px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
     margin-bottom: 14px;
 }
@@ -181,6 +208,7 @@ header p {
     margin: 0 auto 16px auto;
     max-width: 550px;
     text-align: left;
+    direction: ltr;
 }
 
 .media-explorer-panel.open {
@@ -253,7 +281,7 @@ header p {
 }
 
 .word-display {
-    font-size: 26px;
+    font-size: 25px;
     font-weight: bold;
     color: #9b7831;
     margin-bottom: 5px;
@@ -326,8 +354,8 @@ footer {
     }
 
     .number-sidebar {
-        width: 56px;
-        max-height: 520px;
+        width: 58px;
+        max-height: 540px;
         padding: 8px 4px;
     }
 
@@ -351,29 +379,36 @@ footer {
 <body>
 
 <header>
-    <h1>🔢 English Counting (1 to 50) 🔢</h1>
-    <p>Tap an image to hear the English number pronunciation</p>
+    <h1>🔢 Mathematics — سنڌي گنتي & English Counting 🔢</h1>
+    <p>هڪ ئي هنڌ سنڌي گنتي (1–100) ۽ انگلش گنتي (1–50) سکو</p>
 
     <div class="language-switch">
-        <a class="language-btn" href="index.html">Home</a>
+        <a class="language-btn" href="index.html">سنڌي (الف ب)</a>
         <a class="language-btn" href="english.html">English</a>
-        <a class="language-btn" href="english-words.html">English Words</a>
-        <a class="language-btn active" href="english-math.html">English Counting</a>
-        <a class="language-btn" href="math.html">Sindhi Counting</a>
+        <a class="language-btn active" href="math.html">Mathematics</a>
     </div>
 </header>
 
+<div class="math-mode-bar">
+    <button type="button" class="mode-btn active" id="sindhiModeBtn" onclick="switchMathMode('sindhi')">
+        🔢 سنڌي گنتي (1 – 100)
+    </button>
+    <button type="button" class="mode-btn" id="englishModeBtn" onclick="switchMathMode('english')">
+        🔢 English Counting (1 – 50)
+    </button>
+</div>
+
 <div class="main-layout">
     <aside class="number-sidebar" id="numberSidebar" aria-label="Numbers">
-        <div class="sidebar-title">1 - 50</div>
+        <div class="sidebar-title" id="sidebarTitle">1 - 100</div>
     </aside>
 
     <div class="book" id="bookContainer"></div>
 </div>
 
 <footer>
-    <div>🌸 Education is every child's right 🌸</div>
-    <a href="index.html" class="back-link">← Back to Home</a>
+    <div>🌸 تعليم هر ٻار جو حق آهي 🌸</div>
+    <a href="index.html" class="back-link">← مکيه صفحي تي واپس وڃو</a>
 </footer>
 
 <audio id="voicePlayer"></audio>
@@ -384,69 +419,177 @@ const REPOSITORY = "The-world-of-education";
 const BRANCH = "main";
 const RAW_ROOT = `https://raw.githubusercontent.com/${USERNAME}/${REPOSITORY}/${BRANCH}/`;
 
-const IMG_DIR = "english-math/images/";
-const AUDIO_DIR = "english-math/images/english-math/audio/";
-const VIDEO_DIR = "english-math/videos/";
+const ENG_IMG_DIR = "english-math/images/";
+const ENG_AUDIO_DIR = "english-math/images/english-math/audio/";
+const ENG_VIDEO_DIR = "english-math/videos/";
 
-const englishMathData = [
-    { num: 1, word: "One", img: "One1.jpg", audio: "One1.mp3" },
-    { num: 2, word: "Two", img: "Two2.jpg", audio: "Two2.mp3" },
-    { num: 3, word: "Three", img: "Three3.jpg", audio: "Three3.mp3" },
-    { num: 4, word: "Four", img: "Four4.jpg", audio: "Four4.mp3" },
-    { num: 5, word: "Five", img: "Five5.jpg", audio: "Five5.mp3" },
-    { num: 6, word: "Six", img: "Six6.jpg", audio: "Six6.mp3" },
-    { num: 7, word: "Seven", img: "Seven7.jpg", audio: "Seven7.mp3" },
-    { num: 8, word: "Eight", img: "Eight8.jpg", audio: "Eight8.mp3" },
-    { num: 9, word: "Nine", img: "Nine9.jpg", audio: "Nine9.mp3" },
-    { num: 10, word: "Ten", img: "Ten10.jpg", audio: "Ten10.mp3" },
-    { num: 11, word: "Eleven", img: "Eleven11.jpg", audio: "Eleven11.mp3" },
-    { num: 12, word: "Twelve", img: "Twelve12.jpg", audio: "Twelve12.mp3" },
-    { num: 13, word: "Thirteen", img: "Thirteen13.jpg", audio: "Thirteen13.mp3" },
-    { num: 14, word: "Fourteen", img: "Fourteen14.jpg", audio: "Fourteen14.mp3" },
-    { num: 15, word: "Fifteen", img: "Fifteen15.jpg", audio: "Fifteen15.mp3" },
-    { num: 16, word: "Sixteen", img: "Sixteen16.jpg", audio: "Sixteen16.mp3" },
-    { num: 17, word: "Seventeen", img: "Seventeen17.jpg", audio: "Seventeen17.mp3" },
-    { num: 18, word: "Eighteen", img: "Eighteen18.jpg", audio: "Eighteen18.mp3" },
-    { num: 19, word: "Nineteen", img: "Nineteen19.jpg", audio: "Nineteen19.mp3" },
-    { num: 20, word: "Twenty", img: "Twenty20.jpg", audio: "Twenty20.mp3" },
-    { num: 21, word: "Twenty-One", img: "Twenty-One21.jpg", audio: "Twenty-One21.mp3" },
-    { num: 22, word: "Twenty-Two", img: "Twenty-Two22.jpg", audio: "Twenty-Two22.mp3" },
-    { num: 23, word: "Twenty-Three", img: "Twenty-Three23.jpg", audio: "Twenty-Three23.mp3" },
-    { num: 24, word: "Twenty-Four", img: "Twenty-Four24.jpg", audio: "Twenty-Four24.mp3" },
-    { num: 25, word: "Twenty-Five", img: "Twenty-Five25.jpg", audio: "Twenty-Five25.mp3" },
-    { num: 26, word: "Twenty-Six", img: "Twenty-Six26.jpg", audio: "Twenty-Six26.mp3" },
-    { num: 27, word: "Twenty-Seven", img: "Twenty-Seven27.jpg", audio: "Twenty-Seven27.mp3" },
-    { num: 28, word: "Twenty-Eight", img: "Twenty-Eight28.jpg", audio: "Twenty-Eight28.mp3" },
-    { num: 29, word: "Twenty-Nine", img: "Twenty-Nine29.jpg", audio: "Twenty-Nine29.mp3" },
-    { num: 30, word: "Thirty", img: "Thirty30.jpg", audio: "Thirty30.mp3" },
-    { num: 31, word: "Thirty-One", img: "Thirty-One31.jpg", audio: "Thirty-One31.mp3" },
-    { num: 32, word: "Thirty-Two", img: "Thirty-Two32.jpg", audio: "Thirty-Two32.mp3" },
-    { num: 33, word: "Thirty-Three", img: "Thirty-Three33.jpg", audio: "Thirty-Three33.mp3" },
-    { num: 34, word: "Thirty-Four", img: "Thirty-Four34.jpg", audio: "Thirty-Four34.mp3" },
-    { num: 35, word: "Thirty-Five", img: "Thirty-Five35.jpg", audio: "Thirty-Five35.mp3" },
-    { num: 36, word: "Thirty-Six", img: "Thirty-Six36.jpg", audio: "Thirty-Six36.mp3" },
-    { num: 37, word: "Thirty-Seven", img: "Thirty-Seven37.jpg", audio: "Thirty-Seven37.mp3" },
-    { num: 38, word: "Thirty-Eight", img: "Thirty-Eight38.jpg", audio: "Thirty-Eight38.mp3" },
-    { num: 39, word: "Thirty-Nine", img: "Thirty-Nine39.jpg", audio: "Thirty-Nine39.mp3" },
-    { num: 40, word: "Forty", img: "Forty40.jpg", audio: "Forty40.mp3" },
-    { num: 41, word: "Forty-One", img: "Forty-One41.jpg", audio: "Forty-One41.mp3" },
-    { num: 42, word: "Forty-Two", img: "Forty-Two42.jpg", audio: "Forty-Two42.mp3" },
-    { num: 43, word: "Forty-Three", img: "Forty-Three43.jpg", audio: "Forty-Three43.mp3" },
-    { num: 44, word: "Forty-Four", img: "Forty-Four44.jpg", audio: "Forty-Four44.mp3" },
-    { num: 45, word: "Forty-Five", img: "Forty-Five45.jpg", audio: "Forty-Five45.mp3" },
-    { num: 46, word: "Forty-Six", img: "Forty-Six46.jpg", audio: "Forty-Six46.mp3" },
-    { num: 47, word: "Forty-Seven", img: "Forty-Seven47.jpg", audio: "Forty-Seven47.mp3" },
-    { num: 48, word: "Forty-Eight", img: "Forty-Eight48.jpg", audio: "Forty-Eight48.mp3" },
-    { num: 49, word: "Forty-Nine", img: "Forty-Nine49.jpg", audio: "Forty-Nine49.mp3" },
-    { num: 50, word: "Fifty", img: "Fifty50.jpg", audio: "Fifty50.mp3" }
+const sindhiMathData = [
+    { num: 1, title: "هڪ", img: "media/images/Hik Eko hik.jpg", audio: "media/media/audio/Hik Eko hik.mp3" },
+    { num: 2, title: "ٻه", img: "media/images/Ba Eko Ba .jpg", audio: "media/media/audio/Ba Eko Ba .mp3" },
+    { num: 3, title: "ٽي", img: "media/images/thri Eko thri .jpg", audio: "media/media/audio/tre Eko tre .mp3" },
+    { num: 4, title: "چار", img: "media/images/Char Eko char .jpg", audio: "media/media/audio/Char Eko char .mp3" },
+    { num: 5, title: "پنج", img: "media/images/Panj Eko panj.jpg", audio: "media/media/audio/Panj Eko panj.mp3" },
+    { num: 6, title: "ڇهه", img: "media/images/Cha Eko Cha.jpg", audio: "media/media/audio/Cha Eko Cha.mp3" },
+    { num: 7, title: "ست", img: "media/images/Sat Eko sat.jpg", audio: "media/media/audio/Sat Eko sat.mp3" },
+    { num: 8, title: "اٺ", img: "media/images/Atah Eko Atah.jpg", audio: "media/media/audio/Atah Eko Atah.mp3" },
+    { num: 9, title: "نون", img: "media/images/Nawon Eko Nawon.jpg", audio: "media/media/audio/Nawon Eko Nawon.mp3" },
+    { num: 10, title: "ڏهه", img: "media/images/Day Eko Dah.jpg", audio: "media/media/audio/Dah Eko Dah.mp3" },
+    { num: 11, title: "يارنهن", img: "media/images/Hik Eko Hik d11.jpg", audio: "media/media/audio/Hik Eko Hik d11.mp3" },
+    { num: 12, title: "ٻارنهن", img: "media/images/Ba Eka Hik d12.jpg", audio: "media/media/audio/Ba Eka Hik d12.mp3" },
+    { num: 13, title: "تيرنهن", img: "media/images/Tre Eka Hek d13.jpg", audio: "media/media/audio/Tre Eka Hek d13.mp3" },
+    { num: 14, title: "چوڏهن", img: "media/images/Char Eka Hik d14.jpg", audio: "media/media/audio/Char Eka Hik d14.mp3" },
+    { num: 15, title: "پندرنهن", img: "media/images/Panj Eka Hik d15.jpg", audio: "media/media/audio/Panj Eka Hik d15.mp3" },
+    { num: 16, title: "سورنهن", img: "media/images/Cha Eka Hik d16.jpg", audio: "media/media/audio/Cha Eka Hik d16.mp3" },
+    { num: 17, title: "سترنهن", img: "media/images/sat Eka Hik d17.jpg", audio: "media/media/audio/sat Eka Hik d17.mp3" },
+    { num: 18, title: "ارڙهن", img: "media/images/Ath Eka Hike d18.jpg", audio: "media/media/audio/Ath Eka Hike d18.mp3" },
+    { num: 19, title: "اُڻويهه", img: "media/images/Nawon Eko Hik d19.jpg", audio: "media/media/audio/Nawon Eko Hik d19.mp3" },
+    { num: 20, title: "ويهه", img: "media/images/buri Eko ba d20.jpg", audio: "media/media/audio/buri Eko ba d20.mp3" },
+    { num: 21, title: "ايڪويهه", img: "media/images/Hik Eko ba d21.jpg", audio: "media/media/audio/Hik Eko ba d21.mp3" },
+    { num: 22, title: "ٻاويهه", img: "media/images/ba Eka ba d22.jpg", audio: "media/media/audio/ba Eka ba d22.mp3" },
+    { num: 23, title: "ٽيويهه", img: "media/images/Tre Eka ba d23.jpg", audio: "media/media/audio/Tre Eka ba d23.mp3" },
+    { num: 24, title: "چوويهه", img: "media/images/char Eka ba D24.jpg", audio: "media/media/audio/char Eka ba D24.mp3" },
+    { num: 25, title: "پنجويهه", img: "media/images/pang Eka ba d25.jpg", audio: "media/media/audio/pang Eka ba d25.mp3" },
+    { num: 26, title: "ڇويهه", img: "media/images/Cha Eka ba d26.jpg", audio: "media/media/audio/Cha Eka ba d26.mp3" },
+    { num: 27, title: "ستويهه", img: "media/images/Sat Eka ba d27.jpg", audio: "media/media/audio/Sat Eka ba d27.mp3" },
+    { num: 28, title: "اٺويهه", img: "media/images/Ath Eka ba d28.jpg", audio: "media/media/audio/Ath Eka ba d28.mp3" },
+    { num: 29, title: "اُڻٽيهه", img: "media/images/Nown Eka ba d29.jpg", audio: "media/media/audio/Nown Eka ba d29.mp3" },
+    { num: 30, title: "ٽيهه", img: "media/images/buri Eko Tre D30.jpg", audio: "media/media/audio/buri Eko Tre D30.mp3" },
+    { num: 31, title: "ايڪٽيهه", img: "media/images/Hik Eko Tre D31.jpg", audio: "media/media/audio/Hik Eko Tre D31.mp3" },
+    { num: 32, title: "ٻٽيهه", img: "media/images/ba Eka Tre D32.jpg", audio: "media/media/audio/ba Eka Tre D32.mp3" },
+    { num: 33, title: "ٽيٽيهه", img: "media/images/Tre Eka Tre D33.jpg", audio: "media/media/audio/Tre Eka Tre D33.mp3" },
+    { num: 34, title: "چوٽيهه", img: "Media/images/cahe Eka Tre D34.jpg", audio: "media/media/audio/cahe Eka Tre D34.mp3" },
+    { num: 35, title: "پنجٽيهه", img: "media/images/panj Eka Tre D35.jpg", audio: "media/media/audio/panj Eka Tre D35.mp3" },
+    { num: 36, title: "ڇٽيهه", img: "media/images/cah Eka Tre D36.jpg", audio: "media/media/audio/cah Eka Tre D36.mp3" },
+    { num: 37, title: "ستٽيهه", img: "media/images/sat Eka Tre D37.jpg", audio: "media/media/audio/sat Eka Tre D37.mp3" },
+    { num: 38, title: "اٺٽيهه", img: "media/images/Ath Eka Tre D38.jpg", audio: "media/media/audio/Ath Eka Tre D38.mp3" },
+    { num: 39, title: "اُڻتاليهه", img: "media/images/Nawon Eka Tre D39.jpg", audio: "media/media/audio/Nawon Eka Tre D39.mp3" },
+    { num: 40, title: "چاليهه", img: "media/images/buri Eko char d40.jpg", audio: "media/media/audio/buri Eko char d40.mp3" },
+    { num: 41, title: "ايڪتاليهه", img: "media/images/Hik Eko char d41.jpg", audio: "media/media/audio/Hik Eko char d41.mp3" },
+    { num: 42, title: "ٻائيتاليهه", img: "media/images/ba Eka cahe D42.jpg", audio: "media/media/audio/ba Eka cahe D42.mp3" },
+    { num: 43, title: "ٽيتاليهه", img: "media/images/Tre Eka Char d43.jpg", audio: "media/media/audio/Tre Eka Char d43.mp3" },
+    { num: 44, title: "چوٽاليهه", img: "media/images/char Eka cahr d44 .jpg", audio: "media/media/audio/char Eka cahr d44 .mp3" },
+    { num: 45, title: "پنجتاليهه", img: "media/images/panj Eko cahr d45.jpg", audio: "media/media/audio/panj Eko cahr d45.mp3" },
+    { num: 46, title: "ڇائيتاليهه", img: "media/images/chah Eka Char d46.jpg", audio: "media/media/audio/chah Eka Char d46.mp3" },
+    { num: 47, title: "ستتاليهه", img: "media/images/sat Eka Char d47.jpg", audio: "media/media/audio/sat Eka Char d47.mp3" },
+    { num: 48, title: "اٺتاليهه", img: "media/images/Ath Eka cahr d48.jpg", audio: "media/media/audio/Ath Eka cahr d48.mp3" },
+    { num: 49, title: "اُڻونجاهه", img: "media/images/Nawon Eka cahr d49.jpg", audio: "media/media/audio/Nawon Eka cahr d49.mp3" },
+    { num: 50, title: "پنجاهه", img: "media/images/buri Eko panj D50.jpg", audio: "media/media/audio/buri Eko panj D50.mp3" },
+    { num: 51, title: "ايڪونجاهه", img: "media/images/Hik Eko panj d51.jpg", audio: "media/media/audio/Hik Eko panj d51.mp3" },
+    { num: 52, title: "ٻاونجاهه", img: "media/images/Ba Eka panj d52 .jpg", audio: "media/media/audio/Ba Eka panj d52.mp3" },
+    { num: 53, title: "ٽيونجاهه", img: "media/images/Tre Eko panj d53 .jpg", audio: "media/media/audio/Tre Eko panj d53.mp3" },
+    { num: 54, title: "چوونجاهه", img: "media/images/cahr Eko panj d54.jpg", audio: "media/media/audio/cahr Eko panj d54.mp3" },
+    { num: 55, title: "پنجونجاهه", img: "media/images/panj Eko panj d55 .jpg", audio: "media/media/audio/panj Eko panj d55.mp3" },
+    { num: 56, title: "ڇاونجاهه", img: "media/images/chaa Eko pang d56.jpg", audio: "media/media/audio/chaa Eko pang d56.mp3" },
+    { num: 57, title: "ستونجاهه", img: "media/images/sat Eko panj d57.jpg", audio: "media/media/audio/sat Eko panj d57.mp3" },
+    { num: 58, title: "اٺونجاهه", img: "media/images/Ath Eko panj d58.jpg", audio: "media/media/audio/Ath Eko panj d58.mp3" },
+    { num: 59, title: "اُڻهٺ", img: "media/images/Nawon Eka panj d59 .jpg", audio: "media/media/audio/Nawon Eka panj d59.mp3" },
+    { num: 60, title: "سٺ", img: "media/images/buri Eko cah d60.jpg", audio: "media/media/audio/buri Eko cah d60.mp3" },
+    { num: 61, title: "ايڪهٺ", img: "media/images/Hek Eko cha D61.jpg", audio: "media/media/audio/Hek Eko cha D61.mp3" },
+    { num: 62, title: "ٻاهٺ", img: "media/images/Ba Eka cha D62.jpg", audio: "media/media/audio/Ba Eka cha D62.mp3" },
+    { num: 63, title: "ٽيهٺ", img: "media/images/tre Eka cha D63.jpg", audio: "media/media/audio/tre Eka cha D63.mp3" },
+    { num: 64, title: "چوٺ", img: "media/images/Char Eka cha D64.jpg", audio: "media/media/audio/Char Eka cha D64.mp3" },
+    { num: 65, title: "پنجاهٺ", img: "media/images/panj Eka cha D 65.jpg", audio: "media/media/audio/panj Eka cha D 65.mp3" },
+    { num: 66, title: "ڇاهٺ", img: "media/images/cha Eka cah D 66.jpg", audio: "media/media/audio/cha Eka cah D 66.mp3" },
+    { num: 67, title: "ستاهٺ", img: "media/images/sat Eka cha D 67.jpg", audio: "media/media/audio/sat Eka cha D 67.mp3" },
+    { num: 68, title: "اٺاهٺ", img: "media/images/Ath Eka cha D 68.jpg", audio: "media/media/audio/Ath Eka cha D 68.mp3" },
+    { num: 69, title: "اُڻهتر", img: "media/images/nwaon Eka cha D 69.png", audio: "media/media/audio/nwaon Eka cha D 69.mp3" },
+    { num: 70, title: "ستر", img: "media/images/buri Eko sat D 70 .jpg", audio: "media/media/audio/buri Eko sat D 70.mp3" },
+    { num: 71, title: "ايڪهتر", img: "media/images/Hek Eka sat D71.jpg", audio: "media/media/audio/Hek Eka sat D71.mp3" },
+    { num: 72, title: "ٻاهتر", img: "media/images/Ba Eka sat D 72.jpg", audio: "media/media/audio/Ba Eka sat D 72.mp3" },
+    { num: 73, title: "ٽيهتر", img: "media/images/tre Eka sat D 73.jpg", audio: "media/media/audio/tre Eka sat D 73.mp3" },
+    { num: 74, title: "چوٿتر", img: "media/images/char Eka sat D 74.jpg", audio: "media/media/audio/char Eka sat D 74.mp3" },
+    { num: 75, title: "پنجھتر", img: "media/images/pang Eka sat D 75.jpg", audio: "media/media/audio/pang Eka sat D 75.mp3" },
+    { num: 76, title: "ڇاهتر", img: "media/images/cha Eka sat D 76.jpg", audio: "media/media/audio/cha Eka sat D 76.mp3" },
+    { num: 77, title: "ستاهتر", img: "media/images/sat Eka sat D 77.jpg", audio: "media/media/audio/sat Eka sat D 77.mp3" },
+    { num: 78, title: "اٺاهتر", img: "media/images/Ath Eka sat D 78.jpg", audio: "media/media/audio/Ath Eka sat D 78.mp3" },
+    { num: 79, title: "اُڻاسي", img: "media/images/Nawon Eka sat D 79.jpg", audio: "media/media/audio/Nawon Eka sat D 79.mp3" },
+    { num: 80, title: "اسي", img: "media/images/buri Eko Ath D 80.jpg", audio: "media/media/audio/buri Eko Ath D 80.mp3" },
+    { num: 81, title: "ايڪاسي", img: "media/images/Hek Eko Ath D 81.jpg", audio: "media/media/audio/Hek Eko Ath D 81.mp3" },
+    { num: 82, title: "ٻاسي", img: "media/images/Ba Eka ath D 82.jpg", audio: "media/media/audio/Ba Eka ath D 82.mp3" },
+    { num: 83, title: "ٽياسي", img: "media/images/tre Eka ath D 83.jpg", audio: "media/media/audio/tre Eka ath D83.mp3" },
+    { num: 84, title: "چوراسي", img: "media/images/char Eka ath D 84.jpg", audio: "media/media/audio/char Eka ath D 84.mp3" },
+    { num: 85, title: "پنجاسي", img: "media/images/panj Eka ath D 85.jpg", audio: "media/media/audio/panj Eka ath D 85.mp3" },
+    { num: 86, title: "ڇاسي", img: "media/images/cha Eka ath D 86.jpg", audio: "media/media/audio/cha Eka ath D 86.mp3" },
+    { num: 87, title: "ستاسي", img: "media/images/sat Eka ath D 87.jpg", audio: "media/media/audio/sat Eka ath D 87.mp3" },
+    { num: 88, title: "اٺاسي", img: "media/images/ath Eka ath D 88.jpg", audio: "media/media/audio/ath Eka ath D 88.mp3" },
+    { num: 89, title: "اُڻنوي", img: "media/images/Nawon Eka  Ath D 89.jpg", audio: "media/media/audio/Nawon Eka Ath D89.mp3" },
+    { num: 90, title: "نوي", img: "media/images/Buri Eko nawon D 90 .jpg", audio: "media/media/audio/Buri Eko nawon D 90.mp3" },
+    { num: 91, title: "ايڪنوي", img: "media/images/Hek Eko nawon D 91.jpg", audio: "media/media/audio/Hek Eko nawon D 91.mp3" },
+    { num: 92, title: "ٻانوي", img: "media/images/Ba Eka nawon D 92.jpg", audio: "media/media/audio/Ba Eka nawon D 92.mp3" },
+    { num: 93, title: "ٽيانوي", img: "media/images/tre Eka nawon D 93.jpg", audio: "media/media/audio/tre Eka nawon D 93.mp3" },
+    { num: 94, title: "چورانوي", img: "media/images/char Eka nawon D 94.jpg", audio: "media/media/audio/char Eka nawon D 94.mp3" },
+    { num: 95, title: "پنجنوي", img: "media/images/panj Eka nawon D 95.jpg", audio: "media/media/audio/panj Eka nawon D 95.mp3" },
+    { num: 96, title: "ڇانوي", img: "media/images/cha Eka nawon D 96.jpg", audio: "media/media/audio/cha Eka nawon D 96.mp3" },
+    { num: 97, title: "ستانوي", img: "media/images/sat Eka nawon D 97.jpg", audio: "media/media/audio/sat Eka nawon D 97.mp3" },
+    { num: 98, title: "اٺانوي", img: "media/images/ath Eka nawon D 98.jpg", audio: "media/media/audio/ath Eka nawon D 98.mp3" },
+    { num: 99, title: "نوانوي", img: "media/images/nawon Eka nawon D 99.jpg", audio: "media/media/audio/nawon Eka nawon D 99.mp3" },
+    { num: 100, title: "سؤ", img: "media/images/buri Eko Dah d 100.jpg", audio: "media/media/audio/buri Eko Dah d 100.mp3" }
 ];
 
+const englishMathData = [
+    { num: 1, title: "One", img: ENG_IMG_DIR + "One1.jpg", audio: ENG_AUDIO_DIR + "One1.mp3", video: ENG_VIDEO_DIR + "One1.mp4" },
+    { num: 2, title: "Two", img: ENG_IMG_DIR + "Two2.jpg", audio: ENG_AUDIO_DIR + "Two2.mp3", video: ENG_VIDEO_DIR + "Two2.mp4" },
+    { num: 3, title: "Three", img: ENG_IMG_DIR + "Three3.jpg", audio: ENG_AUDIO_DIR + "Three3.mp3", video: ENG_VIDEO_DIR + "Three3.mp4" },
+    { num: 4, title: "Four", img: ENG_IMG_DIR + "Four4.jpg", audio: ENG_AUDIO_DIR + "Four4.mp3", video: ENG_VIDEO_DIR + "Four4.mp4" },
+    { num: 5, title: "Five", img: ENG_IMG_DIR + "Five5.jpg", audio: ENG_AUDIO_DIR + "Five5.mp3", video: ENG_VIDEO_DIR + "Five5.mp4" },
+    { num: 6, title: "Six", img: ENG_IMG_DIR + "Six6.jpg", audio: ENG_AUDIO_DIR + "Six6.mp3", video: ENG_VIDEO_DIR + "Six6.mp4" },
+    { num: 7, title: "Seven", img: ENG_IMG_DIR + "Seven7.jpg", audio: ENG_AUDIO_DIR + "Seven7.mp3", video: ENG_VIDEO_DIR + "Seven7.mp4" },
+    { num: 8, title: "Eight", img: ENG_IMG_DIR + "Eight8.jpg", audio: ENG_AUDIO_DIR + "Eight8.mp3", video: ENG_VIDEO_DIR + "Eight8.mp4" },
+    { num: 9, title: "Nine", img: ENG_IMG_DIR + "Nine9.jpg", audio: ENG_AUDIO_DIR + "Nine9.mp3", video: ENG_VIDEO_DIR + "Nine9.mp4" },
+    { num: 10, title: "Ten", img: ENG_IMG_DIR + "Ten10.jpg", audio: ENG_AUDIO_DIR + "Ten10.mp3", video: ENG_VIDEO_DIR + "Ten10.mp4" },
+    { num: 11, title: "Eleven", img: ENG_IMG_DIR + "Eleven11.jpg", audio: ENG_AUDIO_DIR + "Eleven11.mp3", video: ENG_VIDEO_DIR + "Eleven11.mp4" },
+    { num: 12, title: "Twelve", img: ENG_IMG_DIR + "Twelve12.jpg", audio: ENG_AUDIO_DIR + "Twelve12.mp3", video: ENG_VIDEO_DIR + "Twelve12.mp4" },
+    { num: 13, title: "Thirteen", img: ENG_IMG_DIR + "Thirteen13.jpg", audio: ENG_AUDIO_DIR + "Thirteen13.mp3", video: ENG_VIDEO_DIR + "Thirteen13.mp4" },
+    { num: 14, title: "Fourteen", img: ENG_IMG_DIR + "Fourteen14.jpg", audio: ENG_AUDIO_DIR + "Fourteen14.mp3", video: ENG_VIDEO_DIR + "Fourteen14.mp4" },
+    { num: 15, title: "Fifteen", img: ENG_IMG_DIR + "Fifteen15.jpg", audio: ENG_AUDIO_DIR + "Fifteen15.mp3", video: ENG_VIDEO_DIR + "Fifteen15.mp4" },
+    { num: 16, title: "Sixteen", img: ENG_IMG_DIR + "Sixteen16.jpg", audio: ENG_AUDIO_DIR + "Sixteen16.mp3", video: ENG_VIDEO_DIR + "Sixteen16.mp4" },
+    { num: 17, title: "Seventeen", img: ENG_IMG_DIR + "Seventeen17.jpg", audio: ENG_AUDIO_DIR + "Seventeen17.mp3", video: ENG_VIDEO_DIR + "Seventeen17.mp4" },
+    { num: 18, title: "Eighteen", img: ENG_IMG_DIR + "Eighteen18.jpg", audio: ENG_AUDIO_DIR + "Eighteen18.mp3", video: ENG_VIDEO_DIR + "Eighteen18.mp4" },
+    { num: 19, title: "Nineteen", img: ENG_IMG_DIR + "Nineteen19.jpg", audio: ENG_AUDIO_DIR + "Nineteen19.mp3", video: ENG_VIDEO_DIR + "Nineteen19.mp4" },
+    { num: 20, title: "Twenty", img: ENG_IMG_DIR + "Twenty20.jpg", audio: ENG_AUDIO_DIR + "Twenty20.mp3", video: ENG_VIDEO_DIR + "Twenty20.mp4" },
+    { num: 21, title: "Twenty-One", img: ENG_IMG_DIR + "Twenty-One21.jpg", audio: ENG_AUDIO_DIR + "Twenty-One21.mp3", video: ENG_VIDEO_DIR + "Twenty-One21.mp4" },
+    { num: 22, title: "Twenty-Two", img: ENG_IMG_DIR + "Twenty-Two22.jpg", audio: ENG_AUDIO_DIR + "Twenty-Two22.mp3", video: ENG_VIDEO_DIR + "Twenty-Two22.mp4" },
+    { num: 23, title: "Twenty-Three", img: ENG_IMG_DIR + "Twenty-Three23.jpg", audio: ENG_AUDIO_DIR + "Twenty-Three23.mp3", video: ENG_VIDEO_DIR + "Twenty-Three23.mp4" },
+    { num: 24, title: "Twenty-Four", img: ENG_IMG_DIR + "Twenty-Four24.jpg", audio: ENG_AUDIO_DIR + "Twenty-Four24.mp3", video: ENG_VIDEO_DIR + "Twenty-Four24.mp4" },
+    { num: 25, title: "Twenty-Five", img: ENG_IMG_DIR + "Twenty-Five25.jpg", audio: ENG_AUDIO_DIR + "Twenty-Five25.mp3", video: ENG_VIDEO_DIR + "Twenty-Five25.mp4" },
+    { num: 26, title: "Twenty-Six", img: ENG_IMG_DIR + "Twenty-Six26.jpg", audio: ENG_AUDIO_DIR + "Twenty-Six26.mp3", video: ENG_VIDEO_DIR + "Twenty-Six26.mp4" },
+    { num: 27, title: "Twenty-Seven", img: ENG_IMG_DIR + "Twenty-Seven27.jpg", audio: ENG_AUDIO_DIR + "Twenty-Seven27.mp3", video: ENG_VIDEO_DIR + "Twenty-Seven27.mp4" },
+    { num: 28, title: "Twenty-Eight", img: ENG_IMG_DIR + "Twenty-Eight28.jpg", audio: ENG_AUDIO_DIR + "Twenty-Eight28.mp3", video: ENG_VIDEO_DIR + "Twenty-Eight28.mp4" },
+    { num: 29, title: "Twenty-Nine", img: ENG_IMG_DIR + "Twenty-Nine29.jpg", audio: ENG_AUDIO_DIR + "Twenty-Nine29.mp3", video: ENG_VIDEO_DIR + "Twenty-Nine29.mp4" },
+    { num: 30, title: "Thirty", img: ENG_IMG_DIR + "Thirty30.jpg", audio: ENG_AUDIO_DIR + "Thirty30.mp3", video: ENG_VIDEO_DIR + "Thirty30.mp4" },
+    { num: 31, title: "Thirty-One", img: ENG_IMG_DIR + "Thirty-One31.jpg", audio: ENG_AUDIO_DIR + "Thirty-One31.mp3", video: ENG_VIDEO_DIR + "Thirty-One31.mp4" },
+    { num: 32, title: "Thirty-Two", img: ENG_IMG_DIR + "Thirty-Two32.jpg", audio: ENG_AUDIO_DIR + "Thirty-Two32.mp3", video: ENG_VIDEO_DIR + "Thirty-Two32.mp4" },
+    { num: 33, title: "Thirty-Three", img: ENG_IMG_DIR + "Thirty-Three33.jpg", audio: ENG_AUDIO_DIR + "Thirty-Three33.mp3", video: ENG_VIDEO_DIR + "Thirty-Three33.mp4" },
+    { num: 34, title: "Thirty-Four", img: ENG_IMG_DIR + "Thirty-Four34.jpg", audio: ENG_AUDIO_DIR + "Thirty-Four34.mp3", video: ENG_VIDEO_DIR + "Thirty-Four34.mp4" },
+    { num: 35, title: "Thirty-Five", img: ENG_IMG_DIR + "Thirty-Five35.jpg", audio: ENG_AUDIO_DIR + "Thirty-Five35.mp3", video: ENG_VIDEO_DIR + "Thirty-Five35.mp4" },
+    { num: 36, title: "Thirty-Six", img: ENG_IMG_DIR + "Thirty-Six36.jpg", audio: ENG_AUDIO_DIR + "Thirty-Six36.mp3", video: ENG_VIDEO_DIR + "Thirty-Six36.mp4" },
+    { num: 37, title: "Thirty-Seven", img: ENG_IMG_DIR + "Thirty-Seven37.jpg", audio: ENG_AUDIO_DIR + "Thirty-Seven37.mp3", video: ENG_VIDEO_DIR + "Thirty-Seven37.mp4" },
+    { num: 38, title: "Thirty-Eight", img: ENG_IMG_DIR + "Thirty-Eight38.jpg", audio: ENG_AUDIO_DIR + "Thirty-Eight38.mp3", video: ENG_VIDEO_DIR + "Thirty-Eight38.mp4" },
+    { num: 39, title: "Thirty-Nine", img: ENG_IMG_DIR + "Thirty-Nine39.jpg", audio: ENG_AUDIO_DIR + "Thirty-Nine39.mp3", video: ENG_VIDEO_DIR + "Thirty-Nine39.mp4" },
+    { num: 40, title: "Forty", img: ENG_IMG_DIR + "Forty40.jpg", audio: ENG_AUDIO_DIR + "Forty40.mp3", video: ENG_VIDEO_DIR + "Forty40.mp4" },
+    { num: 41, title: "Forty-One", img: ENG_IMG_DIR + "Forty-One41.jpg", audio: ENG_AUDIO_DIR + "Forty-One41.mp3", video: ENG_VIDEO_DIR + "Forty-One41.mp4" },
+    { num: 42, title: "Forty-Two", img: ENG_IMG_DIR + "Forty-Two42.jpg", audio: ENG_AUDIO_DIR + "Forty-Two42.mp3", video: ENG_VIDEO_DIR + "Forty-Two42.mp4" },
+    { num: 43, title: "Forty-Three", img: ENG_IMG_DIR + "Forty-Three43.jpg", audio: ENG_AUDIO_DIR + "Forty-Three43.mp3", video: ENG_VIDEO_DIR + "Forty-Three43.mp4" },
+    { num: 44, title: "Forty-Four", img: ENG_IMG_DIR + "Forty-Four44.jpg", audio: ENG_AUDIO_DIR + "Forty-Four44.mp3", video: ENG_VIDEO_DIR + "Forty-Four44.mp4" },
+    { num: 45, title: "Forty-Five", img: ENG_IMG_DIR + "Forty-Five45.jpg", audio: ENG_AUDIO_DIR + "Forty-Five45.mp3", video: ENG_VIDEO_DIR + "Forty-Five45.mp4" },
+    { num: 46, title: "Forty-Six", img: ENG_IMG_DIR + "Forty-Six46.jpg", audio: ENG_AUDIO_DIR + "Forty-Six46.mp3", video: ENG_VIDEO_DIR + "Forty-Six46.mp4" },
+    { num: 47, title: "Forty-Seven", img: ENG_IMG_DIR + "Forty-Seven47.jpg", audio: ENG_AUDIO_DIR + "Forty-Seven47.mp3", video: ENG_VIDEO_DIR + "Forty-Seven47.mp4" },
+    { num: 48, title: "Forty-Eight", img: ENG_IMG_DIR + "Forty-Eight48.jpg", audio: ENG_AUDIO_DIR + "Forty-Eight48.mp3", video: ENG_VIDEO_DIR + "Forty-Eight48.mp4" },
+    { num: 49, title: "Forty-Nine", img: ENG_IMG_DIR + "Forty-Nine49.jpg", audio: ENG_AUDIO_DIR + "Forty-Nine49.mp3", video: ENG_VIDEO_DIR + "Forty-Nine49.mp4" },
+    { num: 50, title: "Fifty", img: ENG_IMG_DIR + "Fifty50.jpg", audio: ENG_AUDIO_DIR + "Fifty50.mp3", video: ENG_VIDEO_DIR + "Fifty50.mp4" }
+];
+
+let currentMode = "sindhi";
 let currentIndex = 0;
 let explorerOpen = false;
 let activeMediaType = "images";
 const player = document.getElementById("voicePlayer");
 let activeImgElement = null;
-const sidebarButtons = [];
+let sidebarButtons = [];
+
+function getActiveData() {
+    return currentMode === "english" ? englishMathData : sindhiMathData;
+}
 
 function getFileURL(path) {
     if (!path) return "";
@@ -477,9 +620,28 @@ player.addEventListener("ended", function() {
     }
 });
 
+function switchMathMode(mode) {
+    currentMode = mode;
+    currentIndex = 0;
+    explorerOpen = false;
+
+    document.getElementById("sindhiModeBtn").classList.toggle("active", mode === "sindhi");
+    document.getElementById("englishModeBtn").classList.toggle("active", mode === "english");
+    document.getElementById("sidebarTitle").textContent = mode === "english" ? "1 - 50" : "1 - 100";
+
+    buildSidebar();
+    showPage(0);
+}
+
 function buildSidebar() {
+    const data = getActiveData();
     const sidebar = document.getElementById("numberSidebar");
-    englishMathData.forEach((item, idx) => {
+    const titleEl = document.getElementById("sidebarTitle");
+    sidebar.replaceChildren();
+    sidebar.appendChild(titleEl);
+    sidebarButtons = [];
+
+    data.forEach((item, idx) => {
         const btn = document.createElement("button");
         btn.type = "button";
         btn.className = "side-num-btn";
@@ -503,23 +665,32 @@ function updateSidebarActive(index) {
 
 function renderMediaDetails(box, item, type) {
     box.replaceChildren();
-    const imgFile = IMG_DIR + item.img;
-    const audioFile = AUDIO_DIR + item.audio;
-    const videoFile = VIDEO_DIR + item.word.replace(/\s+/g, "") + item.num + ".mp4";
-
     const folderLine = document.createElement("div");
     const fileLine = document.createElement("div");
     fileLine.style.marginTop = "6px";
 
-    if (type === "images") {
-        folderLine.textContent = "Folder: " + IMG_DIR;
-        fileLine.textContent = "Image File: " + imgFile;
-    } else if (type === "audio") {
-        folderLine.textContent = "Folder: " + AUDIO_DIR;
-        fileLine.textContent = "Audio File: " + audioFile;
+    if (currentMode === "english") {
+        if (type === "images") {
+            folderLine.textContent = "Folder: " + ENG_IMG_DIR;
+            fileLine.textContent = "Image File: " + item.img;
+        } else if (type === "audio") {
+            folderLine.textContent = "Folder: " + ENG_AUDIO_DIR;
+            fileLine.textContent = "Audio File: " + item.audio;
+        } else {
+            folderLine.textContent = "Folder: " + ENG_VIDEO_DIR;
+            fileLine.textContent = "Video File: " + item.video;
+        }
     } else {
-        folderLine.textContent = "Folder: " + VIDEO_DIR;
-        fileLine.textContent = "Video File: " + videoFile;
+        if (type === "images") {
+            folderLine.textContent = "Folder: media/images/";
+            fileLine.textContent = "Image File: " + item.img;
+        } else if (type === "audio") {
+            folderLine.textContent = "Folder: media/media/audio/";
+            fileLine.textContent = "Audio File: " + item.audio;
+        } else {
+            folderLine.textContent = "Folder: media/videos/";
+            fileLine.textContent = "Video File: media/videos/d" + item.num + ".mp4";
+        }
     }
 
     box.appendChild(folderLine);
@@ -527,9 +698,11 @@ function renderMediaDetails(box, item, type) {
 }
 
 function showPage(index) {
-    if (index < 0 || index >= englishMathData.length) return;
+    const data = getActiveData();
+    if (index < 0 || index >= data.length) return;
     currentIndex = index;
-    const item = englishMathData[index];
+    const item = data[index];
+    const isEnglish = currentMode === "english";
     const container = document.getElementById("bookContainer");
     container.replaceChildren();
 
@@ -537,12 +710,14 @@ function showPage(index) {
 
     const title = document.createElement("h2");
     title.className = "page-heading";
-    title.textContent = "Learn English Counting";
+    title.textContent = isEnglish ? "Learn English Counting" : "سنڌي گنتي سکو";
     container.appendChild(title);
 
     const pageNum = document.createElement("div");
     pageNum.className = "page-number";
-    pageNum.textContent = "Number " + item.num + " — Page " + (index + 1) + " / " + englishMathData.length;
+    pageNum.textContent = isEnglish
+        ? ("Number " + item.num + " — Page " + (index + 1) + " / " + data.length)
+        : ("انگ " + item.num + " — صفحو " + (index + 1) + " / " + data.length);
     container.appendChild(pageNum);
 
     const toggleBtn = document.createElement("button");
@@ -595,29 +770,26 @@ function showPage(index) {
     const card = document.createElement("div");
     card.className = "single-card";
 
-    const imgPath = IMG_DIR + item.img;
-    const audioPath = AUDIO_DIR + item.audio;
-
     const imgElement = document.createElement("img");
-    imgElement.src = getFileURL(imgPath);
-    imgElement.alt = item.word;
+    imgElement.src = getFileURL(item.img);
+    imgElement.alt = item.title;
     imgElement.className = "num-img";
     imgElement.onerror = function() {
-        this.src = 'https://via.placeholder.com/400?text=' + encodeURIComponent(item.word);
+        this.src = 'https://via.placeholder.com/400?text=Counting+' + item.num;
     };
     imgElement.onclick = function() {
-        playSound(audioPath, imgElement);
+        playSound(item.audio, imgElement);
     };
     card.appendChild(imgElement);
 
     const wordDisplay = document.createElement("div");
     wordDisplay.className = "word-display";
-    wordDisplay.textContent = item.num + " — " + item.word;
+    wordDisplay.textContent = item.num + " — " + item.title;
     card.appendChild(wordDisplay);
 
     const hint = document.createElement("div");
     hint.className = "hint-text";
-    hint.textContent = "👆 Tap the image to listen";
+    hint.textContent = isEnglish ? "👆 Tap the image to listen" : "👆 آواز ٻڌڻ لاءِ تصوير تي ڪلڪ ڪريو";
     card.appendChild(hint);
 
     container.appendChild(card);
@@ -627,7 +799,7 @@ function showPage(index) {
 
     const prevBtn = document.createElement("button");
     prevBtn.className = "page-button";
-    prevBtn.textContent = "← Previous";
+    prevBtn.textContent = isEnglish ? "← Previous" : "← پويون";
     prevBtn.disabled = index === 0;
     prevBtn.onclick = function() {
         showPage(currentIndex - 1);
@@ -635,12 +807,14 @@ function showPage(index) {
 
     const pageIndicator = document.createElement("span");
     pageIndicator.className = "current-page";
-    pageIndicator.textContent = (index + 1) + " of " + englishMathData.length;
+    pageIndicator.textContent = isEnglish
+        ? ((index + 1) + " of " + data.length)
+        : ((index + 1) + " منجهان " + data.length);
 
     const nextBtn = document.createElement("button");
     nextBtn.className = "page-button";
-    nextBtn.textContent = "Next →";
-    nextBtn.disabled = index === englishMathData.length - 1;
+    nextBtn.textContent = isEnglish ? "Next →" : "اڳيون →";
+    nextBtn.disabled = index === data.length - 1;
     nextBtn.onclick = function() {
         showPage(currentIndex + 1);
     };
