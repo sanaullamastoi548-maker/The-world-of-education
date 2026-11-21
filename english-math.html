@@ -1,1 +1,660 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SC86G3T2K2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-SC86G3T2K2');
+    </script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>World of Education - English Counting (1 to 50)</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #edf4e9;
+    color: #24452c;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+header {
+    background: linear-gradient(120deg, #145d35, #329653);
+    color: white;
+    text-align: center;
+    padding: 18px 10px;
+    box-shadow: 0 3px 10px #0002;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 26px;
+}
+
+header p {
+    margin: 7px 0 0;
+}
+
+.language-switch {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.language-btn {
+    border: none;
+    padding: 9px 18px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: bold;
+    background: white;
+    color: #145d35;
+    box-shadow: 0 3px 8px #0002;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.2s ease;
+}
+
+.language-btn:hover, .language-btn.active {
+    background: #f3c85b;
+    color: #185b37;
+    border: 2px solid white;
+}
+
+.main-layout {
+    max-width: 980px;
+    margin: 25px auto;
+    padding: 0 12px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.number-sidebar {
+    width: 78px;
+    flex-shrink: 0;
+    background: #fffdf5;
+    border: 1px solid #e4d9b9;
+    border-radius: 15px;
+    box-shadow: 0 7px 22px #0002;
+    padding: 10px 6px;
+    max-height: 600px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: sticky;
+    top: 12px;
+}
+
+.sidebar-title {
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    color: #145d35;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e6dfc8;
+}
+
+.side-num-btn {
+    width: 100%;
+    padding: 7px 4px;
+    border: 1px solid #d9b95f;
+    border-radius: 8px;
+    background: white;
+    color: #145d35;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    transition: 0.15s ease;
+}
+
+.side-num-btn:hover {
+    background: #fff4c2;
+}
+
+.side-num-btn.active {
+    background: #145d35;
+    color: #f3c85b;
+    border-color: #145d35;
+}
+
+.book {
+    flex: 1;
+    min-width: 0;
+    background: #fffdf5;
+    min-height: 500px;
+    border-radius: 15px;
+    border: 1px solid #e4d9b9;
+    box-shadow: 0 7px 22px #0002;
+    padding: 20px;
+    text-align: center;
+}
+
+.page-heading {
+    color: #216a3b;
+    font-size: 24px;
+    margin: 5px 0;
+}
+
+.page-number {
+    color: #9b7831;
+    font-size: 15px;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+.media-explorer-toggle {
+    background: #145d35;
+    color: #f3c85b;
+    border: 2px solid #d9b95f;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 14px;
+}
+
+.media-explorer-panel {
+    display: none;
+    background: #f4f9f1;
+    border: 2px solid #b8d4b0;
+    border-radius: 12px;
+    padding: 12px;
+    margin: 0 auto 16px auto;
+    max-width: 550px;
+    text-align: left;
+}
+
+.media-explorer-panel.open {
+    display: block;
+}
+
+.media-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.media-tab-btn {
+    background: white;
+    color: #145d35;
+    border: 1px solid #247a43;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.media-tab-btn.active {
+    background: #247a43;
+    color: white;
+}
+
+.media-files-box {
+    background: white;
+    border: 1px solid #d8e5d2;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 13px;
+    color: #24452c;
+    word-break: break-all;
+}
+
+.single-card {
+    background: white;
+    border: 4px solid #d9b95f;
+    border-radius: 15px;
+    padding: 15px;
+    max-width: 550px;
+    margin: 0 auto 15px auto;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.num-img {
+    width: 100%;
+    max-height: 360px;
+    object-fit: contain;
+    margin-bottom: 10px;
+    border: 3px solid #145d35;
+    border-radius: 12px;
+    padding: 5px;
+    background: #f9fbf7;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.num-img:hover {
+    transform: scale(1.01);
+    box-shadow: 0 0 15px rgba(243, 200, 91, 0.8);
+}
+
+.num-img.playing {
+    border-color: #ff9800;
+    box-shadow: 0 0 20px #ff9800;
+}
+
+.word-display {
+    font-size: 26px;
+    font-weight: bold;
+    color: #9b7831;
+    margin-bottom: 5px;
+}
+
+.hint-text {
+    font-size: 14px;
+    color: #555;
+    background: #fff9db;
+    padding: 6px 10px;
+    border-radius: 8px;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.page-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #e6dfc8;
+}
+
+.page-button {
+    background: #247a43;
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.page-button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.current-page {
+    color: #9b7831;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+footer {
+    background: #185b37;
+    color: white;
+    text-align: center;
+    padding: 20px 12px;
+    margin-top: 40px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 10px 20px;
+    background: #f3c85b;
+    color: #185b37;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+@media (max-width: 600px) {
+    .main-layout {
+        gap: 8px;
+        padding: 0 8px;
+    }
+
+    .number-sidebar {
+        width: 56px;
+        max-height: 520px;
+        padding: 8px 4px;
+    }
+
+    .side-num-btn {
+        padding: 6px 2px;
+        font-size: 12px;
+    }
+
+    .book {
+        padding: 12px;
+    }
+
+    .page-button {
+        padding: 10px 14px;
+        font-size: 14px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🔢 English Counting (1 to 50) 🔢</h1>
+    <p>Tap an image to hear the English number pronunciation</p>
+
+    <div class="language-switch">
+        <a class="language-btn" href="index.html">Home</a>
+        <a class="language-btn" href="english.html">English</a>
+        <a class="language-btn" href="english-words.html">English Words</a>
+        <a class="language-btn active" href="english-math.html">English Counting</a>
+        <a class="language-btn" href="math.html">Sindhi Counting</a>
+    </div>
+</header>
+
+<div class="main-layout">
+    <aside class="number-sidebar" id="numberSidebar" aria-label="Numbers">
+        <div class="sidebar-title">1 - 50</div>
+    </aside>
+
+    <div class="book" id="bookContainer"></div>
+</div>
+
+<footer>
+    <div>🌸 Education is every child's right 🌸</div>
+    <a href="index.html" class="back-link">← Back to Home</a>
+</footer>
+
+<audio id="voicePlayer"></audio>
+
+<script>
+const USERNAME = "sanaullamastoi548-maker";
+const REPOSITORY = "The-world-of-education";
+const BRANCH = "main";
+const RAW_ROOT = `https://raw.githubusercontent.com/${USERNAME}/${REPOSITORY}/${BRANCH}/`;
+
+const IMG_DIR = "english-math/images/";
+const AUDIO_DIR = "english-math/images/english-math/audio/";
+const VIDEO_DIR = "english-math/videos/";
+
+const englishMathData = [
+    { num: 1, word: "One", img: "One1.jpg", audio: "One1.mp3" },
+    { num: 2, word: "Two", img: "Two2.jpg", audio: "Two2.mp3" },
+    { num: 3, word: "Three", img: "Three3.jpg", audio: "Three3.mp3" },
+    { num: 4, word: "Four", img: "Four4.jpg", audio: "Four4.mp3" },
+    { num: 5, word: "Five", img: "Five5.jpg", audio: "Five5.mp3" },
+    { num: 6, word: "Six", img: "Six6.jpg", audio: "Six6.mp3" },
+    { num: 7, word: "Seven", img: "Seven7.jpg", audio: "Seven7.mp3" },
+    { num: 8, word: "Eight", img: "Eight8.jpg", audio: "Eight8.mp3" },
+    { num: 9, word: "Nine", img: "Nine9.jpg", audio: "Nine9.mp3" },
+    { num: 10, word: "Ten", img: "Ten10.jpg", audio: "Ten10.mp3" },
+    { num: 11, word: "Eleven", img: "Eleven11.jpg", audio: "Eleven11.mp3" },
+    { num: 12, word: "Twelve", img: "Twelve12.jpg", audio: "Twelve12.mp3" },
+    { num: 13, word: "Thirteen", img: "Thirteen13.jpg", audio: "Thirteen13.mp3" },
+    { num: 14, word: "Fourteen", img: "Fourteen14.jpg", audio: "Fourteen14.mp3" },
+    { num: 15, word: "Fifteen", img: "Fifteen15.jpg", audio: "Fifteen15.mp3" },
+    { num: 16, word: "Sixteen", img: "Sixteen16.jpg", audio: "Sixteen16.mp3" },
+    { num: 17, word: "Seventeen", img: "Seventeen17.jpg", audio: "Seventeen17.mp3" },
+    { num: 18, word: "Eighteen", img: "Eighteen18.jpg", audio: "Eighteen18.mp3" },
+    { num: 19, word: "Nineteen", img: "Nineteen19.jpg", audio: "Nineteen19.mp3" },
+    { num: 20, word: "Twenty", img: "Twenty20.jpg", audio: "Twenty20.mp3" },
+    { num: 21, word: "Twenty-One", img: "Twenty-One21.jpg", audio: "Twenty-One21.mp3" },
+    { num: 22, word: "Twenty-Two", img: "Twenty-Two22.jpg", audio: "Twenty-Two22.mp3" },
+    { num: 23, word: "Twenty-Three", img: "Twenty-Three23.jpg", audio: "Twenty-Three23.mp3" },
+    { num: 24, word: "Twenty-Four", img: "Twenty-Four24.jpg", audio: "Twenty-Four24.mp3" },
+    { num: 25, word: "Twenty-Five", img: "Twenty-Five25.jpg", audio: "Twenty-Five25.mp3" },
+    { num: 26, word: "Twenty-Six", img: "Twenty-Six26.jpg", audio: "Twenty-Six26.mp3" },
+    { num: 27, word: "Twenty-Seven", img: "Twenty-Seven27.jpg", audio: "Twenty-Seven27.mp3" },
+    { num: 28, word: "Twenty-Eight", img: "Twenty-Eight28.jpg", audio: "Twenty-Eight28.mp3" },
+    { num: 29, word: "Twenty-Nine", img: "Twenty-Nine29.jpg", audio: "Twenty-Nine29.mp3" },
+    { num: 30, word: "Thirty", img: "Thirty30.jpg", audio: "Thirty30.mp3" },
+    { num: 31, word: "Thirty-One", img: "Thirty-One31.jpg", audio: "Thirty-One31.mp3" },
+    { num: 32, word: "Thirty-Two", img: "Thirty-Two32.jpg", audio: "Thirty-Two32.mp3" },
+    { num: 33, word: "Thirty-Three", img: "Thirty-Three33.jpg", audio: "Thirty-Three33.mp3" },
+    { num: 34, word: "Thirty-Four", img: "Thirty-Four34.jpg", audio: "Thirty-Four34.mp3" },
+    { num: 35, word: "Thirty-Five", img: "Thirty-Five35.jpg", audio: "Thirty-Five35.mp3" },
+    { num: 36, word: "Thirty-Six", img: "Thirty-Six36.jpg", audio: "Thirty-Six36.mp3" },
+    { num: 37, word: "Thirty-Seven", img: "Thirty-Seven37.jpg", audio: "Thirty-Seven37.mp3" },
+    { num: 38, word: "Thirty-Eight", img: "Thirty-Eight38.jpg", audio: "Thirty-Eight38.mp3" },
+    { num: 39, word: "Thirty-Nine", img: "Thirty-Nine39.jpg", audio: "Thirty-Nine39.mp3" },
+    { num: 40, word: "Forty", img: "Forty40.jpg", audio: "Forty40.mp3" },
+    { num: 41, word: "Forty-One", img: "Forty-One41.jpg", audio: "Forty-One41.mp3" },
+    { num: 42, word: "Forty-Two", img: "Forty-Two42.jpg", audio: "Forty-Two42.mp3" },
+    { num: 43, word: "Forty-Three", img: "Forty-Three43.jpg", audio: "Forty-Three43.mp3" },
+    { num: 44, word: "Forty-Four", img: "Forty-Four44.jpg", audio: "Forty-Four44.mp3" },
+    { num: 45, word: "Forty-Five", img: "Forty-Five45.jpg", audio: "Forty-Five45.mp3" },
+    { num: 46, word: "Forty-Six", img: "Forty-Six46.jpg", audio: "Forty-Six46.mp3" },
+    { num: 47, word: "Forty-Seven", img: "Forty-Seven47.jpg", audio: "Forty-Seven47.mp3" },
+    { num: 48, word: "Forty-Eight", img: "Forty-Eight48.jpg", audio: "Forty-Eight48.mp3" },
+    { num: 49, word: "Forty-Nine", img: "Forty-Nine49.jpg", audio: "Forty-Nine49.mp3" },
+    { num: 50, word: "Fifty", img: "Fifty50.jpg", audio: "Fifty50.mp3" }
+];
+
+let currentIndex = 0;
+let explorerOpen = false;
+let activeMediaType = "images";
+const player = document.getElementById("voicePlayer");
+let activeImgElement = null;
+const sidebarButtons = [];
+
+function getFileURL(path) {
+    if (!path) return "";
+    if (path.startsWith("http://") || path.startsWith("https://")) return path;
+    return RAW_ROOT + path.split("/").map(part => encodeURIComponent(part)).join("/");
+}
+
+function playSound(path, imgElement) {
+    if (activeImgElement) {
+        activeImgElement.classList.remove("playing");
+    }
+
+    player.pause();
+    player.src = getFileURL(path);
+
+    activeImgElement = imgElement;
+    if (activeImgElement) {
+        activeImgElement.classList.add("playing");
+    }
+
+    player.play().catch(err => console.log("Audio error:", err));
+}
+
+player.addEventListener("ended", function() {
+    if (activeImgElement) {
+        activeImgElement.classList.remove("playing");
+        activeImgElement = null;
+    }
+});
+
+function buildSidebar() {
+    const sidebar = document.getElementById("numberSidebar");
+    englishMathData.forEach((item, idx) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "side-num-btn";
+        btn.textContent = item.num;
+        btn.onclick = function() {
+            showPage(idx);
+        };
+        sidebar.appendChild(btn);
+        sidebarButtons.push(btn);
+    });
+}
+
+function updateSidebarActive(index) {
+    sidebarButtons.forEach((btn, idx) => {
+        btn.classList.toggle("active", idx === index);
+    });
+    if (sidebarButtons[index]) {
+        sidebarButtons[index].scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }
+}
+
+function renderMediaDetails(box, item, type) {
+    box.replaceChildren();
+    const imgFile = IMG_DIR + item.img;
+    const audioFile = AUDIO_DIR + item.audio;
+    const videoFile = VIDEO_DIR + item.word.replace(/\s+/g, "") + item.num + ".mp4";
+
+    const folderLine = document.createElement("div");
+    const fileLine = document.createElement("div");
+    fileLine.style.marginTop = "6px";
+
+    if (type === "images") {
+        folderLine.textContent = "Folder: " + IMG_DIR;
+        fileLine.textContent = "Image File: " + imgFile;
+    } else if (type === "audio") {
+        folderLine.textContent = "Folder: " + AUDIO_DIR;
+        fileLine.textContent = "Audio File: " + audioFile;
+    } else {
+        folderLine.textContent = "Folder: " + VIDEO_DIR;
+        fileLine.textContent = "Video File: " + videoFile;
+    }
+
+    box.appendChild(folderLine);
+    box.appendChild(fileLine);
+}
+
+function showPage(index) {
+    if (index < 0 || index >= englishMathData.length) return;
+    currentIndex = index;
+    const item = englishMathData[index];
+    const container = document.getElementById("bookContainer");
+    container.replaceChildren();
+
+    updateSidebarActive(index);
+
+    const title = document.createElement("h2");
+    title.className = "page-heading";
+    title.textContent = "Learn English Counting";
+    container.appendChild(title);
+
+    const pageNum = document.createElement("div");
+    pageNum.className = "page-number";
+    pageNum.textContent = "Number " + item.num + " — Page " + (index + 1) + " / " + englishMathData.length;
+    container.appendChild(pageNum);
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.type = "button";
+    toggleBtn.className = "media-explorer-toggle";
+    toggleBtn.textContent = "📂 Media Options (Images / Audio / Videos)";
+    container.appendChild(toggleBtn);
+
+    const panel = document.createElement("div");
+    panel.className = "media-explorer-panel" + (explorerOpen ? " open" : "");
+
+    const tabs = document.createElement("div");
+    tabs.className = "media-tabs";
+
+    const filesBox = document.createElement("div");
+    filesBox.className = "media-files-box";
+
+    const tabConfig = [
+        { key: "images", label: "🖼️ Images" },
+        { key: "audio", label: "🔊 Audio" },
+        { key: "videos", label: "🎬 Videos" }
+    ];
+
+    const tabButtons = [];
+    tabConfig.forEach(t => {
+        const tBtn = document.createElement("button");
+        tBtn.type = "button";
+        tBtn.className = "media-tab-btn" + (activeMediaType === t.key ? " active" : "");
+        tBtn.textContent = t.label;
+        tBtn.onclick = function() {
+            activeMediaType = t.key;
+            tabButtons.forEach(b => b.classList.remove("active"));
+            tBtn.classList.add("active");
+            renderMediaDetails(filesBox, item, activeMediaType);
+        };
+        tabs.appendChild(tBtn);
+        tabButtons.push(tBtn);
+    });
+
+    toggleBtn.onclick = function() {
+        explorerOpen = !explorerOpen;
+        panel.classList.toggle("open", explorerOpen);
+    };
+
+    renderMediaDetails(filesBox, item, activeMediaType);
+    panel.appendChild(tabs);
+    panel.appendChild(filesBox);
+    container.appendChild(panel);
+
+    const card = document.createElement("div");
+    card.className = "single-card";
+
+    const imgPath = IMG_DIR + item.img;
+    const audioPath = AUDIO_DIR + item.audio;
+
+    const imgElement = document.createElement("img");
+    imgElement.src = getFileURL(imgPath);
+    imgElement.alt = item.word;
+    imgElement.className = "num-img";
+    imgElement.onerror = function() {
+        this.src = 'https://via.placeholder.com/400?text=' + encodeURIComponent(item.word);
+    };
+    imgElement.onclick = function() {
+        playSound(audioPath, imgElement);
+    };
+    card.appendChild(imgElement);
+
+    const wordDisplay = document.createElement("div");
+    wordDisplay.className = "word-display";
+    wordDisplay.textContent = item.num + " — " + item.word;
+    card.appendChild(wordDisplay);
+
+    const hint = document.createElement("div");
+    hint.className = "hint-text";
+    hint.textContent = "👆 Tap the image to listen";
+    card.appendChild(hint);
+
+    container.appendChild(card);
+
+    const controls = document.createElement("div");
+    controls.className = "page-controls";
+
+    const prevBtn = document.createElement("button");
+    prevBtn.className = "page-button";
+    prevBtn.textContent = "← Previous";
+    prevBtn.disabled = index === 0;
+    prevBtn.onclick = function() {
+        showPage(currentIndex - 1);
+    };
+
+    const pageIndicator = document.createElement("span");
+    pageIndicator.className = "current-page";
+    pageIndicator.textContent = (index + 1) + " of " + englishMathData.length;
+
+    const nextBtn = document.createElement("button");
+    nextBtn.className = "page-button";
+    nextBtn.textContent = "Next →";
+    nextBtn.disabled = index === englishMathData.length - 1;
+    nextBtn.onclick = function() {
+        showPage(currentIndex + 1);
+    };
+
+    controls.appendChild(prevBtn);
+    controls.appendChild(pageIndicator);
+    controls.appendChild(nextBtn);
+
+    container.appendChild(controls);
+}
+
+buildSidebar();
+showPage(0);
+</script>
+
+</body>
+</html>
