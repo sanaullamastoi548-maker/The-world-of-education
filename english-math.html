@@ -380,7 +380,7 @@ footer {
 
 <header>
     <h1>🔢 Mathematics — سنڌي گنتي & English Counting 🔢</h1>
-    <p>هڪ ئي هنڌ سنڌي گنتي (1–100) ۽ انگلش گنتي (1–50) سکو</p>
+    <p>هڪ ئي هنڌ سنڌي گنتي (1–100) ۽ انگلش گنتي (1–100) سکو</p>
 
     <div class="language-switch">
         <a class="language-btn" href="index.html">سنڌي (الف ب)</a>
@@ -394,7 +394,7 @@ footer {
         🔢 سنڌي گنتي (1 – 100)
     </button>
     <button type="button" class="mode-btn" id="englishModeBtn" onclick="switchMathMode('english')">
-        🔢 English Counting (1 – 50)
+        🔢 English Counting (1 – 100)
     </button>
 </div>
 
@@ -527,57 +527,113 @@ const sindhiMathData = [
 ];
 
 const englishMathData = [
-    { num: 1, title: "One", img: ENG_IMG_DIR + "One1.jpg", audio: ENG_AUDIO_DIR + "One1.mp3", video: ENG_VIDEO_DIR + "One1.mp4" },
-    { num: 2, title: "Two", img: ENG_IMG_DIR + "Two2.jpg", audio: ENG_AUDIO_DIR + "Two2.mp3", video: ENG_VIDEO_DIR + "Two2.mp4" },
-    { num: 3, title: "Three", img: ENG_IMG_DIR + "Three3.jpg", audio: ENG_AUDIO_DIR + "Three3.mp3", video: ENG_VIDEO_DIR + "Three3.mp4" },
-    { num: 4, title: "Four", img: ENG_IMG_DIR + "Four4.jpg", audio: ENG_AUDIO_DIR + "Four4.mp3", video: ENG_VIDEO_DIR + "Four4.mp4" },
-    { num: 5, title: "Five", img: ENG_IMG_DIR + "Five5.jpg", audio: ENG_AUDIO_DIR + "Five5.mp3", video: ENG_VIDEO_DIR + "Five5.mp4" },
-    { num: 6, title: "Six", img: ENG_IMG_DIR + "Six6.jpg", audio: ENG_AUDIO_DIR + "Six6.mp3", video: ENG_VIDEO_DIR + "Six6.mp4" },
-    { num: 7, title: "Seven", img: ENG_IMG_DIR + "Seven7.jpg", audio: ENG_AUDIO_DIR + "Seven7.mp3", video: ENG_VIDEO_DIR + "Seven7.mp4" },
-    { num: 8, title: "Eight", img: ENG_IMG_DIR + "Eight8.jpg", audio: ENG_AUDIO_DIR + "Eight8.mp3", video: ENG_VIDEO_DIR + "Eight8.mp4" },
-    { num: 9, title: "Nine", img: ENG_IMG_DIR + "Nine9.jpg", audio: ENG_AUDIO_DIR + "Nine9.mp3", video: ENG_VIDEO_DIR + "Nine9.mp4" },
-    { num: 10, title: "Ten", img: ENG_IMG_DIR + "Ten10.jpg", audio: ENG_AUDIO_DIR + "Ten10.mp3", video: ENG_VIDEO_DIR + "Ten10.mp4" },
-    { num: 11, title: "Eleven", img: ENG_IMG_DIR + "Eleven11.jpg", audio: ENG_AUDIO_DIR + "Eleven11.mp3", video: ENG_VIDEO_DIR + "Eleven11.mp4" },
-    { num: 12, title: "Twelve", img: ENG_IMG_DIR + "Twelve12.jpg", audio: ENG_AUDIO_DIR + "Twelve12.mp3", video: ENG_VIDEO_DIR + "Twelve12.mp4" },
-    { num: 13, title: "Thirteen", img: ENG_IMG_DIR + "Thirteen13.jpg", audio: ENG_AUDIO_DIR + "Thirteen13.mp3", video: ENG_VIDEO_DIR + "Thirteen13.mp4" },
-    { num: 14, title: "Fourteen", img: ENG_IMG_DIR + "Fourteen14.jpg", audio: ENG_AUDIO_DIR + "Fourteen14.mp3", video: ENG_VIDEO_DIR + "Fourteen14.mp4" },
-    { num: 15, title: "Fifteen", img: ENG_IMG_DIR + "Fifteen15.jpg", audio: ENG_AUDIO_DIR + "Fifteen15.mp3", video: ENG_VIDEO_DIR + "Fifteen15.mp4" },
-    { num: 16, title: "Sixteen", img: ENG_IMG_DIR + "Sixteen16.jpg", audio: ENG_AUDIO_DIR + "Sixteen16.mp3", video: ENG_VIDEO_DIR + "Sixteen16.mp4" },
-    { num: 17, title: "Seventeen", img: ENG_IMG_DIR + "Seventeen17.jpg", audio: ENG_AUDIO_DIR + "Seventeen17.mp3", video: ENG_VIDEO_DIR + "Seventeen17.mp4" },
-    { num: 18, title: "Eighteen", img: ENG_IMG_DIR + "Eighteen18.jpg", audio: ENG_AUDIO_DIR + "Eighteen18.mp3", video: ENG_VIDEO_DIR + "Eighteen18.mp4" },
-    { num: 19, title: "Nineteen", img: ENG_IMG_DIR + "Nineteen19.jpg", audio: ENG_AUDIO_DIR + "Nineteen19.mp3", video: ENG_VIDEO_DIR + "Nineteen19.mp4" },
-    { num: 20, title: "Twenty", img: ENG_IMG_DIR + "Twenty20.jpg", audio: ENG_AUDIO_DIR + "Twenty20.mp3", video: ENG_VIDEO_DIR + "Twenty20.mp4" },
-    { num: 21, title: "Twenty-One", img: ENG_IMG_DIR + "Twenty-One21.jpg", audio: ENG_AUDIO_DIR + "Twenty-One21.mp3", video: ENG_VIDEO_DIR + "Twenty-One21.mp4" },
-    { num: 22, title: "Twenty-Two", img: ENG_IMG_DIR + "Twenty-Two22.jpg", audio: ENG_AUDIO_DIR + "Twenty-Two22.mp3", video: ENG_VIDEO_DIR + "Twenty-Two22.mp4" },
-    { num: 23, title: "Twenty-Three", img: ENG_IMG_DIR + "Twenty-Three23.jpg", audio: ENG_AUDIO_DIR + "Twenty-Three23.mp3", video: ENG_VIDEO_DIR + "Twenty-Three23.mp4" },
-    { num: 24, title: "Twenty-Four", img: ENG_IMG_DIR + "Twenty-Four24.jpg", audio: ENG_AUDIO_DIR + "Twenty-Four24.mp3", video: ENG_VIDEO_DIR + "Twenty-Four24.mp4" },
-    { num: 25, title: "Twenty-Five", img: ENG_IMG_DIR + "Twenty-Five25.jpg", audio: ENG_AUDIO_DIR + "Twenty-Five25.mp3", video: ENG_VIDEO_DIR + "Twenty-Five25.mp4" },
-    { num: 26, title: "Twenty-Six", img: ENG_IMG_DIR + "Twenty-Six26.jpg", audio: ENG_AUDIO_DIR + "Twenty-Six26.mp3", video: ENG_VIDEO_DIR + "Twenty-Six26.mp4" },
-    { num: 27, title: "Twenty-Seven", img: ENG_IMG_DIR + "Twenty-Seven27.jpg", audio: ENG_AUDIO_DIR + "Twenty-Seven27.mp3", video: ENG_VIDEO_DIR + "Twenty-Seven27.mp4" },
-    { num: 28, title: "Twenty-Eight", img: ENG_IMG_DIR + "Twenty-Eight28.jpg", audio: ENG_AUDIO_DIR + "Twenty-Eight28.mp3", video: ENG_VIDEO_DIR + "Twenty-Eight28.mp4" },
-    { num: 29, title: "Twenty-Nine", img: ENG_IMG_DIR + "Twenty-Nine29.jpg", audio: ENG_AUDIO_DIR + "Twenty-Nine29.mp3", video: ENG_VIDEO_DIR + "Twenty-Nine29.mp4" },
-    { num: 30, title: "Thirty", img: ENG_IMG_DIR + "Thirty30.jpg", audio: ENG_AUDIO_DIR + "Thirty30.mp3", video: ENG_VIDEO_DIR + "Thirty30.mp4" },
-    { num: 31, title: "Thirty-One", img: ENG_IMG_DIR + "Thirty-One31.jpg", audio: ENG_AUDIO_DIR + "Thirty-One31.mp3", video: ENG_VIDEO_DIR + "Thirty-One31.mp4" },
-    { num: 32, title: "Thirty-Two", img: ENG_IMG_DIR + "Thirty-Two32.jpg", audio: ENG_AUDIO_DIR + "Thirty-Two32.mp3", video: ENG_VIDEO_DIR + "Thirty-Two32.mp4" },
-    { num: 33, title: "Thirty-Three", img: ENG_IMG_DIR + "Thirty-Three33.jpg", audio: ENG_AUDIO_DIR + "Thirty-Three33.mp3", video: ENG_VIDEO_DIR + "Thirty-Three33.mp4" },
-    { num: 34, title: "Thirty-Four", img: ENG_IMG_DIR + "Thirty-Four34.jpg", audio: ENG_AUDIO_DIR + "Thirty-Four34.mp3", video: ENG_VIDEO_DIR + "Thirty-Four34.mp4" },
-    { num: 35, title: "Thirty-Five", img: ENG_IMG_DIR + "Thirty-Five35.jpg", audio: ENG_AUDIO_DIR + "Thirty-Five35.mp3", video: ENG_VIDEO_DIR + "Thirty-Five35.mp4" },
-    { num: 36, title: "Thirty-Six", img: ENG_IMG_DIR + "Thirty-Six36.jpg", audio: ENG_AUDIO_DIR + "Thirty-Six36.mp3", video: ENG_VIDEO_DIR + "Thirty-Six36.mp4" },
-    { num: 37, title: "Thirty-Seven", img: ENG_IMG_DIR + "Thirty-Seven37.jpg", audio: ENG_AUDIO_DIR + "Thirty-Seven37.mp3", video: ENG_VIDEO_DIR + "Thirty-Seven37.mp4" },
-    { num: 38, title: "Thirty-Eight", img: ENG_IMG_DIR + "Thirty-Eight38.jpg", audio: ENG_AUDIO_DIR + "Thirty-Eight38.mp3", video: ENG_VIDEO_DIR + "Thirty-Eight38.mp4" },
-    { num: 39, title: "Thirty-Nine", img: ENG_IMG_DIR + "Thirty-Nine39.jpg", audio: ENG_AUDIO_DIR + "Thirty-Nine39.mp3", video: ENG_VIDEO_DIR + "Thirty-Nine39.mp4" },
-    { num: 40, title: "Forty", img: ENG_IMG_DIR + "Forty40.jpg", audio: ENG_AUDIO_DIR + "Forty40.mp3", video: ENG_VIDEO_DIR + "Forty40.mp4" },
-    { num: 41, title: "Forty-One", img: ENG_IMG_DIR + "Forty-One41.jpg", audio: ENG_AUDIO_DIR + "Forty-One41.mp3", video: ENG_VIDEO_DIR + "Forty-One41.mp4" },
-    { num: 42, title: "Forty-Two", img: ENG_IMG_DIR + "Forty-Two42.jpg", audio: ENG_AUDIO_DIR + "Forty-Two42.mp3", video: ENG_VIDEO_DIR + "Forty-Two42.mp4" },
-    { num: 43, title: "Forty-Three", img: ENG_IMG_DIR + "Forty-Three43.jpg", audio: ENG_AUDIO_DIR + "Forty-Three43.mp3", video: ENG_VIDEO_DIR + "Forty-Three43.mp4" },
-    { num: 44, title: "Forty-Four", img: ENG_IMG_DIR + "Forty-Four44.jpg", audio: ENG_AUDIO_DIR + "Forty-Four44.mp3", video: ENG_VIDEO_DIR + "Forty-Four44.mp4" },
-    { num: 45, title: "Forty-Five", img: ENG_IMG_DIR + "Forty-Five45.jpg", audio: ENG_AUDIO_DIR + "Forty-Five45.mp3", video: ENG_VIDEO_DIR + "Forty-Five45.mp4" },
-    { num: 46, title: "Forty-Six", img: ENG_IMG_DIR + "Forty-Six46.jpg", audio: ENG_AUDIO_DIR + "Forty-Six46.mp3", video: ENG_VIDEO_DIR + "Forty-Six46.mp4" },
-    { num: 47, title: "Forty-Seven", img: ENG_IMG_DIR + "Forty-Seven47.jpg", audio: ENG_AUDIO_DIR + "Forty-Seven47.mp3", video: ENG_VIDEO_DIR + "Forty-Seven47.mp4" },
-    { num: 48, title: "Forty-Eight", img: ENG_IMG_DIR + "Forty-Eight48.jpg", audio: ENG_AUDIO_DIR + "Forty-Eight48.mp3", video: ENG_VIDEO_DIR + "Forty-Eight48.mp4" },
-    { num: 49, title: "Forty-Nine", img: ENG_IMG_DIR + "Forty-Nine49.jpg", audio: ENG_AUDIO_DIR + "Forty-Nine49.mp3", video: ENG_VIDEO_DIR + "Forty-Nine49.mp4" },
-    { num: 50, title: "Fifty", img: ENG_IMG_DIR + "Fifty50.jpg", audio: ENG_AUDIO_DIR + "Fifty50.mp3", video: ENG_VIDEO_DIR + "Fifty50.mp4" }
-];
+    { num: 1, title: "One", fileBase: "One1" },
+    { num: 2, title: "Two", fileBase: "Two2" },
+    { num: 3, title: "Three", fileBase: "Three3" },
+    { num: 4, title: "Four", fileBase: "Four4" },
+    { num: 5, title: "Five", fileBase: "Five5" },
+    { num: 6, title: "Six", fileBase: "Six6" },
+    { num: 7, title: "Seven", fileBase: "Seven7" },
+    { num: 8, title: "Eight", fileBase: "Eight8" },
+    { num: 9, title: "Nine", fileBase: "Nine9" },
+    { num: 10, title: "Ten", fileBase: "Ten10" },
+    { num: 11, title: "Eleven", fileBase: "Eleven11" },
+    { num: 12, title: "Twelve", fileBase: "Twelve12" },
+    { num: 13, title: "Thirteen", fileBase: "Thirteen13" },
+    { num: 14, title: "Fourteen", fileBase: "Fourteen14" },
+    { num: 15, title: "Fifteen", fileBase: "Fifteen15" },
+    { num: 16, title: "Sixteen", fileBase: "Sixteen16" },
+    { num: 17, title: "Seventeen", fileBase: "Seventeen17" },
+    { num: 18, title: "Eighteen", fileBase: "Eighteen18" },
+    { num: 19, title: "Nineteen", fileBase: "Nineteen19" },
+    { num: 20, title: "Twenty", fileBase: "Twenty20" },
+    { num: 21, title: "Twenty-One", fileBase: "Twenty-One21" },
+    { num: 22, title: "Twenty-Two", fileBase: "Twenty-Two22" },
+    { num: 23, title: "Twenty-Three", fileBase: "Twenty-Three23" },
+    { num: 24, title: "Twenty-Four", fileBase: "Twenty-Four24" },
+    { num: 25, title: "Twenty-Five", fileBase: "Twenty-Five25" },
+    { num: 26, title: "Twenty-Six", fileBase: "Twenty-Six26" },
+    { num: 27, title: "Twenty-Seven", fileBase: "Twenty-Seven27" },
+    { num: 28, title: "Twenty-Eight", fileBase: "Twenty-Eight28" },
+    { num: 29, title: "Twenty-Nine", fileBase: "Twenty-Nine29" },
+    { num: 30, title: "Thirty", fileBase: "Thirty30" },
+    { num: 31, title: "Thirty-One", fileBase: "Thirty-One31" },
+    { num: 32, title: "Thirty-Two", fileBase: "Thirty-Two32" },
+    { num: 33, title: "Thirty-Three", fileBase: "Thirty-Three33" },
+    { num: 34, title: "Thirty-Four", fileBase: "Thirty-Four34" },
+    { num: 35, title: "Thirty-Five", fileBase: "Thirty-Five35" },
+    { num: 36, title: "Thirty-Six", fileBase: "Thirty-Six36" },
+    { num: 37, title: "Thirty-Seven", fileBase: "Thirty-Seven37" },
+    { num: 38, title: "Thirty-Eight", fileBase: "Thirty-Eight38" },
+    { num: 39, title: "Thirty-Nine", fileBase: "Thirty-Nine39" },
+    { num: 40, title: "Forty", fileBase: "Forty40" },
+    { num: 41, title: "Forty-One", fileBase: "Forty-One41" },
+    { num: 42, title: "Forty-Two", fileBase: "Forty-Two42" },
+    { num: 43, title: "Forty-Three", fileBase: "Forty-Three43" },
+    { num: 44, title: "Forty-Four", fileBase: "Forty-Four44" },
+    { num: 45, title: "Forty-Five", fileBase: "Forty-Five45" },
+    { num: 46, title: "Forty-Six", fileBase: "Forty-Six46" },
+    { num: 47, title: "Forty-Seven", fileBase: "Forty-Seven47" },
+    { num: 48, title: "Forty-Eight", fileBase: "Forty-Eight48" },
+    { num: 49, title: "Forty-Nine", fileBase: "Forty-Nine49" },
+    { num: 50, title: "Fifty", fileBase: "Fifty50" },
+    { num: 51, title: "Fifty-One", fileBase: "Fifty-One51" },
+    { num: 52, title: "Fifty-Two", fileBase: "Fifty-Two52" },
+    { num: 53, title: "Fifty-Three", fileBase: "Fifty-Three53" },
+    { num: 54, title: "Fifty-Four", fileBase: "Fifty-Four54" },
+    { num: 55, title: "Fifty-Five", fileBase: "Fifty-Five55" },
+    { num: 56, title: "Fifty-Six", fileBase: "Fifty-Six56" },
+    { num: 57, title: "Fifty-Seven", fileBase: "Fifty-Seven57" },
+    { num: 58, title: "Fifty-Eight", fileBase: "Fifty-Eight58" },
+    { num: 59, title: "Fifty-Nine", fileBase: "Fifty-Nine59" },
+    { num: 60, title: "Sixty", fileBase: "Sixty60" },
+    { num: 61, title: "Sixty-One", fileBase: "Sixty-One61" },
+    { num: 62, title: "Sixty-Two", fileBase: "Sixty-Two62" },
+    { num: 63, title: "Sixty-Three", fileBase: "Sixty-Three63" },
+    { num: 64, title: "Sixty-Four", fileBase: "Sixty-Four64" },
+    { num: 65, title: "Sixty-Five", fileBase: "Sixty-Five65" },
+    { num: 66, title: "Sixty-Six", fileBase: "Sixty-Six66" },
+    { num: 67, title: "Sixty-Seven", fileBase: "Sixty-Seven67" },
+    { num: 68, title: "Sixty-Eight", fileBase: "Sixty-Eight68" },
+    { num: 69, title: "Sixty-Nine", fileBase: "Sixty-Nine69" },
+    { num: 70, title: "Seventy", fileBase: "Seventy70" },
+    { num: 71, title: "Seventy-One", fileBase: "Seventy-One71" },
+    { num: 72, title: "Seventy-Two", fileBase: "Seventy-Two72" },
+    { num: 73, title: "Seventy-Three", fileBase: "Seventy-Three73" },
+    { num: 74, title: "Seventy-Four", fileBase: "Seventy-Four74" },
+    { num: 75, title: "Seventy-Five", fileBase: "Seventy-Five75" },
+    { num: 76, title: "Seventy-Six", fileBase: "Seventy-Six76" },
+    { num: 77, title: "Seventy-Seven", fileBase: "Seventy-Seven77" },
+    { num: 78, title: "Seventy-Eight", fileBase: "Seventy-Eight78" },
+    { num: 79, title: "Seventy-Nine", fileBase: "Seventy-Nine79" },
+    { num: 80, title: "Eighty", fileBase: "Eighty80" },
+    { num: 81, title: "Eighty-One", fileBase: "Eighty-One81" },
+    { num: 82, title: "Eighty-Two", fileBase: "Eighty-Two82" },
+    { num: 83, title: "Eighty-Three", fileBase: "Eighty-Three83" },
+    { num: 84, title: "Eighty-Four", fileBase: "Eighty-Four84" },
+    { num: 85, title: "Eighty-Five", fileBase: "Eighty-Five85" },
+    { num: 86, title: "Eighty-Six", fileBase: "Eighty-Six86" },
+    { num: 87, title: "Eighty-Seven", fileBase: "Eighty-Seven87" },
+    { num: 88, title: "Eighty-Eight", fileBase: "Eighty-Eight88" },
+    { num: 89, title: "Eighty-Nine", fileBase: "Eighty-Nine89" },
+    { num: 90, title: "Ninety", fileBase: "Ninety90" },
+    { num: 91, title: "Ninety-One", fileBase: "Ninety-One91" },
+    { num: 92, title: "Ninety-Two", fileBase: "Ninety-Two92" },
+    { num: 93, title: "Ninety-Three", fileBase: "Ninety-Three93" },
+    { num: 94, title: "Ninety-Four", fileBase: "Ninety-Four94" },
+    { num: 95, title: "Ninety-Five", fileBase: "Ninety-Five95" },
+    { num: 96, title: "Ninety-Six", fileBase: "Ninety-Six96" },
+    { num: 97, title: "Ninety-Seven", fileBase: "Ninety-Seven97" },
+    { num: 98, title: "Ninety-Eight", fileBase: "Ninety-Eight98" },
+    { num: 99, title: "Ninety-Nine", fileBase: "Ninety-Nine99" },
+    { num: 100, title: "One Hundred", fileBase: "One Hundred100" }
+].map(entry => ({
+    num: entry.num,
+    title: entry.title,
+    img: ENG_IMG_DIR + entry.fileBase + ".jpg",
+    audio: ENG_AUDIO_DIR + entry.fileBase + ".mp3",
+    video: ENG_VIDEO_DIR + entry.fileBase + ".mp4"
+}));
 
 let currentMode = "sindhi";
 let currentIndex = 0;
@@ -627,7 +683,7 @@ function switchMathMode(mode) {
 
     document.getElementById("sindhiModeBtn").classList.toggle("active", mode === "sindhi");
     document.getElementById("englishModeBtn").classList.toggle("active", mode === "english");
-    document.getElementById("sidebarTitle").textContent = mode === "english" ? "1 - 50" : "1 - 100";
+    document.getElementById("sidebarTitle").textContent = "1 - 100";
 
     buildSidebar();
     showPage(0);
@@ -710,7 +766,7 @@ function showPage(index) {
 
     const title = document.createElement("h2");
     title.className = "page-heading";
-    title.textContent = isEnglish ? "Learn English Counting" : "سنڌي گنتي سکو";
+    title.textContent = isEnglish ? "Learn English Counting (1–100)" : "سنڌي گنتي سکو (1–100)";
     container.appendChild(title);
 
     const pageNum = document.createElement("div");
